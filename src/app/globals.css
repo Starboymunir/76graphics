@@ -1,5 +1,373 @@
 @import "tailwindcss";
 
+/* =====================
+   FONT DECLARATIONS
+   ===================== */
+@font-face {
+  font-family: 'Apotek Extended';
+  src: url('/fonts/fonnts.com-Apotek_Extended_Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Apotek Extended';
+  src: url('/fonts/fonnts.com-Apotek_Extended_Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Apotek Extended';
+  src: url('/fonts/fonnts.com-Apotek_Extended_Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Apotek Extended';
+  src: url('/fonts/fonnts.com-Apotek_Extended_Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter_18pt-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter_18pt-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter_18pt-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter_18pt-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* =====================
+   CSS CUSTOM PROPERTIES
+   ===================== */
+:root {
+  --navy: #092f4d;
+  --navy-dark: #061e31;
+  --navy-light: #0d3a5e;
+  --red: #b32025;
+  --red-dark: #8f181c;
+  --red-light: #cc2a30;
+  --white: #ffffff;
+  --off-white: #f8f6f3;
+  --gray-100: #f5f5f5;
+  --gray-200: #e8e8e8;
+  --gray-500: #9ca3af;
+  --gray-700: #374151;
+  --font-heading: 'Apotek Extended', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* =====================
+   BASE
+   ===================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--navy);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+}
+
+/* =====================
+   UTILITY CLASSES
+   ===================== */
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--red);
+  color: white;
+  padding: 0.875rem 2rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary:hover {
+  background: var(--red-dark);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: white;
+  padding: 0.875rem 2rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid white;
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+.btn-outline:hover {
+  background: white;
+  color: var(--navy);
+}
+
+.btn-outline-navy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--navy);
+  padding: 0.875rem 2rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 2px solid var(--navy);
+  transition: background 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+.btn-outline-navy:hover {
+  background: var(--navy);
+  color: white;
+}
+
+/* =====================
+   MARQUEE ANIMATIONS
+   ===================== */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* =====================
+   WOW-FACTOR ANIMATIONS
+   ===================== */
+
+/* Light beam sweep */
+@keyframes beam-sweep {
+  0%   { left: -30%; opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+.light-beam {
+  position: absolute;
+  top: -20%;
+  width: 12%;
+  height: 140%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent);
+  transform: skewX(-18deg);
+  animation: beam-sweep 7s ease-in-out infinite;
+  pointer-events: none;
+}
+.light-beam-delay {
+  animation-delay: 3.5s;
+}
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(179,32,37,0); }
+  50%       { box-shadow: 0 0 28px 6px rgba(179,32,37,0.35); }
+}
+
+/* Float */
+@keyframes float-up {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+/* Shimmer on hover */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Number count-up reveal (CSS only fade + rise) */
+@keyframes stat-reveal {
+  from { opacity: 0; transform: translateY(24px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Red line draw */
+@keyframes line-draw {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* =====================
+   TYPOGRAPHY UTILITIES
+   ===================== */
+
+/* Outlined text (stroke only, no fill) */
+.text-outline-white {
+  -webkit-text-stroke: 2px #ffffff;
+  color: transparent;
+}
+.text-outline-navy {
+  -webkit-text-stroke: 2px #092f4d;
+  color: transparent;
+}
+.text-outline-red {
+  -webkit-text-stroke: 2px #b32025;
+  color: transparent;
+}
+
+/* Gradient text */
+.text-gradient-red {
+  background: linear-gradient(135deg, #b32025 0%, #e84545 50%, #b32025 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+}
+.text-gradient-navy {
+  background: linear-gradient(135deg, #092f4d 0%, #0d3a5e 60%, #285493 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* =====================
+   CREATIVE CUTOUTS
+   ===================== */
+
+/* Diagonal bottom-right clip */
+.clip-diagonal-br {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), 0 100%);
+}
+/* Diagonal bottom-left clip */
+.clip-diagonal-bl {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 60px));
+}
+/* Parallelogram clip for images */
+.clip-para {
+  clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+}
+/* Corner notch top-right */
+.clip-notch-tr {
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
+}
+/* Corner notch bottom-left */
+.clip-notch-bl {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+}
+
+/* =====================
+   3D / PERSPECTIVE CARDS
+   ===================== */
+.perspective-container {
+  perspective: 1000px;
+}
+.card-3d {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.card-3d:hover {
+  transform: rotateY(-4deg) rotateX(2deg) translateZ(10px);
+}
+
+/* =====================
+   GLASSMORPHISM
+   ===================== */
+.glass-navy {
+  background: rgba(9, 47, 77, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-dark {
+  background: rgba(6, 30, 49, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* =====================
+   NOISE TEXTURE OVERLAY
+   ===================== */
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* =====================
+   CUSTOM SCROLLBAR
+   ===================== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #061e31; }
+::-webkit-scrollbar-thumb { background: #b32025; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #e84545; }
+
+/* =====================
+   BRAND STAR FIELD
+   Proper 5-pt stars, uniform 50px grid, subtle tone-on-tone.
+   Matches the star field on the brand shield crest pattern.
+   Only use on navy/dark backgrounds.
+   ===================== */
+.brand-stars-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Cpolygon points='25,20.5 26.01,23.61 29.28,23.61 26.64,25.53 27.65,28.64 25,26.72 22.35,28.64 23.36,25.53 20.72,23.61 23.99,23.61' fill='white' fill-opacity='0.13'/%3E%3C/svg%3E");
+  background-size: 50px 50px;
+  background-repeat: repeat;
+}
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
