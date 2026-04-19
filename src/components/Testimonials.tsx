@@ -35,7 +35,7 @@ export default function Testimonials() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [autoplayPlugin.current]);
 
   return (
-    <section id="testimonials" className="py-28 bg-[#061e31] overflow-hidden relative brand-stars-bg">
+    <section id="testimonials" className="py-28 bg-[#061e31] overflow-hidden relative brand-stars-bg patriotic-stars-bg">
 
       {/* ── Giant decorative quote mark ── */}
       <div
@@ -179,4 +179,4 @@ export default function Testimonials() {
     </section>
   );
 }
-
+

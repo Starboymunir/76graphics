@@ -33,6 +33,14 @@ export default function Navbar() {
           scrolled ? "bg-[#092f4d] shadow-xl shadow-black/20" : "bg-[#092f4d]/95 backdrop-blur-sm"
         }`}
       >
+        {/* Red-white-blue patriotic accent strip */}
+        <div aria-hidden="true" className="w-full">
+          <svg viewBox="0 0 1440 3" preserveAspectRatio="none" className="block w-full h-[3px]">
+            <rect x="0" y="0" width="1440" height="1" fill="#b32025" />
+            <rect x="0" y="1" width="1440" height="1" fill="#ffffff" opacity="0.85" />
+            <rect x="0" y="2" width="1440" height="1" fill="#285493" />
+          </svg>
+        </div>
         <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
