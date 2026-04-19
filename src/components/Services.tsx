@@ -1,11 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 
-const SERVICES = [
+interface ServiceItem {
+  title: string;
+  titleLine2: string;
+  subtitle: string;
+  description: string;
+  photo: string;
+  href: string;
+}
+
+const FALLBACK: ServiceItem[] = [
   {
     title: "Brand",
     titleLine2: "Foundation",
@@ -13,8 +22,6 @@ const SERVICES = [
     description:
       "We create the identity behind your business — logos, colors, and brand systems that make you look established, credible, and memorable from day one.",
     photo: "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
-    photoAlt: "Brand identity design",
-    num: "01",
     href: "/branding-services",
   },
   {
@@ -24,8 +31,6 @@ const SERVICES = [
     description:
       "Modern, fast, conversion-focused websites and landing pages that turn visitors into customers. Built for search engines so your business gets found.",
     photo: "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
-    photoAlt: "Website design and development",
-    num: "02",
     href: "/website-design",
   },
   {
@@ -35,8 +40,6 @@ const SERVICES = [
     description:
       "Vehicle wraps, signage, and environmental graphics that turn your business into a full brand experience — inside and out. Design, print, and installation — all handled.",
     photo: "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
-    photoAlt: "Vehicle wrap and signage installation",
-    num: "03",
     href: "/vehicle-wraps",
   },
   {
@@ -46,14 +49,24 @@ const SERVICES = [
     description:
       "Business cards, branded apparel, packaging, and promotional products that keep your brand in people's hands — long after the first impression.",
     photo: "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
-    photoAlt: "Custom promotional products",
-    num: "04",
     href: "/promotional-products",
   },
 ];
 
 export default function Services() {
   const [active, setActive] = useState<number | null>(null);
+  const [services, setServices] = useState<ServiceItem[]>(FALLBACK);
+
+  useEffect(() => {
+    fetch("/api/admin/content?page=homepage")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data?.services && Array.isArray(data.services) && data.services.length > 0) {
+          setServices(data.services);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section id="services" className="bg-[#061e31] relative overflow-hidden">
@@ -115,9 +128,9 @@ export default function Services() {
         style={{ height: "clamp(480px, 65vh, 680px)" }}
         onMouseLeave={() => setActive(null)}
       >
-        {SERVICES.map((s, i) => (
+        {services.map((s, i) => (
           <motion.div
-            key={s.num}
+            key={i}
             className="relative overflow-hidden cursor-pointer flex-shrink-0"
             style={{
               flex: active === null ? 1 : active === i ? 3 : 0.55,
@@ -129,7 +142,7 @@ export default function Services() {
             {/* Photo */}
             <Image
               src={s.photo}
-              alt={s.photoAlt}
+              alt={s.title + " " + s.titleLine2}
               fill
               className="object-cover transition-transform duration-700"
               style={{
@@ -188,7 +201,7 @@ export default function Services() {
                 className="absolute top-6 right-8 text-white/[0.06] font-black leading-none select-none"
                 style={{ fontFamily: "'Apotek Extended', sans-serif", fontSize: "5rem" }}
               >
-                {s.num}
+                {String(i + 1).padStart(2, "0")}
               </div>
 
               <span

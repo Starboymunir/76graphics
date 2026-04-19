@@ -10,6 +10,74 @@
       "ctaText": "Get a Quote",
       "ctaText2": "View Our Work"
     },
+    "services": [
+      {
+        "title": "Brand",
+        "titleLine2": "Foundation",
+        "subtitle": "Identity & Systems",
+        "description": "We create the identity behind your business — logos, colors, and brand systems that make you look established, credible, and memorable from day one.",
+        "photo": "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
+        "href": "/branding-services"
+      },
+      {
+        "title": "Digital",
+        "titleLine2": "Presence",
+        "subtitle": "Websites & Landing Pages",
+        "description": "Modern, fast, conversion-focused websites and landing pages that turn visitors into customers. Built for search engines so your business gets found.",
+        "photo": "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
+        "href": "/website-design"
+      },
+      {
+        "title": "Physical",
+        "titleLine2": "Marketing",
+        "subtitle": "Wraps, Signs & Environmental Graphics",
+        "description": "Vehicle wraps, signage, and environmental graphics that turn your business into a full brand experience — inside and out. Design, print, and installation — all handled.",
+        "photo": "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
+        "href": "/vehicle-wraps"
+      },
+      {
+        "title": "Promotional",
+        "titleLine2": "& Print",
+        "subtitle": "Merch & Materials",
+        "description": "Business cards, branded apparel, packaging, and promotional products that keep your brand in people's hands — long after the first impression.",
+        "photo": "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
+        "href": "/promotional-products"
+      }
+    ],
+    "services": [
+      {
+        "title": "Brand",
+        "titleLine2": "Foundation",
+        "subtitle": "Identity & Systems",
+        "description": "We create the identity behind your business — logos, colors, and brand systems that make you look established, credible, and memorable from day one.",
+        "photo": "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
+        "href": "/branding-services"
+      },
+      {
+        "title": "Digital",
+        "titleLine2": "Presence",
+        "subtitle": "Websites & Landing Pages",
+        "description": "Modern, fast, conversion-focused websites and landing pages that turn visitors into customers. Built for search engines so your business gets found.",
+        "photo": "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
+        "href": "/website-design"
+      },
+      {
+        "title": "Physical",
+        "titleLine2": "Marketing",
+        "subtitle": "Wraps, Signs & Environmental Graphics",
+        "description": "Vehicle wraps, signage, and environmental graphics that turn your business into a full brand experience — inside and out. Design, print, and installation — all handled.",
+        "photo": "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
+        "href": "/vehicle-wraps"
+      },
+      {
+        "title": "Promotional",
+        "titleLine2": "& Print",
+        "subtitle": "Merch & Materials",
+        "description": "Business cards, branded apparel, packaging, and promotional products that keep your brand in people's hands — long after the first impression.",
+        "photo": "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
+        "href": "/promotional-products"
+      }
+    ],
     "meta": {
       "title": "76 Graphics — Full-Service Branding & Marketing",
       "description": "76 Graphics is a full-service branding and marketing company. Vehicle wraps, signage, branding, websites, environmental graphics, and promotional products."

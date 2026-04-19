@@ -625,6 +625,24 @@ export default function AdminDashboard() {
                         />
                       )}
                     </div>
+                    {activePage === "homepage" && content.services && (
+                      <>
+                        <p className="text-white/40 text-xs uppercase tracking-wider mt-4 mb-2">
+                          What We Do Section Images
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {(content.services as { title: string; photo: string }[]).map((svc: { title: string; photo: string }, i: number) => (
+                            <ImageSlot
+                              key={i}
+                              label={svc.title + " Service"}
+                              src={svc.photo}
+                              onUpload={(f) => handleSlotUpload("services." + i + ".photo", f)}
+                              uploading={uploadingSlot === "services." + i + ".photo"}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </div>
 
                   {/* ── HERO CONTENT ── */}
