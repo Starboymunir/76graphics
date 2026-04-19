@@ -260,5 +260,91 @@
       "title": "Custom Promotional Products | 76 Graphics",
       "description": "Custom promotional products that keep your brand in people's hands. Business cards, branded apparel, stickers, packaging, and more from 76 Graphics."
     }
-  }
+  },
+  "portfolio": [
+    {
+      "id": "1",
+      "title": "Commercial Fleet Wrap",
+      "category": "Vehicle Wraps",
+      "tags": "Mr. Reliable Heating · full wrap",
+      "photo": "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg"
+    },
+    {
+      "id": "2",
+      "title": "Cherry Blossom Lexus RC",
+      "category": "Vehicle Wraps",
+      "tags": "Lexus RC · full wrap · premium vinyl",
+      "photo": "/portfolio/1YCPEuFx9FFkt3HnM_vkZMTT19VhMXldz.jpg"
+    },
+    {
+      "id": "3",
+      "title": "Cargo Van Full Wrap",
+      "category": "Vehicle Wraps",
+      "tags": "Ford Transit · commercial · full wrap",
+      "photo": "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg"
+    },
+    {
+      "id": "4",
+      "title": "Night Shot — Eclipse GSX",
+      "category": "Vehicle Wraps",
+      "tags": "Mitsubishi Eclipse · custom · chrome details",
+      "photo": "/portfolio/1IW2u4MDufaJ6uvm_Nl79Dei1hWYTTmAV.jpg"
+    },
+    {
+      "id": "5",
+      "title": "Great Wave Artistic Wrap",
+      "category": "Vehicle Wraps",
+      "tags": "Lexus RC · artistic · full coverage",
+      "photo": "/portfolio/1nus0QfhQQWxSsZukZDFM80Beyy8rM_J7.jpg"
+    },
+    {
+      "id": "6",
+      "title": "GR86 Circuit Board Wrap",
+      "category": "Vehicle Wraps",
+      "tags": "Toyota GR86 · full coverage · vibrant",
+      "photo": "/portfolio/1iOPICYZ38nQcQXetyU8VMYWCt-o-niBK.jpg"
+    },
+    {
+      "id": "7",
+      "title": "Purple Eclipse Night Wrap",
+      "category": "Brand Activation",
+      "tags": "Custom chrome vinyl · neon underglow",
+      "photo": "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg"
+    },
+    {
+      "id": "8",
+      "title": "Cherry Blossom Sedan",
+      "category": "Vehicle Wraps",
+      "tags": "Lexus RC · cherry blossom · full wrap",
+      "photo": "/portfolio/1ad97RBlWjZfO8dtu9vjpOmFjJnYdat4W.jpg"
+    },
+    {
+      "id": "9",
+      "title": "In-Shop Installation",
+      "category": "Brand Activation",
+      "tags": "Live install · professional bay",
+      "photo": "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg"
+    },
+    {
+      "id": "10",
+      "title": "Custom Luxury Wrap",
+      "category": "Vehicle Wraps",
+      "tags": "Premium vinyl · showroom finish",
+      "photo": "/portfolio/1RxHDGtB6_ycyky_Y4PPjy1B6F4zViWH4.jpg"
+    },
+    {
+      "id": "11",
+      "title": "Commercial Transit Wrap",
+      "category": "Vehicle Wraps",
+      "tags": "Ford Transit · high contrast · white base",
+      "photo": "/portfolio/1SuerDLKgEZsDJAjpuX_dpbNjkZHVV7L3.jpg"
+    },
+    {
+      "id": "12",
+      "title": "Night City Shot",
+      "category": "Brand Activation",
+      "tags": "Event activation · glow · dramatic",
+      "photo": "/portfolio/1mYmAQKoUtRrqqHxilOnmLZv4ivEaFXD0.jpg"
+    }
+  ]
 }

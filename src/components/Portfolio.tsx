@@ -7,13 +7,13 @@ import Link from "next/link";
 import { ArrowRight, X, ZoomIn } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
-type Category = "All" | "Vehicle Wraps" | "Branding" | "Website Design" | "Signage" | "Promotional Products";
+type Category = "All" | "Vehicle Wraps" | "Brand Activation" | "Branding" | "Website Design" | "Signage" | "Promotional Products";
 
 const CATEGORIES: Category[] = [
   "All",
   "Vehicle Wraps",
+  "Brand Activation",
   "Branding",
-  "Website Design",
   "Signage",
   "Promotional Products",
 ];
@@ -21,117 +21,36 @@ const CATEGORIES: Category[] = [
 interface DisplayProject {
   id: string;
   title: string;
-  category: Category;
+  category: string;
   tags: string;
   photo: string;
   span: string;
 }
 
-// ── Fallback images (shown until Cloudinary images load) ──────────────────────
-const FALLBACK_PROJECTS: DisplayProject[] = [
-  {
-    id: "1",
-    title: "Commercial Fleet Wrap",
-    category: "Vehicle Wraps",
-    tags: "Mr. Reliable Heating · full wrap",
-    photo: "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
-    span: "col-span-2 row-span-2",
-  },
-  {
-    id: "2",
-    title: "Cherry Blossom Custom Wrap",
-    category: "Vehicle Wraps",
-    tags: "Lexus RC · full wrap · premium vinyl",
-    photo: "/portfolio/1YCPEuFx9FFkt3HnM_vkZMTT19VhMXldz.jpg",
-    span: "",
-  },
-  {
-    id: "3",
-    title: "Cargo Van Full Wrap",
-    category: "Vehicle Wraps",
-    tags: "Ford Transit · full wrap · commercial",
-    photo: "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
-    span: "",
-  },
-  {
-    id: "4",
-    title: "Night Shot — Eclipse GSX",
-    category: "Vehicle Wraps",
-    tags: "Mitsubishi Eclipse · custom · chrome details",
-    photo: "/portfolio/1IW2u4MDufaJ6uvm_Nl79Dei1hWYTTmAV.jpg",
-    span: "col-span-2",
-  },
-  {
-    id: "5",
-    title: "Great Wave Artistic Wrap",
-    category: "Vehicle Wraps",
-    tags: "Lexus RC · artistic · full coverage",
-    photo: "/portfolio/1nus0QfhQQWxSsZukZDFM80Beyy8rM_J7.jpg",
-    span: "",
-  },
-  {
-    id: "6",
-    title: "GR86 Circuit Board Wrap",
-    category: "Vehicle Wraps",
-    tags: "Toyota GR86 · full coverage · vibrant",
-    photo: "/portfolio/1iOPICYZ38nQcQXetyU8VMYWCt-o-niBK.jpg",
-    span: "",
-  },
-  {
-    id: "7",
-    title: "Purple Eclipse Night Wrap",
-    category: "Vehicle Wraps",
-    tags: "Custom chrome vinyl · neon underglow",
-    photo: "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
-    span: "",
-  },
-  {
-    id: "8",
-    title: "Cherry Blossom Sedan",
-    category: "Vehicle Wraps",
-    tags: "Lexus RC · cherry blossom · full wrap",
-    photo: "/portfolio/1ad97RBlWjZfO8dtu9vjpOmFjJnYdat4W.jpg",
-    span: "col-span-2",
-  },
-  {
-    id: "9",
-    title: "In-Shop Installation",
-    category: "Vehicle Wraps",
-    tags: "Live install · professional bay · wrap shop",
-    photo: "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
-    span: "",
-  },
-];
+// ── Layout spans ──────────────────────────────────────────────────────────
+const SPANS = ["col-span-2 row-span-2", "", "", "col-span-2", "", "", "", "col-span-2", ""];
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function fromCloudinary(img: any, index: number): DisplayProject {
-  const category = (img.context?.category as Category) || "Vehicle Wraps";
-  const spans = ["col-span-2 row-span-2", "", "", "col-span-2", "", "", "", "col-span-2", ""];
+function toDisplay(item: { id: string; title: string; category: string; tags: string; photo: string }, index: number): DisplayProject {
   return {
-    id: img.publicId,
-    title: img.context?.title || `Project ${index + 1}`,
-    category,
-    tags: img.context?.tags || category,
-    photo: img.url,
-    span: spans[index % spans.length] ?? "",
+    ...item,
+    span: SPANS[index % SPANS.length] ?? "",
   };
 }
 
 export default function Portfolio() {
   const [active, setActive] = useState<Category>("All");
   const [lightbox, setLightbox] = useState<DisplayProject | null>(null);
-  const [projects, setProjects] = useState<DisplayProject[]>(FALLBACK_PROJECTS);
+  const [projects, setProjects] = useState<DisplayProject[]>([]);
 
   useEffect(() => {
-    fetch("/api/images/portfolio")
-      .then((r) => r.ok ? r.json() : [])
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .then((data: any[]) => {
+    fetch("/api/portfolio")
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: { id: string; title: string; category: string; tags: string; photo: string }[]) => {
         if (Array.isArray(data) && data.length > 0) {
-          setProjects(data.map(fromCloudinary));
+          setProjects(data.slice(0, 9).map(toDisplay));
         }
       })
-      .catch(() => { /* keep fallback */ });
+      .catch(() => {});
   }, []);
 
   const filtered =

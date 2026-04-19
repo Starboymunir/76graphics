@@ -35,6 +35,7 @@ const PAGES = [
 
 const PORTFOLIO_CATEGORIES = [
   "Vehicle Wraps",
+  "Brand Activation",
   "Branding",
   "Website Design",
   "Signage",
@@ -231,19 +232,6 @@ function ListEditor({
 }
 
 /* ────────────────────────────────────────────────────────────
-   Cloudinary Image type
-   ──────────────────────────────────────────────────────────── */
-
-interface CloudinaryImage {
-  publicId: string;
-  url: string;
-  width: number;
-  height: number;
-  createdAt: string;
-  context?: Record<string, string>;
-}
-
-/* ────────────────────────────────────────────────────────────
    Main Dashboard Component
    ──────────────────────────────────────────────────────────── */
 
@@ -262,14 +250,16 @@ export default function AdminDashboard() {
   const [saving, setSaving] = useState(false);
 
   /* ── Portfolio state ── */
-  const [portfolioImages, setPortfolioImages] = useState<CloudinaryImage[]>([]);
+  interface PortfolioItem { id: string; title: string; category: string; tags: string; photo: string; }
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
   const [portfolioLoading, setPortfolioLoading] = useState(false);
+  const [portfolioSaving, setPortfolioSaving] = useState(false);
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [uploadPreview, setUploadPreview] = useState<string | null>(null);
   const [uploadTitle, setUploadTitle] = useState("");
+  const [uploadTags, setUploadTags] = useState("");
   const [uploadCategory, setUploadCategory] = useState("Vehicle Wraps");
   const [uploading, setUploading] = useState(false);
-  const [deletingId, setDeletingId] = useState<string | null>(null);
   const portfolioFileRef = useRef<HTMLInputElement>(null);
 
   /* ── Image slot upload ── */
@@ -301,8 +291,8 @@ export default function AdminDashboard() {
   const loadPortfolio = useCallback(async () => {
     setPortfolioLoading(true);
     try {
-      const res = await fetch("/api/admin/images?section=portfolio");
-      if (res.ok) setPortfolioImages(await res.json());
+      const res = await fetch("/api/admin/content?page=portfolio");
+      if (res.ok) setPortfolioItems(await res.json());
     } catch {
       /* empty */
     } finally {
@@ -389,12 +379,23 @@ export default function AdminDashboard() {
       fd.append("category", uploadCategory);
       const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
       if (res.ok) {
+        const data = await res.json();
+        const newItem: PortfolioItem = {
+          id: String(Date.now()),
+          title: uploadTitle || "Untitled",
+          category: uploadCategory,
+          tags: uploadTags || uploadCategory,
+          photo: data.url,
+        };
+        const updated = [...portfolioItems, newItem];
+        setPortfolioItems(updated);
+        await savePortfolio(updated);
         setUploadFile(null);
         setUploadPreview(null);
         setUploadTitle("");
+        setUploadTags("");
         if (portfolioFileRef.current) portfolioFileRef.current.value = "";
         showSuccess("Portfolio image uploaded!");
-        loadPortfolio();
       } else {
         const data = await res.json();
         setErrorMsg(data.error ?? "Upload failed");
@@ -406,21 +407,33 @@ export default function AdminDashboard() {
     }
   }
 
-  async function handlePortfolioDelete(publicId: string) {
-    if (!confirm("Delete this image? This cannot be undone.")) return;
-    setDeletingId(publicId);
+  function handlePortfolioDelete(id: string) {
+    if (!confirm("Remove this project from the portfolio?")) return;
+    const updated = portfolioItems.filter((item) => item.id !== id);
+    setPortfolioItems(updated);
+    savePortfolio(updated);
+  }
+
+  function updatePortfolioItem(id: string, field: keyof PortfolioItem, value: string) {
+    setPortfolioItems((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, [field]: value } : item))
+    );
+  }
+
+  async function savePortfolio(items?: PortfolioItem[]) {
+    setPortfolioSaving(true);
     try {
-      await fetch("/api/admin/delete", {
-        method: "DELETE",
+      const res = await fetch("/api/admin/content", {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ publicId }),
+        body: JSON.stringify({ page: "portfolio", portfolio: items ?? portfolioItems }),
       });
-      setPortfolioImages((prev) => prev.filter((img) => img.publicId !== publicId));
-      showSuccess("Image deleted.");
+      if (res.ok) showSuccess("Portfolio saved!");
+      else setErrorMsg("Save failed.");
     } catch {
-      /* empty */
+      setErrorMsg("Save failed.");
     } finally {
-      setDeletingId(null);
+      setPortfolioSaving(false);
     }
   }
 
@@ -870,30 +883,44 @@ export default function AdminDashboard() {
       {/* ══════════ PORTFOLIO TAB ══════════ */}
       {activeTab === "portfolio" && (
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-          <div className="mb-6">
-            <h2 className="text-white text-2xl font-bold mb-1">
-              Portfolio Gallery
-            </h2>
-            <p className="text-white/40 text-sm">
-              Upload, view, and delete portfolio images stored in Cloudinary.
-            </p>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-white text-2xl font-bold mb-1">
+                Portfolio Gallery
+              </h2>
+              <p className="text-white/40 text-sm">
+                Manage projects shown on the homepage and Our Work page.
+              </p>
+            </div>
+            <button
+              onClick={() => savePortfolio()}
+              disabled={portfolioSaving}
+              className="flex items-center gap-2 bg-[#b32025] hover:bg-[#8f1a1e] disabled:opacity-40 text-white text-sm font-bold uppercase tracking-wider px-6 py-3 transition-colors cursor-pointer"
+            >
+              {portfolioSaving ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <Save size={14} />
+              )}
+              {portfolioSaving ? "Saving…" : "Save Changes"}
+            </button>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Upload Form */}
             <div className="lg:col-span-1">
-              <div className="bg-[#0d3a5e] border border-white/10 p-6">
+              <div className="bg-[#0d3a5e] border border-white/10 p-6 lg:sticky lg:top-6">
                 <h3 className="text-white font-semibold mb-1 flex items-center gap-2">
                   <Upload size={16} className="text-[#b32025]" />
-                  Upload Image
+                  Add New Project
                 </h3>
                 <p className="text-white/40 text-xs mb-5">
-                  Images appear in the portfolio / our-work grid.
+                  Upload an image and fill in the details.
                 </p>
                 <form onSubmit={handlePortfolioUpload} className="space-y-4">
                   <div
                     onClick={() => portfolioFileRef.current?.click()}
-                    className={`border-2 border-dashed rounded cursor-pointer transition-colors flex flex-col items-center justify-center p-6 min-h-[140px] ${uploadPreview ? "border-[#b32025]/40 bg-[#b32025]/5" : "border-white/15 hover:border-white/30 bg-white/3"}`}
+                    className={"border-2 border-dashed rounded cursor-pointer transition-colors flex flex-col items-center justify-center p-6 min-h-[140px] " + (uploadPreview ? "border-[#b32025]/40 bg-[#b32025]/5" : "border-white/15 hover:border-white/30 bg-white/3")}
                   >
                     {uploadPreview ? (
                       <div className="relative w-full h-28">
@@ -934,7 +961,14 @@ export default function AdminDashboard() {
                     type="text"
                     value={uploadTitle}
                     onChange={(e) => setUploadTitle(e.target.value)}
-                    placeholder="Title (optional)"
+                    placeholder="Project Title"
+                    className="w-full bg-white/5 border border-white/15 text-white placeholder-white/25 px-3 py-2.5 text-sm focus:outline-none focus:border-[#b32025] transition-colors"
+                  />
+                  <input
+                    type="text"
+                    value={uploadTags}
+                    onChange={(e) => setUploadTags(e.target.value)}
+                    placeholder="Tags (e.g. Ford Transit · full wrap)"
                     className="w-full bg-white/5 border border-white/15 text-white placeholder-white/25 px-3 py-2.5 text-sm focus:outline-none focus:border-[#b32025] transition-colors"
                   />
                   <div className="relative">
@@ -959,19 +993,19 @@ export default function AdminDashboard() {
                     disabled={!uploadFile || uploading}
                     className="w-full bg-[#b32025] hover:bg-[#8f1a1e] disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-bold uppercase tracking-wider py-3 transition-colors cursor-pointer"
                   >
-                    {uploading ? "Uploading…" : "Upload Image"}
+                    {uploading ? "Uploading…" : "Upload & Add"}
                   </button>
                 </form>
               </div>
             </div>
 
-            {/* Image Grid */}
+            {/* Project Grid */}
             <div className="lg:col-span-2">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-white font-semibold">
-                  Portfolio Images{" "}
+                  Projects{" "}
                   <span className="text-white/30 font-normal text-sm">
-                    ({portfolioImages.length})
+                    ({portfolioItems.length})
                   </span>
                 </h3>
                 <button
@@ -991,54 +1025,66 @@ export default function AdminDashboard() {
                     />
                   ))}
                 </div>
-              ) : portfolioImages.length === 0 ? (
+              ) : portfolioItems.length === 0 ? (
                 <div className="border border-dashed border-white/10 rounded flex flex-col items-center justify-center py-20 text-center px-6">
                   <ImageIcon size={36} className="text-white/15 mb-3" />
                   <p className="text-white/30 text-sm">
-                    No portfolio images yet.
+                    No portfolio projects yet.
                   </p>
                   <p className="text-white/20 text-xs mt-1">
-                    Upload your first image using the form on the left.
+                    Add your first project using the form on the left.
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  {portfolioImages.map((img) => (
+                <div className="space-y-3">
+                  {portfolioItems.map((item) => (
                     <div
-                      key={img.publicId}
-                      className="group relative bg-white/5 overflow-hidden"
+                      key={item.id}
+                      className="bg-[#0d3a5e] border border-white/10 p-4 flex gap-4 items-start"
                     >
-                      <div className="relative aspect-[4/3]">
+                      <div className="relative w-32 h-24 shrink-0 bg-white/5 overflow-hidden">
                         <Image
-                          src={img.url}
-                          alt={img.context?.title ?? "Portfolio image"}
+                          src={item.photo}
+                          alt={item.title}
                           fill
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          sizes="(max-width: 640px) 50vw, 33vw"
+                          className="object-cover"
+                          sizes="128px"
                         />
                       </div>
-                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-2">
-                        {img.context?.title && (
-                          <p className="text-white text-xs font-medium text-center px-2 truncate max-w-full">
-                            {img.context.title}
-                          </p>
-                        )}
-                        {img.context?.category && (
-                          <span className="text-[#b32025] text-[10px] uppercase tracking-wider">
-                            {img.context.category}
-                          </span>
-                        )}
-                        <button
-                          onClick={() => handlePortfolioDelete(img.publicId)}
-                          disabled={deletingId === img.publicId}
-                          className="flex items-center gap-1.5 bg-[#b32025] hover:bg-[#8f1a1e] disabled:opacity-50 text-white text-xs px-3 py-1.5 transition-colors cursor-pointer"
-                        >
-                          <Trash2 size={12} />
-                          {deletingId === img.publicId
-                            ? "Deleting…"
-                            : "Delete"}
-                        </button>
+                      <div className="flex-1 space-y-2 min-w-0">
+                        <input
+                          type="text"
+                          value={item.title}
+                          onChange={(e) => updatePortfolioItem(item.id, "title", e.target.value)}
+                          className="w-full bg-white/5 border border-white/10 text-white px-2 py-1.5 text-sm focus:outline-none focus:border-[#b32025] transition-colors"
+                        />
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={item.tags}
+                            onChange={(e) => updatePortfolioItem(item.id, "tags", e.target.value)}
+                            placeholder="Tags"
+                            className="flex-1 bg-white/5 border border-white/10 text-white/70 px-2 py-1.5 text-xs focus:outline-none focus:border-[#b32025] transition-colors"
+                          />
+                          <select
+                            value={item.category}
+                            onChange={(e) => updatePortfolioItem(item.id, "category", e.target.value)}
+                            className="bg-white/5 border border-white/10 text-white/70 px-2 py-1.5 text-xs focus:outline-none focus:border-[#b32025] cursor-pointer"
+                          >
+                            {PORTFOLIO_CATEGORIES.map((c) => (
+                              <option key={c} value={c} className="bg-[#0d3a5e]">
+                                {c}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
+                      <button
+                        onClick={() => handlePortfolioDelete(item.id)}
+                        className="text-white/30 hover:text-red-400 transition-colors cursor-pointer shrink-0 mt-1"
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </div>
                   ))}
                 </div>

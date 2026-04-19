@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getPageContent, updatePageContent } from "@/lib/content";
+import { getPageContent, updatePageContent, getPortfolio, updatePortfolio } from "@/lib/content";
+import type { PortfolioItem } from "@/lib/content";
 import { revalidatePath } from "next/cache";
 
 const PATH_MAP: Record<string, string> = {
@@ -17,6 +18,9 @@ export async function GET(req: NextRequest) {
   if (!page) {
     return NextResponse.json({ error: "page param required" }, { status: 400 });
   }
+  if (page === "portfolio") {
+    return NextResponse.json(getPortfolio());
+  }
   const content = getPageContent(page);
   if (!content) {
     return NextResponse.json({ error: "Page not found" }, { status: 404 });
@@ -26,7 +30,19 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
-  const { page, content } = body as { page?: string; content?: Record<string, unknown> };
+  const { page, content, portfolio } = body as {
+    page?: string;
+    content?: Record<string, unknown>;
+    portfolio?: PortfolioItem[];
+  };
+
+  // Portfolio save
+  if (page === "portfolio" && portfolio) {
+    updatePortfolio(portfolio);
+    revalidatePath("/our-work");
+    revalidatePath("/");
+    return NextResponse.json({ success: true });
+  }
 
   if (!page || !content) {
     return NextResponse.json(

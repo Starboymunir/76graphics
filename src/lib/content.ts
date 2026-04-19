@@ -36,16 +36,29 @@ export interface PageContent {
   meta?: { title: string; description: string };
 }
 
+export interface PortfolioItem {
+  id: string;
+  title: string;
+  category: string;
+  tags: string;
+  photo: string;
+}
+
 /* ── Reads ── */
 
-export function getAllContent(): Record<string, PageContent> {
+export function getAllContent(): Record<string, unknown> {
   const raw = fs.readFileSync(CONTENT_PATH, "utf-8");
   return JSON.parse(raw);
 }
 
 export function getPageContent(page: string): PageContent | null {
   const all = getAllContent();
-  return all[page] ?? null;
+  return (all[page] as PageContent) ?? null;
+}
+
+export function getPortfolio(): PortfolioItem[] {
+  const all = getAllContent();
+  return (all.portfolio as PortfolioItem[]) ?? [];
 }
 
 /* ── Writes ── */
@@ -53,5 +66,11 @@ export function getPageContent(page: string): PageContent | null {
 export function updatePageContent(page: string, content: PageContent): void {
   const all = getAllContent();
   all[page] = content;
+  fs.writeFileSync(CONTENT_PATH, JSON.stringify(all, null, 2), "utf-8");
+}
+
+export function updatePortfolio(items: PortfolioItem[]): void {
+  const all = getAllContent();
+  all.portfolio = items;
   fs.writeFileSync(CONTENT_PATH, JSON.stringify(all, null, 2), "utf-8");
 }

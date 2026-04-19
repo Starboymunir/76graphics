@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,113 +8,37 @@ import { ZoomIn, X, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const CATEGORIES = ["All", "Vehicle Wraps", "Architectural", "Brand Activation"] as const;
-type Category = (typeof CATEGORIES)[number];
-
-const PROJECTS = [
-  {
-    id: 1,
-    title: "Commercial Fleet Wrap",
-    category: "Vehicle Wraps" as Category,
-    tags: "Mr. Reliable Heating · full wrap",
-    photo: "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
-    tall: true,
-  },
-  {
-    id: 2,
-    title: "Cherry Blossom Lexus RC",
-    category: "Vehicle Wraps" as Category,
-    tags: "Lexus RC · full wrap · premium vinyl",
-    photo: "/portfolio/1YCPEuFx9FFkt3HnM_vkZMTT19VhMXldz.jpg",
-    tall: false,
-  },
-  {
-    id: 3,
-    title: "Cargo Van Full Wrap",
-    category: "Vehicle Wraps" as Category,
-    tags: "Ford Transit · commercial · full wrap",
-    photo: "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
-    tall: false,
-  },
-  {
-    id: 4,
-    title: "Night Shot — Eclipse GSX",
-    category: "Vehicle Wraps" as Category,
-    tags: "Mitsubishi Eclipse · custom · chrome details",
-    photo: "/portfolio/1IW2u4MDufaJ6uvm_Nl79Dei1hWYTTmAV.jpg",
-    tall: false,
-  },
-  {
-    id: 5,
-    title: "Great Wave Artistic Wrap",
-    category: "Vehicle Wraps" as Category,
-    tags: "Lexus RC · artistic · full coverage",
-    photo: "/portfolio/1nus0QfhQQWxSsZukZDFM80Beyy8rM_J7.jpg",
-    tall: true,
-  },
-  {
-    id: 6,
-    title: "GR86 Circuit Board Wrap",
-    category: "Vehicle Wraps" as Category,
-    tags: "Toyota GR86 · full coverage · vibrant",
-    photo: "/portfolio/1iOPICYZ38nQcQXetyU8VMYWCt-o-niBK.jpg",
-    tall: false,
-  },
-  {
-    id: 7,
-    title: "Purple Eclipse Night Wrap",
-    category: "Brand Activation" as Category,
-    tags: "Custom chrome vinyl · neon underglow",
-    photo: "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
-    tall: false,
-  },
-  {
-    id: 8,
-    title: "Cherry Blossom Sedan",
-    category: "Vehicle Wraps" as Category,
-    tags: "Lexus RC · cherry blossom · full wrap",
-    photo: "/portfolio/1ad97RBlWjZfO8dtu9vjpOmFjJnYdat4W.jpg",
-    tall: false,
-  },
-  {
-    id: 9,
-    title: "In-Shop Installation",
-    category: "Brand Activation" as Category,
-    tags: "Live install · professional bay",
-    photo: "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
-    tall: true,
-  },
-  {
-    id: 10,
-    title: "Custom Luxury Wrap",
-    category: "Vehicle Wraps" as Category,
-    tags: "Premium vinyl · showroom finish",
-    photo: "/portfolio/1RxHDGtB6_ycyky_Y4PPjy1B6F4zViWH4.jpg",
-    tall: false,
-  },
-  {
-    id: 11,
-    title: "Commercial Transit Wrap",
-    category: "Vehicle Wraps" as Category,
-    tags: "Ford Transit · high contrast · white base",
-    photo: "/portfolio/1SuerDLKgEZsDJAjpuX_dpbNjkZHVV7L3.jpg",
-    tall: false,
-  },
-  {
-    id: 12,
-    title: "Night City Shot",
-    category: "Brand Activation" as Category,
-    tags: "Event activation · glow · dramatic",
-    photo: "/portfolio/1mYmAQKoUtRrqqHxilOnmLZv4ivEaFXD0.jpg",
-    tall: false,
-  },
-];
+interface Project {
+  id: string;
+  title: string;
+  category: string;
+  tags: string;
+  photo: string;
+}
 
 export default function OurWorkPage() {
-  const [active, setActive] = useState<Category>("All");
-  const [lightbox, setLightbox] = useState<(typeof PROJECTS)[0] | null>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [categories, setCategories] = useState<string[]>(["All"]);
+  const [active, setActive] = useState("All");
+  const [lightbox, setLightbox] = useState<Project | null>(null);
 
-  const filtered = active === "All" ? PROJECTS : PROJECTS.filter((p) => p.category === active);
+  useEffect(() => {
+    fetch("/api/portfolio")
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data: Project[]) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProjects(data);
+          const cats = Array.from(new Set(data.map((p) => p.category)));
+          setCategories(["All", ...cats]);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
+
+  // Assign tall flag based on index for masonry layout
+  const isTall = (index: number) => [0, 4, 8].includes(index % 12);
 
   return (
     <>
@@ -173,7 +97,7 @@ export default function OurWorkPage() {
 
             {/* Category filters */}
             <div className="flex flex-wrap gap-3 mb-12">
-              {CATEGORIES.map((cat) => (
+              {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActive(cat)}
@@ -195,7 +119,7 @@ export default function OurWorkPage() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
             >
               <AnimatePresence>
-                {filtered.map((project) => (
+                {filtered.map((project, index) => (
                   <motion.div
                     key={project.id}
                     layout
@@ -203,8 +127,8 @@ export default function OurWorkPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.4 }}
-                    className={`group relative overflow-hidden cursor-pointer ${project.tall ? "row-span-2" : ""}`}
-                    style={{ height: project.tall ? "600px" : "300px" }}
+                    className={`group relative overflow-hidden cursor-pointer ${isTall(index) ? "row-span-2" : ""}`}
+                    style={{ height: isTall(index) ? "600px" : "300px" }}
                     onClick={() => setLightbox(project)}
                   >
                     <Image
