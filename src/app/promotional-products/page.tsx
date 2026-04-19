@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BrandSwoosh from "@/components/BrandSwoosh";
 import { ArrowRight, Check } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -27,6 +28,14 @@ export default function PromotionalProductsPage() {
 
       {/* Hero */}
       <section className="relative bg-[#061e31] brand-stars-bg pt-36 pb-24 overflow-hidden">
+        <Image
+          src="/portfolio/1YCPEuFx9FFkt3HnM_vkZMTT19VhMXldz.jpg"
+          alt="Custom promotional products by 76 Graphics"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#061e31]/95 via-[#092f4d]/85 to-[#092f4d]/60" />
         <BrandSwoosh position="bottom" />
         <div className="max-w-5xl mx-auto px-8 lg:px-14 relative z-10">
           <p
@@ -142,6 +151,17 @@ export default function PromotionalProductsPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Featured Image */}
+      <section className="relative h-[400px] lg:h-[500px]">
+        <Image
+          src="/portfolio/1mYmAQKoUtRrqqHxilOnmLZv4ivEaFXD0.jpg"
+          alt="76 Graphics promotional products showcase"
+          fill
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-[#061e31]/40" />
       </section>
 
       {/* CTA */}

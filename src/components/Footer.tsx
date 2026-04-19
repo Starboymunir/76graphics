@@ -42,8 +42,8 @@ export default function Footer() {
               className="text-white/50 text-sm leading-relaxed max-w-xs"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              Premium large format graphics solutions for businesses that demand
-              quality — from fleet wraps to full-scale brand activations.
+              Your all-in-one branding and marketing partner. We design, build,
+              and produce everything your business needs to stand out and grow.
             </p>
             {/* Social */}
             <div className="flex items-center gap-3 mt-8">
@@ -93,20 +93,21 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                "Vehicle Wraps",
-                "Fleet Graphics",
-                "Architectural Graphics",
-                "Window Films",
-                "Trade Show Displays",
-                "Brand Activations",
+                { label: "Branding", href: "/branding-services" },
+                { label: "Website Design", href: "/website-design" },
+                { label: "Vehicle Wraps", href: "/vehicle-wraps" },
+                { label: "Signage", href: "/signage" },
+                { label: "Environmental Graphics", href: "/environmental-graphics" },
+                { label: "Promotional Products", href: "/promotional-products" },
               ].map((s) => (
-                <li key={s}>
-                  <span
-                    className="text-white/60 text-sm"
+                <li key={s.label}>
+                  <Link
+                    href={s.href}
+                    className="text-white/60 hover:text-white text-sm transition-colors duration-200"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
-                    {s}
-                  </span>
+                    {s.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -135,6 +136,18 @@ export default function Footer() {
               {item}
             </button>
           ))}
+        </div>
+      </div>
+      {/* SEO footer text */}
+      <div className="border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 py-5">
+          <p
+            className="text-white/20 text-xs text-center leading-relaxed"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            76 Graphics is a full-service branding and marketing company offering
+            branding, websites, vehicle wraps, signage, and promotional products.
+          </p>
         </div>
       </div>
     </footer>

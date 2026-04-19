@@ -53,3 +53,22 @@ export function TruckIcon({ size = 54 }: { size?: number }) {
     </svg>
   );
 }
+
+export function RocketIcon({ size = 54 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Rocket body */}
+      <path d="M27 6c-4 8-6 18-6 28h12c0-10-2-20-6-28z" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round"/>
+      {/* Left fin */}
+      <path d="M21 30l-7 8v4l7-6" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+      {/* Right fin */}
+      <path d="M33 30l7 8v4l-7-6" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+      {/* Window */}
+      <circle cx="27" cy="22" r="4" stroke="currentColor" strokeWidth="2"/>
+      {/* Flame */}
+      <path d="M24 34l3 8 3-8" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round"/>
+      {/* Star */}
+      <path d="M44 10l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z" fill="currentColor"/>
+    </svg>
+  );
+}

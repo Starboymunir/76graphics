@@ -1,21 +1,21 @@
 ﻿"use client";
 
 import { motion } from "framer-motion";
-import { DesignIcon, QuoteIcon, TruckIcon } from "@/components/BrandIcons";
+import { DesignIcon, QuoteIcon, TruckIcon, RocketIcon } from "@/components/BrandIcons";
 
 const STEPS = [
   {
     number: "01",
     Icon: DesignIcon,
     title: "Tell Us Your Goal",
-    body: "We learn about your business, audience, and objectives — so every design decision is strategic, not just aesthetic.",
+    body: "We understand your business, audience, and objectives — so every decision is strategic, not just aesthetic.",
     accent: "Goal",
   },
   {
     number: "02",
     Icon: QuoteIcon,
     title: "Build Your Strategy",
-    body: "We map out the right mix of branding, digital, and physical assets for your business. You get a clear plan before a single dollar is spent.",
+    body: "We map out the right mix of branding, digital, and physical assets. You get a clear plan before a single dollar is spent.",
     accent: "Strategy",
   },
   {
@@ -24,6 +24,13 @@ const STEPS = [
     title: "Design & Produce",
     body: "Our team brings everything to life — design, print, and execution. 3M-certified installation, fast turnaround, zero guesswork.",
     accent: "Produce",
+  },
+  {
+    number: "04",
+    Icon: RocketIcon,
+    title: "Launch & Grow",
+    body: "You walk away with a complete, professional marketing system — ready to attract customers and scale your business.",
+    accent: "Grow",
   },
 ];
 
@@ -98,12 +105,12 @@ export default function Process() {
             className="text-white/35 text-sm leading-relaxed max-w-xs"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            A proven 3-step system to build your brand the right way.
+            A proven 4-step system to build your brand the right way.
           </motion.p>
         </div>
 
         {/* ── Steps ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-0.5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0.5">
           {STEPS.map((step, i) => (
             <motion.div
               key={step.number}

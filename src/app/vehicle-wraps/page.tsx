@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BrandSwoosh from "@/components/BrandSwoosh";
 import { ArrowRight, Check } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -27,6 +28,14 @@ export default function VehicleWrapsPage() {
 
       {/* Hero */}
       <section className="relative bg-[#061e31] brand-stars-bg pt-36 pb-24 overflow-hidden">
+        <Image
+          src="/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg"
+          alt="Custom vehicle wraps by 76 Graphics"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#061e31]/95 via-[#092f4d]/85 to-[#092f4d]/60" />
         <BrandSwoosh position="bottom" />
         <div className="max-w-5xl mx-auto px-8 lg:px-14 relative z-10">
           <p
@@ -143,6 +152,17 @@ export default function VehicleWrapsPage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Featured Image */}
+      <section className="relative h-[400px] lg:h-[500px]">
+        <Image
+          src="/portfolio/1rm3tXwgq4UXDLR8T-d_iCF64Z42UjyfL.jpg"
+          alt="76 Graphics vehicle wrap project showcase"
+          fill
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-[#061e31]/40" />
       </section>
 
       {/* CTA */}
