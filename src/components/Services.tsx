@@ -31,9 +31,9 @@ const SERVICES = [
   {
     title: "Physical",
     titleLine2: "Marketing",
-    subtitle: "Wraps, Signs & Graphics",
+    subtitle: "Wraps, Signs & Environmental Graphics",
     description:
-      "Vehicle wraps, storefront signage, and architectural graphics that turn real-world attention into leads. Design, print, and installation — all handled.",
+      "Vehicle wraps, signage, and environmental graphics that turn your business into a full brand experience — inside and out. Design, print, and installation — all handled.",
     photo: "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
     photoAlt: "Vehicle wrap and signage installation",
     num: "03",

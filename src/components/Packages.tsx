@@ -33,7 +33,7 @@ const PACKAGES = [
       "Full Branding Package",
       "Custom Website (5–7 pages)",
       "Basic SEO Setup",
-      "Print Materials or Signage",
+      "Window Graphics or Signage",
     ],
     cta: "Get Started",
     href: "/contact",
@@ -49,7 +49,8 @@ const PACKAGES = [
     features: [
       "Complete Branding System",
       "Full Website",
-      "Vehicle Wrap or Signage",
+      "Vehicle Wrap",
+      "Wall + Window Graphics",
       "Promotional Products",
     ],
     cta: "Talk to Us",
