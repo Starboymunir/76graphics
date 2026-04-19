@@ -7,23 +7,23 @@ const STEPS = [
   {
     number: "01",
     Icon: DesignIcon,
-    title: "Professional Design",
-    body: "Collaborate with our in-house design team to realize your vision. We craft precision-fitted artwork and you approve every detail before production.",
-    accent: "Design",
+    title: "Tell Us Your Goal",
+    body: "We learn about your business, audience, and objectives — so every design decision is strategic, not just aesthetic.",
+    accent: "Goal",
   },
   {
     number: "02",
     Icon: QuoteIcon,
-    title: "Fast Quote",
-    body: "After finalised design you'll receive a detailed quote. We deliver competitive, transparent pricing within 24 hours — no surprises.",
-    accent: "Quote",
+    title: "Build Your Strategy",
+    body: "We map out the right mix of branding, digital, and physical assets for your business. You get a clear plan before a single dollar is spent.",
+    accent: "Strategy",
   },
   {
     number: "03",
     Icon: TruckIcon,
-    title: "Quality Installation",
-    body: "Our 3M-certified professional installation team brings your vision to life on schedule — every time, without compromise.",
-    accent: "Install",
+    title: "Design & Produce",
+    body: "Our team brings everything to life — design, print, and execution. 3M-certified installation, fast turnaround, zero guesswork.",
+    accent: "Produce",
   },
 ];
 
@@ -98,7 +98,7 @@ export default function Process() {
             className="text-white/35 text-sm leading-relaxed max-w-xs"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            Three simple steps from vision to finished installation.
+            A proven 3-step system to build your brand the right way.
           </motion.p>
         </div>
 

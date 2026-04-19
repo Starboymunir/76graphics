@@ -7,44 +7,48 @@ import Image from "next/image";
 
 const SERVICES = [
   {
-    title: "Commercial Vehicle",
-    titleLine2: "Solutions",
-    subtitle: "Fleet & Single Vehicles",
+    title: "Brand",
+    titleLine2: "Foundation",
+    subtitle: "Identity & Systems",
     description:
-      "Establish credibility for your business with professional, custom-designed wraps that strategically showcase your brand on every vehicle in your fleet.",
+      "We create the identity behind your business — logos, colors, and brand systems that make you look established, credible, and memorable from day one.",
     photo: "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
-    photoAlt: "Commercial vehicle wrap installation",
+    photoAlt: "Brand identity design",
     num: "01",
+    href: "/branding-services",
   },
   {
-    title: "Architectural",
-    titleLine2: "Graphics",
-    subtitle: "Interior & Exterior",
+    title: "Digital",
+    titleLine2: "Presence",
+    subtitle: "Websites & Landing Pages",
     description:
-      "Transform any space, interior or exterior, with custom vinyl wraps that showcase your brand on virtually any architectural surface — walls, windows, floors.",
+      "Modern, fast, conversion-focused websites and landing pages that turn visitors into customers. Built for search engines so your business gets found.",
     photo: "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
-    photoAlt: "Architectural graphics installation",
+    photoAlt: "Website design and development",
     num: "02",
+    href: "/website-design",
   },
   {
-    title: "Brand &",
-    titleLine2: "Experiential",
-    subtitle: "Events & Activations",
+    title: "Physical",
+    titleLine2: "Marketing",
+    subtitle: "Wraps, Signs & Graphics",
     description:
-      "Create unforgettable experiences and build powerful customer connections with thoughtful, creative brand activations that stop people in their tracks.",
+      "Vehicle wraps, storefront signage, and architectural graphics that turn real-world attention into leads. Design, print, and installation — all handled.",
     photo: "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
-    photoAlt: "Brand activation installation",
+    photoAlt: "Vehicle wrap and signage installation",
     num: "03",
+    href: "/vehicle-wraps",
   },
   {
-    title: "Custom",
-    titleLine2: "Solutions",
-    subtitle: "Anything. Anywhere.",
+    title: "Promotional",
+    titleLine2: "& Print",
+    subtitle: "Merch & Materials",
     description:
-      "Have a unique problem? We have a creative solution. From events to retail to any space you can imagine — we deliver WOW on demand.",
+      "Business cards, branded apparel, packaging, and promotional products that keep your brand in people's hands — long after the first impression.",
     photo: "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
-    photoAlt: "Custom artistic vehicle wrap",
+    photoAlt: "Custom promotional products",
     num: "04",
+    href: "/promotional-products",
   },
 ];
 
@@ -88,7 +92,7 @@ export default function Services() {
                   WebkitTextStroke: "2px #b32025",
                 }}
               >
-                For Your Brand
+                Build. Launch. Scale.
               </span>
             </motion.h2>
           </div>
@@ -100,7 +104,7 @@ export default function Services() {
             className="text-white/45 text-sm leading-relaxed max-w-xs lg:text-right"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            Hover any panel to explore — from a single vehicle to a full brand world.
+            Hover any panel to explore — one team, everything handled.
           </motion.p>
         </div>
       </div>

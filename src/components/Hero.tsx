@@ -88,7 +88,7 @@ export default function Hero() {
             className="text-[#b32025] text-xs font-bold tracking-[0.35em] uppercase"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            Large Format Printing
+            Branding &amp; Marketing Partner
           </span>
           <div className="h-px w-16 bg-[#b32025]" />
         </motion.div>
@@ -110,7 +110,7 @@ export default function Hero() {
                 letterSpacing: "-0.01em",
               }}
             >
-              Bring Your
+              Your All-In-One
             </h1>
           </motion.div>
 
@@ -131,7 +131,7 @@ export default function Hero() {
                 WebkitTextStroke: "2px #b32025",
               }}
             >
-              Imagination
+              Branding &amp;
             </h1>
           </motion.div>
 
@@ -150,7 +150,7 @@ export default function Hero() {
                 letterSpacing: "-0.01em",
               }}
             >
-              To Life
+              Marketing Partner
             </h1>
           </motion.div>
         </div>
@@ -164,8 +164,8 @@ export default function Hero() {
           className="text-white/60 text-base lg:text-lg leading-relaxed max-w-xl mb-12"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          Custom design, printing & installation that transforms vehicles, spaces,
-          and brand activations — built for businesses that refuse to blend in.
+          From logos to websites, vehicle wraps to promotional products — we build
+          brands that get noticed, look professional, and drive real growth.
         </motion.p>
 
         {/* CTA buttons */}
@@ -181,7 +181,7 @@ export default function Hero() {
             className="group relative inline-flex items-center gap-3 bg-[#b32025] text-white px-10 py-4 text-sm font-bold tracking-[0.15em] uppercase overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(179,32,37,0.5)]"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            <span className="relative z-10">Request a Quote</span>
+            <span className="relative z-10">Get a Quote</span>
             <ArrowRight size={16} className="relative z-10 transition-transform duration-200 group-hover:translate-x-1" />
             {/* Shimmer overlay */}
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-500" />

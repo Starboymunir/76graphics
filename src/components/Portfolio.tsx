@@ -1,94 +1,141 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, X, ZoomIn } from "lucide-react";
 
-const CATEGORIES = ["All", "Vehicle Wraps", "Architectural", "Brand Activation"] as const;
-type Category = (typeof CATEGORIES)[number];
+// ── Types ────────────────────────────────────────────────────────────────────
+type Category = "All" | "Vehicle Wraps" | "Branding" | "Website Design" | "Signage" | "Promotional Products";
 
-const PROJECTS = [
+const CATEGORIES: Category[] = [
+  "All",
+  "Vehicle Wraps",
+  "Branding",
+  "Website Design",
+  "Signage",
+  "Promotional Products",
+];
+
+interface DisplayProject {
+  id: string;
+  title: string;
+  category: Category;
+  tags: string;
+  photo: string;
+  span: string;
+}
+
+// ── Fallback images (shown until Cloudinary images load) ──────────────────────
+const FALLBACK_PROJECTS: DisplayProject[] = [
   {
-    id: 1,
+    id: "1",
     title: "Commercial Fleet Wrap",
-    category: "Vehicle Wraps" as Category,
+    category: "Vehicle Wraps",
     tags: "Mr. Reliable Heating · full wrap",
     photo: "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
     span: "col-span-2 row-span-2",
   },
   {
-    id: 2,
+    id: "2",
     title: "Cherry Blossom Custom Wrap",
-    category: "Vehicle Wraps" as Category,
+    category: "Vehicle Wraps",
     tags: "Lexus RC · full wrap · premium vinyl",
     photo: "/portfolio/1YCPEuFx9FFkt3HnM_vkZMTT19VhMXldz.jpg",
     span: "",
   },
   {
-    id: 3,
+    id: "3",
     title: "Cargo Van Full Wrap",
-    category: "Vehicle Wraps" as Category,
+    category: "Vehicle Wraps",
     tags: "Ford Transit · full wrap · commercial",
     photo: "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
     span: "",
   },
   {
-    id: 4,
+    id: "4",
     title: "Night Shot — Eclipse GSX",
-    category: "Vehicle Wraps" as Category,
+    category: "Vehicle Wraps",
     tags: "Mitsubishi Eclipse · custom · chrome details",
     photo: "/portfolio/1IW2u4MDufaJ6uvm_Nl79Dei1hWYTTmAV.jpg",
     span: "col-span-2",
   },
   {
-    id: 5,
+    id: "5",
     title: "Great Wave Artistic Wrap",
-    category: "Vehicle Wraps" as Category,
+    category: "Vehicle Wraps",
     tags: "Lexus RC · artistic · full coverage",
     photo: "/portfolio/1nus0QfhQQWxSsZukZDFM80Beyy8rM_J7.jpg",
     span: "",
   },
   {
-    id: 6,
+    id: "6",
     title: "GR86 Circuit Board Wrap",
-    category: "Vehicle Wraps" as Category,
+    category: "Vehicle Wraps",
     tags: "Toyota GR86 · full coverage · vibrant",
     photo: "/portfolio/1iOPICYZ38nQcQXetyU8VMYWCt-o-niBK.jpg",
     span: "",
   },
   {
-    id: 7,
+    id: "7",
     title: "Purple Eclipse Night Wrap",
-    category: "Brand Activation" as Category,
+    category: "Vehicle Wraps",
     tags: "Custom chrome vinyl · neon underglow",
     photo: "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
     span: "",
   },
   {
-    id: 8,
+    id: "8",
     title: "Cherry Blossom Sedan",
-    category: "Vehicle Wraps" as Category,
+    category: "Vehicle Wraps",
     tags: "Lexus RC · cherry blossom · full wrap",
     photo: "/portfolio/1ad97RBlWjZfO8dtu9vjpOmFjJnYdat4W.jpg",
     span: "col-span-2",
   },
   {
-    id: 9,
+    id: "9",
     title: "In-Shop Installation",
-    category: "Brand Activation" as Category,
+    category: "Vehicle Wraps",
     tags: "Live install · professional bay · wrap shop",
     photo: "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
     span: "",
   },
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function fromCloudinary(img: any, index: number): DisplayProject {
+  const category = (img.context?.category as Category) || "Vehicle Wraps";
+  const spans = ["col-span-2 row-span-2", "", "", "col-span-2", "", "", "", "col-span-2", ""];
+  return {
+    id: img.publicId,
+    title: img.context?.title || `Project ${index + 1}`,
+    category,
+    tags: img.context?.tags || category,
+    photo: img.url,
+    span: spans[index % spans.length] ?? "",
+  };
+}
+
 export default function Portfolio() {
   const [active, setActive] = useState<Category>("All");
-  const [lightbox, setLightbox] = useState<(typeof PROJECTS)[0] | null>(null);
+  const [lightbox, setLightbox] = useState<DisplayProject | null>(null);
+  const [projects, setProjects] = useState<DisplayProject[]>(FALLBACK_PROJECTS);
+
+  useEffect(() => {
+    fetch("/api/images/portfolio")
+      .then((r) => r.ok ? r.json() : [])
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .then((data: any[]) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setProjects(data.map(fromCloudinary));
+        }
+      })
+      .catch(() => { /* keep fallback */ });
+  }, []);
 
   const filtered =
-    active === "All" ? PROJECTS : PROJECTS.filter((p) => p.category === active);
+    active === "All" ? projects : projects.filter((p) => p.category === active);
 
   return (
     <section id="our-work" className="py-28 bg-[#f5f5f5] relative overflow-hidden">
@@ -103,7 +150,7 @@ export default function Portfolio() {
               className="text-[#b32025] text-xs font-semibold tracking-[0.25em] uppercase mb-4"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              Our Work
+              Featured Work
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -113,22 +160,37 @@ export default function Portfolio() {
               className="text-[#092f4d] text-4xl sm:text-5xl uppercase leading-none"
               style={{ fontFamily: "'Apotek Extended', sans-serif", fontWeight: 700 }}
             >
-              Built To Be
-              <span className="block text-[#b32025]">Noticed</span>
+              Real Results.
+              <span className="block text-[#b32025]">Real Businesses.</span>
             </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-[#092f4d]/60 text-sm mt-4 leading-relaxed max-w-md"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              From startups to established companies, we help brands stand out
+              in competitive markets.
+            </motion.p>
           </div>
 
-          <motion.button
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="inline-flex items-center gap-2 border-2 border-[#092f4d] text-[#092f4d] hover:bg-[#092f4d] hover:text-white px-8 py-4 text-sm font-semibold tracking-[0.12em] uppercase transition-all duration-200 cursor-pointer self-start lg:self-auto"
-            style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            View Full Portfolio
-            <ArrowRight size={14} />
-          </motion.button>
+            <Link
+              href="/our-work"
+              className="inline-flex items-center gap-2 border-2 border-[#092f4d] text-[#092f4d] hover:bg-[#092f4d] hover:text-white px-8 py-4 text-sm font-semibold tracking-[0.12em] uppercase transition-all duration-200 self-start lg:self-auto"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              View Full Portfolio
+              <ArrowRight size={14} />
+            </Link>
+          </motion.div>
         </div>
 
         {/* Filter Tabs */}
@@ -149,7 +211,7 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Masonry / Bento Grid */}
+        {/* Bento Grid */}
         <motion.div
           layout
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[260px]"
@@ -174,11 +236,10 @@ export default function Portfolio() {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  unoptimized={project.photo.startsWith("http")}
                 />
-                {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#061e31]/85 via-[#061e31]/20 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-400" />
 
-                {/* Category badge */}
                 <div className="absolute top-4 left-4">
                   <span
                     className="bg-[#b32025] text-white text-[10px] font-semibold tracking-[0.18em] uppercase px-3 py-1"
@@ -188,14 +249,12 @@ export default function Portfolio() {
                   </span>
                 </div>
 
-                {/* Zoom icon */}
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-8 h-8 bg-white/20 backdrop-blur-sm flex items-center justify-center">
                     <ZoomIn size={14} className="text-white" />
                   </div>
                 </div>
 
-                {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-400">
                   <h3
                     className="text-white text-lg uppercase mb-1 leading-tight"
@@ -211,7 +270,6 @@ export default function Portfolio() {
                   </p>
                 </div>
 
-                {/* Bottom red line */}
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#b32025] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
               </motion.div>
             ))}
@@ -242,6 +300,7 @@ export default function Portfolio() {
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 80vw"
+                unoptimized={lightbox.photo.startsWith("http")}
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <span
@@ -259,7 +318,7 @@ export default function Portfolio() {
               </div>
               <button
                 onClick={() => setLightbox(null)}
-                className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 flex items-center justify-center backdrop-blur-sm transition-colors"
+                className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 flex items-center justify-center backdrop-blur-sm transition-colors cursor-pointer"
               >
                 <X size={18} className="text-white" />
               </button>
