@@ -1,0 +1,264 @@
+{
+  "homepage": {
+    "hero": {
+      "image": "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
+      "tag": "Branding & Marketing Partner",
+      "headline1": "Your All-In-One",
+      "headline2": "Branding &",
+      "headline3": "Marketing Partner",
+      "description": "From logos to websites, vehicle wraps to promotional products — we build brands that get noticed, look professional, and drive real growth.",
+      "ctaText": "Get a Quote",
+      "ctaText2": "View Our Work"
+    },
+    "meta": {
+      "title": "76 Graphics — Full-Service Branding & Marketing",
+      "description": "76 Graphics is a full-service branding and marketing company. Vehicle wraps, signage, branding, websites, environmental graphics, and promotional products."
+    }
+  },
+  "branding-services": {
+    "hero": {
+      "image": "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
+      "tag": "Branding Services",
+      "headline1": "Professional Branding for",
+      "headline2": "Businesses That Want to Stand Out",
+      "description": "Your brand is more than just a logo — it's how your business is perceived. At 76 Graphics, we create complete brand identities that build trust, attract customers, and position your business for growth.",
+      "ctaText": "Start Your Branding Project"
+    },
+    "includes": {
+      "sectionLabel": "What's Included",
+      "heading": "Everything You Need to Look Established",
+      "items": [
+        "Logo Design",
+        "Brand Identity Systems",
+        "Color Palettes & Typography",
+        "Brand Guidelines",
+        "Business Card Design",
+        "Social Media Branding Kit"
+      ]
+    },
+    "infoBox": {
+      "title": "Why It Matters",
+      "text": "A strong brand makes your business look established, credible, and memorable before you even speak to a customer. Businesses with professional branding close more deals, command higher prices, and build trust faster."
+    },
+    "quote": {
+      "text": "We don't just design logos — we build the complete visual identity system that runs across every touchpoint of your business.",
+      "author": "76 Graphics"
+    },
+    "featuredImage": "/portfolio/1Lo0BNjDkVwoIUCzp4_t_wkJh6-aa2HLp.jpg",
+    "cta": {
+      "headline": "Ready to Build Your Brand?",
+      "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
+      "ctaText": "Start Your Branding Project"
+    },
+    "meta": {
+      "title": "Professional Branding Services | 76 Graphics",
+      "description": "76 Graphics offers professional branding services for businesses that want to stand out — logos, brand identity systems, color palettes, and brand guidelines."
+    }
+  },
+  "website-design": {
+    "hero": {
+      "image": "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
+      "tag": "Website Design",
+      "headline1": "Custom Website Design That",
+      "headline2": "Converts Visitors Into Customers",
+      "description": "Your website should do more than look good — it should generate leads and sales. We design modern, fast, and conversion-focused websites tailored to your business and optimized for search engines.",
+      "ctaText": "Get Your Website Built"
+    },
+    "includes": {
+      "sectionLabel": "What's Included",
+      "heading": "A Website That Works for Your Business",
+      "items": [
+        "Custom Website Design",
+        "Mobile Optimization",
+        "Basic SEO Setup",
+        "Landing Pages",
+        "Contact & Quote Forms",
+        "Fast Loading & Performance"
+      ]
+    },
+    "infoBox": {
+      "title": "SEO-Ready from Day One",
+      "text": "We build websites optimized for search engines so your business can be found locally and online. Every site includes proper structure, meta tags, fast loading speeds, and mobile responsiveness — the foundation for ranking."
+    },
+    "quote": {
+      "text": "A professional website is your 24/7 salesperson. We make sure it actually converts, not just looks good.",
+      "author": "76 Graphics"
+    },
+    "featuredImage": "/portfolio/1GfEFSzGyfuOnG0k7B3zfNiyQ9ocKGgtm.jpg",
+    "cta": {
+      "headline": "Ready to Build Your Website?",
+      "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
+      "ctaText": "Get Your Website Built"
+    },
+    "meta": {
+      "title": "Custom Website Design | 76 Graphics",
+      "description": "Custom website design that converts visitors into customers. 76 Graphics builds modern, fast, SEO-optimized websites and landing pages for businesses."
+    }
+  },
+  "vehicle-wraps": {
+    "hero": {
+      "image": "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
+      "tag": "Vehicle Wraps",
+      "headline1": "Custom Vehicle Wraps That Turn",
+      "headline2": "Your Car Into a Moving Billboard",
+      "description": "Vehicle wraps are one of the most powerful forms of advertising. We design, print, and install high-quality wraps that generate thousands of impressions daily — turning every drive into a marketing opportunity.",
+      "ctaText": "Get a Wrap Quote"
+    },
+    "includes": {
+      "sectionLabel": "What's Included",
+      "heading": "Design, Print & Install — All in One Place",
+      "items": [
+        "Full & Partial Vehicle Wraps",
+        "Commercial Fleet Wraps",
+        "Custom Wrap Design",
+        "Professional Print",
+        "3M-Certified Installation",
+        "Color Change Wraps"
+      ]
+    },
+    "infoBox": {
+      "title": "The Most Cost-Effective Advertising",
+      "text": "A single vehicle wrap can generate between 30,000–70,000 impressions per day. Compared to billboards, radio, or digital ads — the cost per impression is a fraction of any other channel. It's a one-time investment that works 24/7."
+    },
+    "infoBox2": {
+      "title": "3M-Certified Installation",
+      "text": "Our certified installers use premium 3M vinyl to ensure a perfect finish that lasts years without peeling, fading, or bubbling. We stand behind every installation we do."
+    },
+    "featuredImage": "/portfolio/1rm3tXwgq4UXDLR8T-d_iCF64Z42UjyfL.jpg",
+    "cta": {
+      "headline": "Ready to Wrap Your Vehicle?",
+      "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
+      "ctaText": "Get a Wrap Quote"
+    },
+    "meta": {
+      "title": "Custom Vehicle Wraps | 76 Graphics",
+      "description": "Custom vehicle wraps that turn your car into a moving billboard. Full & partial wraps, commercial fleet wraps, design, print, and professional installation."
+    }
+  },
+  "signage": {
+    "hero": {
+      "image": "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
+      "tag": "Signage & Graphics",
+      "headline1": "Custom Business Signage That",
+      "headline2": "Gets You Noticed",
+      "description": "From storefront signs to indoor graphics, we create signage that attracts attention and brings customers through your doors. Professional design, high-quality production, and reliable installation.",
+      "ctaText": "Request Signage Quote"
+    },
+    "includes": {
+      "sectionLabel": "What's Included",
+      "heading": "Signage for Every Surface",
+      "items": [
+        "Storefront Signs",
+        "Window Graphics & Vinyl",
+        "Indoor Branding & Wall Graphics",
+        "Yard Signs & Banners",
+        "Trade Show Displays",
+        "Custom Design + Production"
+      ]
+    },
+    "infoBox": {
+      "title": "First Impressions Matter",
+      "text": "Your signage is often the first thing a customer sees. Professional, well-designed signage immediately communicates quality and trustworthiness before anyone steps through your door."
+    },
+    "quote": {
+      "text": "Great signage doesn't just identify your location — it sells your brand before a customer ever walks in.",
+      "author": "76 Graphics"
+    },
+    "featuredImage": "/portfolio/1nus0QfhQQWxSsZukZDFM80Beyy8rM_J7.jpg",
+    "cta": {
+      "headline": "Need Signage for Your Business?",
+      "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
+      "ctaText": "Request Signage Quote"
+    },
+    "meta": {
+      "title": "Custom Business Signage | 76 Graphics",
+      "description": "Custom business signage that gets you noticed. Storefront signs, window graphics, indoor branding, and more from 76 Graphics."
+    }
+  },
+  "environmental-graphics": {
+    "hero": {
+      "image": "/portfolio/1iOPICYZ38nQcQXetyU8VMYWCt-o-niBK.jpg",
+      "tag": "Environmental Graphics",
+      "headline1": "Wall Wraps & Graphics That",
+      "headline2": "Transform Your Space",
+      "description": "Your space is part of your brand. We design and install high-quality wall wraps, window graphics, and environmental branding that turn offices, storefronts, and interiors into immersive brand experiences.",
+      "ctaText": "Transform Your Space"
+    },
+    "includes": {
+      "sectionLabel": "What We Offer",
+      "heading": "Branding for Every Surface",
+      "items": [
+        "Wall Wraps & Murals",
+        "Window Graphics & Frosted Vinyl",
+        "Office & Corporate Branding",
+        "Retail & Commercial Interiors",
+        "Privacy Graphics",
+        "Custom Design + Installation"
+      ]
+    },
+    "infoBox": {
+      "title": "Why It Matters",
+      "text": "Environmental graphics don't just decorate a space — they create a lasting impression on customers, clients, and employees. Whether it's a retail store, office, or commercial space, your environment should reflect your brand at every touchpoint."
+    },
+    "quote": {
+      "text": "Most businesses focus only on outside visibility — but we help you control the entire customer experience, from the street to inside your space.",
+      "author": "76 Graphics"
+    },
+    "useCases": [
+      "Offices & Corporate Spaces",
+      "Retail Stores",
+      "Gyms & Studios",
+      "Restaurants & Cafés"
+    ],
+    "featuredImage": "/portfolio/1cgRLqh19GkO98P8It8aKdFYde_S5XPY9.jpg",
+    "cta": {
+      "headline": "Ready to Transform Your Space?",
+      "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
+      "ctaText": "Transform Your Space"
+    },
+    "meta": {
+      "title": "Environmental Graphics & Wall Wraps | 76 Graphics",
+      "description": "Custom wall wraps, window graphics, and environmental branding that transform offices, storefronts, and interiors into immersive brand experiences."
+    }
+  },
+  "promotional-products": {
+    "hero": {
+      "image": "/portfolio/1YCPEuFx9FFkt3HnM_vkZMTT19VhMXldz.jpg",
+      "tag": "Promotional Products",
+      "headline1": "Custom Products That Keep",
+      "headline2": "Your Brand in People's Hands",
+      "description": "Branded merchandise isn't just swag — it's a marketing tool. We help you create products that people actually keep and use, keeping your brand top of mind long after the first interaction.",
+      "ctaText": "Get Custom Merch"
+    },
+    "includes": {
+      "sectionLabel": "What's Included",
+      "heading": "Products That Make an Impression",
+      "items": [
+        "Business Cards & Stationery",
+        "Branded Apparel & T-Shirts",
+        "Stickers & Labels",
+        "Custom Packaging",
+        "Pens, Mugs & Branded Goods",
+        "Trade Show Giveaways"
+      ]
+    },
+    "infoBox": {
+      "title": "Marketing That Lasts",
+      "text": "Unlike digital ads that disappear, branded products stick around. A quality pen, t-shirt, or mug with your logo gets used repeatedly — each use is a free marketing impression for your brand."
+    },
+    "quote": {
+      "text": "Promotional products are the only advertising medium that makes the recipient say 'thank you.'",
+      "author": "76 Graphics"
+    },
+    "featuredImage": "/portfolio/1mYmAQKoUtRrqqHxilOnmLZv4ivEaFXD0.jpg",
+    "cta": {
+      "headline": "Ready to Create Your Merch?",
+      "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
+      "ctaText": "Get Custom Merch"
+    },
+    "meta": {
+      "title": "Custom Promotional Products | 76 Graphics",
+      "description": "Custom promotional products that keep your brand in people's hands. Business cards, branded apparel, stickers, packaging, and more from 76 Graphics."
+    }
+  }
+}
