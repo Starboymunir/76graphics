@@ -175,7 +175,7 @@ export default function Services() {
               style={{ opacity: active === i ? 0 : 1 }}
             >
               <span
-                className="text-white/70 text-xs font-bold tracking-[0.3em] uppercase text-center px-2"
+                className="text-white/70 text-xs font-bold tracking-[0.3em] uppercase text-center px-2 lg:[writing-mode:vertical-rl] lg:[text-orientation:mixed] lg:rotate-180"
                 style={{
                   fontFamily: "'Apotek Extended', sans-serif",
                 }}
