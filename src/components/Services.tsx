@@ -175,12 +175,9 @@ export default function Services() {
               style={{ opacity: active === i ? 0 : 1 }}
             >
               <span
-                className="text-white/70 text-xs font-bold tracking-[0.3em] uppercase whitespace-nowrap"
+                className="text-white/70 text-xs font-bold tracking-[0.3em] uppercase text-center px-2"
                 style={{
                   fontFamily: "'Apotek Extended', sans-serif",
-                  writingMode: "vertical-rl",
-                  textOrientation: "mixed",
-                  transform: "rotate(180deg)",
                 }}
               >
                 {s.subtitle}
