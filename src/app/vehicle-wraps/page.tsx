@@ -1,5 +1,5 @@
 import { getPageContent } from "@/lib/content";
-import ServicePageTemplate from "@/components/ServicePageTemplate";
+import VehicleWrapsLanding from "@/components/services/VehicleWrapsLanding";
 import type { Metadata } from "next";
 
 const PAGE_KEY = "vehicle-wraps";
@@ -15,5 +15,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function VehicleWrapsPage() {
   const content = getPageContent(PAGE_KEY);
   if (!content) return null;
-  return <ServicePageTemplate content={content} />;
+  return <VehicleWrapsLanding content={content} />;
 }

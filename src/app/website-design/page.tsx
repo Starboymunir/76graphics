@@ -1,5 +1,5 @@
 import { getPageContent } from "@/lib/content";
-import ServicePageTemplate from "@/components/ServicePageTemplate";
+import WebsiteDesignLanding from "@/components/services/WebsiteDesignLanding";
 import type { Metadata } from "next";
 
 const PAGE_KEY = "website-design";
@@ -15,5 +15,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function WebsiteDesignPage() {
   const content = getPageContent(PAGE_KEY);
   if (!content) return null;
-  return <ServicePageTemplate content={content} />;
+  return <WebsiteDesignLanding content={content} />;
 }

@@ -1,5 +1,5 @@
 import { getPageContent } from "@/lib/content";
-import ServicePageTemplate from "@/components/ServicePageTemplate";
+import EnvironmentalGraphicsLanding from "@/components/services/EnvironmentalGraphicsLanding";
 import type { Metadata } from "next";
 
 const PAGE_KEY = "environmental-graphics";
@@ -15,5 +15,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function EnvironmentalGraphicsPage() {
   const content = getPageContent(PAGE_KEY);
   if (!content) return null;
-  return <ServicePageTemplate content={content} />;
+  return <EnvironmentalGraphicsLanding content={content} />;
 }

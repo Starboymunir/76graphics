@@ -1,5 +1,5 @@
 import { getPageContent } from "@/lib/content";
-import ServicePageTemplate from "@/components/ServicePageTemplate";
+import BrandingLanding from "@/components/services/BrandingLanding";
 import type { Metadata } from "next";
 
 const PAGE_KEY = "branding-services";
@@ -15,5 +15,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function BrandingServicesPage() {
   const content = getPageContent(PAGE_KEY);
   if (!content) return null;
-  return <ServicePageTemplate content={content} />;
+  return <BrandingLanding content={content} />;
 }
