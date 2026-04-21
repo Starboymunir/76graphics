@@ -4,133 +4,114 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowRight } from "lucide-react";
 import type { PageContent } from "@/lib/content";
+import {
+  CutPanel,
+  GiantWord,
+  ImpactBar,
+  MarqueeGallery,
+  NumberedList,
+  QuoteShard,
+  SectionEyebrow,
+  SplitCollage,
+} from "@/components/services/ServiceDesignPrimitives";
 
-function WallGridIcon() {
-  return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none" aria-hidden="true">
-      <rect x="8" y="8" width="32" height="32" stroke="#ffffff" strokeWidth="2" />
-      <path d="M8 18h32M8 28h32M18 8v32M28 8v32" stroke="#567fa7" strokeWidth="2" />
-      <circle cx="34" cy="14" r="2" fill="#b32025" />
-    </svg>
-  );
-}
-
-function LayersIcon() {
-  return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none" aria-hidden="true">
-      <path d="M24 8 8 17l16 9 16-9-16-9Z" stroke="#ffffff" strokeWidth="2" strokeLinejoin="round" />
-      <path d="m8 24 16 9 16-9" stroke="#567fa7" strokeWidth="2" strokeLinejoin="round" />
-      <path d="m8 31 16 9 16-9" stroke="#b32025" strokeWidth="2" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function SparkIcon() {
-  return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none" aria-hidden="true">
-      <path d="M24 6v10M24 32v10M6 24h10M32 24h10M12 12l7 7M29 29l7 7M12 36l7-7M29 19l7-7" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="24" cy="24" r="4" fill="#b32025" />
-    </svg>
-  );
-}
+const ENV_IMAGES = [
+  { src: "/services/environmental/hero.jpg", alt: "Branded interior hero" },
+  { src: "/services/environmental/detail.jpg", alt: "Environmental detail" },
+  { src: "/services/environmental/scene-1.jpg", alt: "Interior branding concept" },
+  { src: "/services/environmental/scene-2.jpg", alt: "Modern workspace scene" },
+];
 
 export default function EnvironmentalGraphicsLanding({ content }: { content: PageContent }) {
   return (
-    <div className="min-h-screen bg-[#051827] text-white">
+    <div className="min-h-screen bg-[#041724] text-white overflow-x-hidden">
       <Navbar />
 
-      <section className="relative pt-36 pb-16 overflow-hidden">
-        <Image src="/services/environmental/hero.jpg" alt="Environmental graphics installation" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-[linear-gradient(130deg,rgba(5,24,39,0.95)_12%,rgba(9,47,77,0.78)_52%,rgba(5,24,39,0.95)_100%)]" />
-        <div className="absolute right-10 top-20 w-40 h-40 rounded-[32px] border border-white/20 rotate-12" />
+      <section className="relative pt-32 pb-24 overflow-hidden bg-[#041724]">
+        <GiantWord>Spatial Story</GiantWord>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(179,32,37,0.26),transparent_24%),radial-gradient(circle_at_18%_22%,rgba(86,127,167,0.18),transparent_22%),linear-gradient(135deg,#041724_0%,#092f4d_55%,#041724_100%)]" />
+        <div className="absolute right-[8%] top-20 h-52 w-52 rounded-[36px] border border-white/16 rotate-12" />
+        <div className="absolute left-[-4%] bottom-16 h-40 w-40 rounded-full border border-[#ff6f73]/18" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
-          <p className="text-xs uppercase tracking-[0.35em] text-[#ff6f73] font-bold mb-4">Interior Brand Environments</p>
-          <h1 className="max-w-4xl uppercase leading-[0.86]" style={{ fontFamily: "'Apotek Extended', sans-serif", fontWeight: 900, fontSize: "clamp(2.3rem, 6vw, 5.6rem)" }}>
-            {content.hero.headline1}
-            <span className="block text-transparent" style={{ WebkitTextStroke: "2px #ffffff" }}>{content.hero.headline2}</span>
-          </h1>
-          <p className="max-w-2xl mt-6 text-lg leading-relaxed text-white/80">{content.hero.description}</p>
-        </div>
-      </section>
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-8 items-end">
+          <div className="lg:col-span-6">
+            <SectionEyebrow>{content.hero.tag}</SectionEyebrow>
+            <h1 className="uppercase leading-[0.84]" style={{ fontFamily: "'Apotek Extended', sans-serif", fontWeight: 900, fontSize: "clamp(2.6rem, 7vw, 6.1rem)" }}>
+              {content.hero.headline1}
+              <span className="block text-transparent" style={{ WebkitTextStroke: "2px #ffffff" }}>{content.hero.headline2}</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
+              Environmental graphics turn square footage into story. We design spaces that feel branded before anyone reads a sentence, using scale, layering, material contrast, and visual rhythm to make the environment itself carry the message.
+            </p>
+            <Link href="/contact" className="mt-8 inline-flex items-center gap-3 bg-[#b32025] px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] hover:bg-[#8f1a1e] transition-colors">
+              {content.cta?.ctaText ?? content.hero.ctaText}
+              <ArrowRight size={16} />
+            </Link>
+          </div>
 
-      <section className="py-18 bg-[#092f4d]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-3 gap-6">
-          {[
-            { title: "Wall Narratives", text: "Feature walls and story-driven compositions that communicate your brand values instantly.", Icon: WallGridIcon },
-            { title: "Layered Materials", text: "Vinyl, frosting, dimensional pieces, and texture combinations for depth and polish.", Icon: LayersIcon },
-            { title: "Atmosphere Design", text: "Turn bland interiors into immersive customer experiences with high-impact visuals.", Icon: SparkIcon },
-          ].map(({ title, text, Icon }) => (
-            <article key={title} className="bg-[#061e31]/85 border border-white/10 p-7">
-              <Icon />
-              <h2 className="mt-5 text-xl uppercase" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{title}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-white/75">{text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {content.includes && (
-        <section className="py-20 bg-[#061e31] relative overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-20 bg-[#092f4d] [clip-path:polygon(0_0,100%_0,94%_100%,0_100%)]" />
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-7">
-              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.3em] font-bold mb-3">{content.includes.sectionLabel ?? "Environment Scope"}</p>
-              <h3 className="uppercase text-3xl" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes.heading}</h3>
-              <p className="mt-5 text-white/80 leading-relaxed">
-                {content.hero.description} {content.infoBox?.text ?? "We convert plain interiors into branded environments that increase memory, comfort, and confidence."}
-              </p>
-              {content.quote && (
-                <blockquote className="mt-6 border-l-2 border-[#b32025] pl-4 text-white/70 italic">&ldquo;{content.quote.text}&rdquo;</blockquote>
-              )}
+          <div className="lg:col-span-6 relative min-h-[500px]">
+            <div className="absolute left-[6%] top-0 w-[66%] h-[60%] overflow-hidden border border-white/12 [clip-path:polygon(0_0,100%_0,88%_100%,0_100%)] shadow-2xl shadow-black/30">
+              <Image src="/services/environmental/hero.jpg" alt="Interior branding hero" fill className="object-cover" priority />
             </div>
-            <div className="lg:col-span-5 grid gap-3">
-              {content.includes.items.map((item, idx) => (
-                <div key={item} className="border border-white/10 bg-[#092f4d]/45 p-4">
-                  <p className="text-[#ff6f73] text-xs">0{idx + 1}</p>
-                  <p className="mt-1 text-sm font-semibold">{item}</p>
-                </div>
-              ))}
+            <div className="absolute right-0 top-[18%] w-[42%] h-[30%] overflow-hidden border border-white/12 rotate-[6deg] [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]">
+              <Image src="/services/environmental/scene-1.jpg" alt="Interior scene" fill className="object-cover" />
+            </div>
+            <div className="absolute left-[18%] bottom-0 w-[68%] h-[34%] overflow-hidden border border-white/12 rotate-[-4deg] [clip-path:polygon(0_0,100%_0,92%_100%,6%_100%)]">
+              <Image src="/services/environmental/scene-2.jpg" alt="Workspace experience" fill className="object-cover" />
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      <section className="py-20 bg-[#051827]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-5">
-          <div className="lg:col-span-4 relative min-h-[360px] border border-white/10">
-            <Image src="/services/environmental/detail.jpg" alt="Wall mural application" fill className="object-cover" />
+      <MarqueeGallery images={ENV_IMAGES} />
+
+      <section className="relative py-20 bg-[#061e31] overflow-hidden">
+        <div className="absolute inset-x-0 top-0 h-24 bg-[#092f4d] [clip-path:polygon(0_0,100%_0,92%_100%,0_78%)]" />
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-5">
+            <SectionEyebrow>{content.includes?.sectionLabel ?? "Environmental Scope"}</SectionEyebrow>
+            <h2 className="uppercase text-3xl leading-tight" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes?.heading}</h2>
+            <p className="mt-5 text-white/80 leading-relaxed">
+              The environment shapes perception before any salesperson does. When walls, glazing, wayfinding, and focal moments are designed as one system, a space feels more premium, more memorable, and more aligned with the brand promise.
+            </p>
+            {content.quote && <div className="mt-8"><QuoteShard quote={content.quote.text} author={content.quote.author} /></div>}
           </div>
-          <div className="lg:col-span-4 relative min-h-[360px] border border-white/10">
-            <Image src="/portfolio/1cgRLqh19GkO98P8It8aKdFYde_S5XPY9.jpg" alt="Office branded wall" fill className="object-cover" />
-          </div>
-          <div className="lg:col-span-4 relative min-h-[360px] border border-white/10">
-            <Image src="/portfolio/1nus0QfhQQWxSsZukZDFM80Beyy8rM_J7.jpg" alt="Window graphics installation" fill className="object-cover" />
+          <div className="lg:col-span-7">
+            <NumberedList items={content.includes?.items ?? []} />
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-[#061e31]">
-        <div className="max-w-5xl mx-auto px-6 lg:px-12">
-          <h3 className="uppercase text-3xl" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>Space Transformation Stack</h3>
-          <div className="mt-8 grid md:grid-cols-4 gap-4">
-            {[
-              "Spatial Audit",
-              "Concept Boards",
-              "Production",
-              "On-Site Install",
-            ].map((step, i) => (
-              <div key={step} className="bg-[#092f4d]/70 border border-white/10 p-5">
-                <p className="text-[#ff6f73] text-xs">0{i + 1}</p>
-                <p className="mt-2 text-sm font-semibold">{step}</p>
-              </div>
-            ))}
+      <section className="py-20 bg-[#041724]">
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <SplitCollage
+            large="/services/environmental/detail.jpg"
+            top="/services/environmental/scene-1.jpg"
+            bottom="/services/environmental/scene-2.jpg"
+            largeAlt="Branded interior wall"
+            topAlt="Space concept"
+            bottomAlt="Workspace atmosphere"
+          />
+          <div className="mt-8 grid md:grid-cols-3 gap-5">
+            <CutPanel className="p-6 rounded-[22px]">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.24em] font-bold">Mood</p>
+              <p className="mt-3 text-white/75 text-sm">Create a feeling the second someone enters, before the sales conversation even starts.</p>
+            </CutPanel>
+            <CutPanel className="p-6 rounded-[22px]">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.24em] font-bold">Memory</p>
+              <p className="mt-3 text-white/75 text-sm">Use focal walls and repeated visual cues so the space becomes instantly recognizable.</p>
+            </CutPanel>
+            <CutPanel className="p-6 rounded-[22px]">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.24em] font-bold">Flow</p>
+              <p className="mt-3 text-white/75 text-sm">Guide attention naturally from entrance to destination with spatial rhythm and graphic placement.</p>
+            </CutPanel>
           </div>
+        </div>
+      </section>
 
-          <Link href="/contact" className="mt-10 inline-flex items-center gap-3 bg-[#b32025] px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] hover:bg-[#8f1a1e] transition-colors">
-            {content.cta?.ctaText ?? "Transform Your Space"}
-            <ArrowRight size={16} />
-          </Link>
+      <section className="py-20 bg-[#092f4d]">
+        <div className="mx-auto max-w-6xl px-6 lg:px-12">
+          <ImpactBar items={["A stronger sense of brand immersion inside the space", "Higher perceived quality for clients, guests, and staff", "A more memorable environment people talk about and photograph"]} />
         </div>
       </section>
 

@@ -4,135 +4,119 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowRight } from "lucide-react";
 import type { PageContent } from "@/lib/content";
+import {
+  CutPanel,
+  GiantWord,
+  ImpactBar,
+  MarqueeGallery,
+  NumberedList,
+  QuoteShard,
+  SectionEyebrow,
+  SplitCollage,
+} from "@/components/services/ServiceDesignPrimitives";
 
-function WireframeIcon() {
-  return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none" aria-hidden="true">
-      <rect x="7" y="8" width="34" height="32" rx="2" stroke="#ffffff" strokeWidth="2" />
-      <path d="M7 16h34M16 16v24" stroke="#567fa7" strokeWidth="2" />
-      <path d="M21 23h14M21 29h11" stroke="#b32025" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function LightningIcon() {
-  return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none" aria-hidden="true">
-      <path d="M26 4L12 25h9l-3 19 18-24h-9l4-16Z" stroke="#b32025" strokeWidth="2" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
-function TargetIcon() {
-  return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none" aria-hidden="true">
-      <circle cx="24" cy="24" r="16" stroke="#ffffff" strokeWidth="2" />
-      <circle cx="24" cy="24" r="9" stroke="#567fa7" strokeWidth="2" />
-      <circle cx="24" cy="24" r="3" fill="#b32025" />
-    </svg>
-  );
-}
+const WEB_IMAGES = [
+  { src: "/services/web/hero.jpg", alt: "Website hero interface" },
+  { src: "/services/web/detail.jpg", alt: "Web project dashboard" },
+  { src: "/services/web/scene-1.jpg", alt: "Desktop browsing view" },
+  { src: "/services/web/scene-2.jpg", alt: "Code and design workflow" },
+];
 
 export default function WebsiteDesignLanding({ content }: { content: PageContent }) {
   return (
-    <div className="min-h-screen bg-[#031827] text-white">
+    <div className="min-h-screen bg-[#031827] text-white overflow-x-hidden">
       <Navbar />
 
-      <section className="relative pt-36 pb-16 overflow-hidden border-b border-white/10">
-        <Image src="/services/web/hero.jpg" alt="Website design workspace" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(179,32,37,0.34),transparent_36%),linear-gradient(120deg,rgba(3,24,39,0.96)_18%,rgba(9,47,77,0.88)_56%,rgba(3,24,39,0.94)_100%)]" />
+      <section className="relative pt-32 pb-24 overflow-hidden bg-[#031827]">
+        <GiantWord>Lead Machine</GiantWord>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_18%,rgba(179,32,37,0.30),transparent_26%),linear-gradient(135deg,#031827_0%,#092f4d_58%,#02101a_100%)]" />
         <div className="absolute left-0 right-0 bottom-0 h-2 bg-[linear-gradient(90deg,#b32025_0%,#ffffff_45%,#285493_100%)]" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-12 gap-10 items-end">
-          <div className="lg:col-span-8">
-            <p className="text-xs uppercase tracking-[0.35em] text-[#ff6f73] font-bold mb-4">Conversion-Focused Web</p>
-            <h1 className="uppercase leading-[0.85]" style={{ fontFamily: "'Apotek Extended', sans-serif", fontWeight: 900, fontSize: "clamp(2.3rem, 6vw, 5.6rem)" }}>
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-10 items-start">
+          <div className="lg:col-span-6 pt-6">
+            <SectionEyebrow>{content.hero.tag}</SectionEyebrow>
+            <h1 className="uppercase leading-[0.84]" style={{ fontFamily: "'Apotek Extended', sans-serif", fontWeight: 900, fontSize: "clamp(2.6rem, 7vw, 6.2rem)" }}>
               {content.hero.headline1}
               <span className="block text-transparent" style={{ WebkitTextStroke: "2px #b32025" }}>{content.hero.headline2}</span>
             </h1>
-            <p className="mt-6 text-white/80 max-w-2xl text-lg leading-relaxed">{content.hero.description}</p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/80">
+              We design websites as selling environments, not digital brochures. The layout, motion, copy rhythm, forms, and page hierarchy are all engineered to move a visitor from curiosity into action without adding friction.
+            </p>
+            <Link href="/contact" className="mt-8 inline-flex items-center gap-3 bg-[#b32025] px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] hover:bg-[#8f1a1e] transition-colors">
+              {content.cta?.ctaText ?? content.hero.ctaText}
+              <ArrowRight size={16} />
+            </Link>
           </div>
-          <div className="lg:col-span-4">
-            <div className="bg-[#061e31]/90 border border-white/15 p-6">
-              <p className="text-white/60 text-xs uppercase tracking-[0.2em]">Expected Results</p>
-              <p className="mt-4 text-3xl" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>Faster. Clearer. Higher-Intent Leads.</p>
+
+          <div className="lg:col-span-6 relative min-h-[520px]">
+            <div className="absolute inset-x-[8%] top-0 h-[70%] rounded-[28px] border border-white/12 bg-[#061e31]/60 p-4 shadow-2xl shadow-black/30">
+              <div className="relative h-full w-full overflow-hidden rounded-[22px] border border-white/10">
+                <Image src="/services/web/hero.jpg" alt="Website showcase" fill className="object-cover" priority />
+              </div>
+            </div>
+            <div className="absolute left-0 bottom-[8%] w-[46%] h-[38%] overflow-hidden border border-white/12 rotate-[-7deg] [clip-path:polygon(0_0,100%_0,88%_100%,0_100%)]">
+              <Image src="/services/web/scene-1.jpg" alt="User browsing" fill className="object-cover" />
+            </div>
+            <div className="absolute right-0 bottom-0 w-[48%] h-[36%] overflow-hidden border border-white/12 rotate-[5deg] [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]">
+              <Image src="/services/web/scene-2.jpg" alt="Development workflow" fill className="object-cover" />
+            </div>
+            <div className="absolute right-[10%] top-[8%] border border-[#ff6f73]/30 bg-[#061e31]/92 px-5 py-4 max-w-[220px] backdrop-blur-sm">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.22em] font-bold">Conversion Logic</p>
+              <p className="mt-2 text-sm text-white/75">A site should explain, reassure, and close. Every component has a job.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-[#061e31]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-3 gap-6">
-          {[
-            { title: "UX Blueprint", text: "Every page has a role in your sales funnel with clear visual hierarchy and conversion intent.", Icon: WireframeIcon },
-            { title: "Performance Build", text: "Lean code, image strategy, and Core Web Vitals tuning for speed on real devices.", Icon: LightningIcon },
-            { title: "Conversion Layer", text: "Offer framing, CTA systems, and lead capture UX that pushes visitors to act.", Icon: TargetIcon },
-          ].map(({ title, text, Icon }) => (
-            <article key={title} className="bg-[#031827] border border-white/10 p-7">
-              <Icon />
-              <h2 className="mt-5 text-xl uppercase" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{title}</h2>
-              <p className="mt-3 text-white/70 text-sm leading-relaxed">{text}</p>
-            </article>
-          ))}
+      <MarqueeGallery images={WEB_IMAGES} />
+
+      <section className="relative py-20 bg-[#061e31] overflow-hidden">
+        <div className="absolute inset-y-0 right-0 w-[32%] bg-[#092f4d] [clip-path:polygon(18%_0,100%_0,100%_100%,0_100%)]" />
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12 grid lg:grid-cols-12 gap-8">
+          <div className="lg:col-span-7">
+            <SectionEyebrow>{content.includes?.sectionLabel ?? "What The Build Includes"}</SectionEyebrow>
+            <h2 className="uppercase text-3xl leading-tight" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes?.heading}</h2>
+            <p className="mt-5 text-white/80 leading-relaxed">
+              The best-performing websites don’t rely on luck. They combine clear offer framing, faster technical performance, structured content, mobile-first interaction, and enough polish to make the business feel premium and trustworthy.
+            </p>
+            {content.quote && <div className="mt-8 max-w-xl"><QuoteShard quote={content.quote.text} author={content.quote.author} /></div>}
+          </div>
+          <div className="lg:col-span-5">
+            <NumberedList items={content.includes?.items ?? []} />
+          </div>
         </div>
       </section>
-
-      {content.includes && (
-        <section className="py-20 bg-[#031827] relative overflow-hidden">
-          <div className="absolute -left-20 top-10 w-56 h-56 rounded-full border border-[#b32025]/25" />
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-8">
-              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.3em] font-bold mb-3">{content.includes.sectionLabel ?? "What We Build"}</p>
-              <h3 className="uppercase text-3xl" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes.heading}</h3>
-              <p className="mt-5 text-white/80 leading-relaxed">
-                {content.hero.description} {content.infoBox?.text ?? "Each page is crafted for intent, speed, and measurable lead behavior so your site works as a sales engine."}
-              </p>
-            </div>
-            <div className="lg:col-span-4 space-y-3">
-              {content.includes.items.map((item, idx) => (
-                <div key={item} className="border border-white/10 bg-[#092f4d]/45 p-4">
-                  <p className="text-[#ff6f73] text-xs">0{idx + 1}</p>
-                  <p className="mt-1 text-sm font-semibold">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       <section className="py-20 bg-[#031827]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-5">
-          <div className="lg:col-span-8 relative min-h-[380px] border border-white/10">
-            <Image src="/services/web/detail.jpg" alt="Website project preview" fill className="object-cover" />
-          </div>
-          <div className="lg:col-span-4 grid gap-5">
-            <div className="relative min-h-[180px] border border-white/10">
-              <Image src="/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg" alt="Responsive website interface" fill className="object-cover" />
-            </div>
-            <div className="relative min-h-[180px] border border-white/10">
-              <Image src="/portfolio/1xEsh2EfTcZnDNofX9yh7eGBZPn7uq6a0.jpg" alt="SEO and analytics setup" fill className="object-cover" />
-            </div>
+        <div className="mx-auto max-w-7xl px-6 lg:px-12">
+          <SplitCollage
+            large="/services/web/detail.jpg"
+            top="/services/web/scene-1.jpg"
+            bottom="/services/web/scene-2.jpg"
+            largeAlt="Web experience mockup"
+            topAlt="Website browsing scene"
+            bottomAlt="Code production scene"
+          />
+          <div className="mt-8 grid md:grid-cols-3 gap-5">
+            <CutPanel className="p-6 rounded-[24px]">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.24em] font-bold">Offer Architecture</p>
+              <p className="mt-3 text-white/75 text-sm">Structure the message so the visitor understands what you do, why it matters, and what to do next.</p>
+            </CutPanel>
+            <CutPanel className="p-6 rounded-[24px]">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.24em] font-bold">Speed + SEO</p>
+              <p className="mt-3 text-white/75 text-sm">Performance tuning, crawlable content structure, and technical setup that supports discoverability.</p>
+            </CutPanel>
+            <CutPanel className="p-6 rounded-[24px]">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.24em] font-bold">Lead Capture</p>
+              <p className="mt-3 text-white/75 text-sm">Forms, CTAs, and friction-reduced pathways designed to turn attention into inquiries.</p>
+            </CutPanel>
           </div>
         </div>
       </section>
 
       <section className="py-20 bg-[#092f4d]">
-        <div className="max-w-5xl mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-6">
-          <div className="border border-white/15 p-6 bg-[#061e31]/70">
-            <p className="text-[#ff6f73] text-xs uppercase tracking-[0.2em]">Build Stack</p>
-            <p className="mt-3 text-white/85">Custom page architecture, mobile-first sections, clear offer framing, and integrated lead forms.</p>
-          </div>
-          <div className="border border-white/15 p-6 bg-[#061e31]/70">
-            <p className="text-[#ff6f73] text-xs uppercase tracking-[0.2em]">Growth Ready</p>
-            <p className="mt-3 text-white/85">Technical SEO foundation, scalable CMS-ready blocks, and campaign landing pages on demand.</p>
-          </div>
-        </div>
-
-        <div className="max-w-5xl mx-auto px-6 lg:px-12 mt-10">
-          <Link href="/contact" className="inline-flex items-center gap-3 bg-[#b32025] px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] hover:bg-[#8f1a1e] transition-colors">
-            {content.cta?.ctaText ?? "Get Your Website Built"}
-            <ArrowRight size={16} />
-          </Link>
+        <div className="mx-auto max-w-6xl px-6 lg:px-12">
+          <ImpactBar items={["Sharper first impressions on every screen size", "Faster paths from search click to contact form", "A web presence that feels premium, current, and intentional"]} />
         </div>
       </section>
 
