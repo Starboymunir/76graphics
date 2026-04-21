@@ -39,7 +39,7 @@ export default function PromotionalProductsLanding({ content }: { content: PageC
       <Navbar />
 
       <section className="relative pt-36 pb-16 overflow-hidden">
-        <Image src={content.hero.image} alt="Promotional products layout" fill className="object-cover" priority />
+        <Image src="/services/promo/hero.jpg" alt="Promotional products layout" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_18%,rgba(179,32,37,0.3),transparent_38%),linear-gradient(118deg,rgba(6,30,49,0.95)_10%,rgba(9,47,77,0.8)_54%,rgba(6,30,49,0.95)_100%)]" />
         <div className="absolute right-8 bottom-8 w-40 h-40 border border-white/20 rounded-full" />
 
@@ -69,10 +69,36 @@ export default function PromotionalProductsLanding({ content }: { content: PageC
         </div>
       </section>
 
+      {content.includes && (
+        <section className="py-20 bg-[#061e31] relative overflow-hidden">
+          <div className="absolute right-0 top-0 w-full h-20 bg-[#092f4d] [clip-path:polygon(0_0,100%_0,100%_100%,6%_100%)]" />
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-7">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.3em] font-bold mb-3">{content.includes.sectionLabel ?? "Merch Scope"}</p>
+              <h3 className="uppercase text-3xl" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes.heading}</h3>
+              <p className="mt-5 text-white/80 leading-relaxed">
+                {content.hero.description} {content.infoBox?.text ?? "We build curated product ecosystems so your logo shows up where daily decisions happen."}
+              </p>
+              {content.quote && (
+                <blockquote className="mt-6 border-l-2 border-[#b32025] pl-4 text-white/70 italic">&ldquo;{content.quote.text}&rdquo;</blockquote>
+              )}
+            </div>
+            <div className="lg:col-span-5 grid gap-3">
+              {content.includes.items.map((item, idx) => (
+                <div key={item} className="border border-white/10 bg-[#092f4d]/45 p-4">
+                  <p className="text-[#ff6f73] text-xs">0{idx + 1}</p>
+                  <p className="mt-1 text-sm font-semibold">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="py-20 bg-[#061e31]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-5">
           <div className="lg:col-span-7 relative min-h-[360px] border border-white/10">
-            <Image src="/portfolio/1mYmAQKoUtRrqqHxilOnmLZv4ivEaFXD0.jpg" alt="Branded product showcase" fill className="object-cover" />
+            <Image src="/services/promo/detail.jpg" alt="Branded product showcase" fill className="object-cover" />
           </div>
           <div className="lg:col-span-5 grid gap-5">
             <div className="relative min-h-[175px] border border-white/10">

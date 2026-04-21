@@ -40,7 +40,7 @@ export default function EnvironmentalGraphicsLanding({ content }: { content: Pag
       <Navbar />
 
       <section className="relative pt-36 pb-16 overflow-hidden">
-        <Image src={content.hero.image} alt="Environmental graphics installation" fill className="object-cover" priority />
+        <Image src="/services/environmental/hero.jpg" alt="Environmental graphics installation" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[linear-gradient(130deg,rgba(5,24,39,0.95)_12%,rgba(9,47,77,0.78)_52%,rgba(5,24,39,0.95)_100%)]" />
         <div className="absolute right-10 top-20 w-40 h-40 rounded-[32px] border border-white/20 rotate-12" />
 
@@ -70,10 +70,36 @@ export default function EnvironmentalGraphicsLanding({ content }: { content: Pag
         </div>
       </section>
 
+      {content.includes && (
+        <section className="py-20 bg-[#061e31] relative overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-20 bg-[#092f4d] [clip-path:polygon(0_0,100%_0,94%_100%,0_100%)]" />
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-7">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.3em] font-bold mb-3">{content.includes.sectionLabel ?? "Environment Scope"}</p>
+              <h3 className="uppercase text-3xl" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes.heading}</h3>
+              <p className="mt-5 text-white/80 leading-relaxed">
+                {content.hero.description} {content.infoBox?.text ?? "We convert plain interiors into branded environments that increase memory, comfort, and confidence."}
+              </p>
+              {content.quote && (
+                <blockquote className="mt-6 border-l-2 border-[#b32025] pl-4 text-white/70 italic">&ldquo;{content.quote.text}&rdquo;</blockquote>
+              )}
+            </div>
+            <div className="lg:col-span-5 grid gap-3">
+              {content.includes.items.map((item, idx) => (
+                <div key={item} className="border border-white/10 bg-[#092f4d]/45 p-4">
+                  <p className="text-[#ff6f73] text-xs">0{idx + 1}</p>
+                  <p className="mt-1 text-sm font-semibold">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="py-20 bg-[#051827]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-5">
           <div className="lg:col-span-4 relative min-h-[360px] border border-white/10">
-            <Image src="/portfolio/1iOPICYZ38nQcQXetyU8VMYWCt-o-niBK.jpg" alt="Wall mural application" fill className="object-cover" />
+            <Image src="/services/environmental/detail.jpg" alt="Wall mural application" fill className="object-cover" />
           </div>
           <div className="lg:col-span-4 relative min-h-[360px] border border-white/10">
             <Image src="/portfolio/1cgRLqh19GkO98P8It8aKdFYde_S5XPY9.jpg" alt="Office branded wall" fill className="object-cover" />

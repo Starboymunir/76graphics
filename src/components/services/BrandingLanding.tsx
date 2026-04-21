@@ -42,7 +42,7 @@ export default function BrandingLanding({ content }: { content: PageContent }) {
       <Navbar />
 
       <section className="relative overflow-hidden pt-36 pb-20">
-        <Image src={content.hero.image} alt="Branding strategy board" fill className="object-cover" priority />
+        <Image src="/services/branding/hero.jpg" alt="Branding strategy board" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(6,30,49,0.96)_15%,rgba(9,47,77,0.78)_52%,rgba(6,30,49,0.9)_100%)]" />
         <div className="absolute -right-24 -top-24 w-[340px] h-[340px] rounded-full border border-white/15" />
         <div className="absolute right-10 top-24 w-[220px] h-[220px] [clip-path:polygon(50%_0%,95%_35%,78%_95%,22%_95%,5%_35%)] bg-[#b32025]/20" />
@@ -74,10 +74,36 @@ export default function BrandingLanding({ content }: { content: PageContent }) {
         </div>
       </section>
 
+      {content.includes && (
+        <section className="relative py-20 bg-[#061e31] overflow-hidden">
+          <div className="absolute inset-x-0 -top-16 h-24 bg-[#092f4d] [clip-path:polygon(0_0,100%_35%,100%_100%,0_100%)]" />
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-7">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.3em] font-bold mb-3">{content.hero.tag}</p>
+              <h3 className="uppercase text-3xl leading-tight" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes.heading}</h3>
+              <p className="mt-5 text-white/80 leading-relaxed">
+                {content.hero.description} {content.infoBox?.text ?? "We translate strategy into a flexible identity that works in digital and physical environments without visual drift."}
+              </p>
+              {content.quote && (
+                <blockquote className="mt-6 border-l-2 border-[#b32025] pl-4 text-white/70 italic">&ldquo;{content.quote.text}&rdquo;</blockquote>
+              )}
+            </div>
+            <div className="lg:col-span-5 grid gap-3">
+              {content.includes.items.map((item, idx) => (
+                <div key={item} className="border border-white/10 bg-[#092f4d]/50 p-4">
+                  <p className="text-[#ff6f73] text-xs">0{idx + 1}</p>
+                  <p className="mt-1 text-sm font-semibold">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="py-20 bg-[#061e31]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-5">
           <div className="lg:col-span-7 relative min-h-[340px] border border-white/10">
-            <Image src="/portfolio/1Lo0BNjDkVwoIUCzp4_t_wkJh6-aa2HLp.jpg" alt="Brand identity showcase" fill className="object-cover" />
+            <Image src="/services/branding/detail.jpg" alt="Brand identity showcase" fill className="object-cover" />
           </div>
           <div className="lg:col-span-5 grid gap-5">
             <div className="relative min-h-[165px] border border-white/10">

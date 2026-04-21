@@ -40,7 +40,7 @@ export default function VehicleWrapsLanding({ content }: { content: PageContent 
       <Navbar />
 
       <section className="relative pt-36 pb-16 overflow-hidden">
-        <Image src={content.hero.image} alt="Vehicle wrap installation" fill className="object-cover" priority />
+        <Image src="/services/wraps/hero.jpg" alt="Vehicle wrap installation" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(4,26,43,0.97)_20%,rgba(9,47,77,0.76)_57%,rgba(4,26,43,0.92)_100%)]" />
         <div className="absolute -left-20 top-24 w-64 h-64 rounded-full border-2 border-[#b32025]/40" />
         <div className="absolute right-0 top-10 w-[38vw] max-w-[460px] h-[6px] bg-[#b32025] rotate-[-9deg] origin-right" />
@@ -72,10 +72,34 @@ export default function VehicleWrapsLanding({ content }: { content: PageContent 
         </div>
       </section>
 
+      {content.includes && (
+        <section className="py-20 bg-[#061e31] relative overflow-hidden">
+          <div className="absolute right-0 top-0 w-full h-20 bg-[#092f4d] [clip-path:polygon(0_0,100%_0,100%_100%,8%_100%)]" />
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-7">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.3em] font-bold mb-3">{content.includes.sectionLabel ?? "What We Handle"}</p>
+              <h3 className="uppercase text-3xl" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes.heading}</h3>
+              <p className="mt-5 text-white/80 leading-relaxed">
+                {content.hero.description} {content.infoBox?.text ?? "From concept to install, each wrap is engineered for durability and immediate road-level visibility."}
+              </p>
+              {content.infoBox2 && <p className="mt-4 text-white/70 leading-relaxed">{content.infoBox2.text}</p>}
+            </div>
+            <div className="lg:col-span-5 grid gap-3">
+              {content.includes.items.map((item, idx) => (
+                <div key={item} className="border border-white/10 bg-[#092f4d]/45 p-4">
+                  <p className="text-[#ff6f73] text-xs">0{idx + 1}</p>
+                  <p className="mt-1 text-sm font-semibold">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="py-20 bg-[#041a2b]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-5">
           <div className="lg:col-span-6 relative min-h-[260px] border border-white/10">
-            <Image src="/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg" alt="Commercial van wrap" fill className="object-cover" />
+            <Image src="/services/wraps/detail.jpg" alt="Commercial van wrap" fill className="object-cover" />
           </div>
           <div className="lg:col-span-3 relative min-h-[260px] border border-white/10">
             <Image src="/portfolio/1rm3tXwgq4UXDLR8T-d_iCF64Z42UjyfL.jpg" alt="Car wrap detail" fill className="object-cover" />

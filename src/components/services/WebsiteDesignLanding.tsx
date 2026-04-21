@@ -39,7 +39,7 @@ export default function WebsiteDesignLanding({ content }: { content: PageContent
       <Navbar />
 
       <section className="relative pt-36 pb-16 overflow-hidden border-b border-white/10">
-        <Image src={content.hero.image} alt="Website design workspace" fill className="object-cover" priority />
+        <Image src="/services/web/hero.jpg" alt="Website design workspace" fill className="object-cover" priority />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_18%,rgba(179,32,37,0.34),transparent_36%),linear-gradient(120deg,rgba(3,24,39,0.96)_18%,rgba(9,47,77,0.88)_56%,rgba(3,24,39,0.94)_100%)]" />
         <div className="absolute left-0 right-0 bottom-0 h-2 bg-[linear-gradient(90deg,#b32025_0%,#ffffff_45%,#285493_100%)]" />
 
@@ -77,10 +77,33 @@ export default function WebsiteDesignLanding({ content }: { content: PageContent
         </div>
       </section>
 
+      {content.includes && (
+        <section className="py-20 bg-[#031827] relative overflow-hidden">
+          <div className="absolute -left-20 top-10 w-56 h-56 rounded-full border border-[#b32025]/25" />
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-8">
+              <p className="text-[#ff6f73] text-xs uppercase tracking-[0.3em] font-bold mb-3">{content.includes.sectionLabel ?? "What We Build"}</p>
+              <h3 className="uppercase text-3xl" style={{ fontFamily: "'Apotek Extended', sans-serif" }}>{content.includes.heading}</h3>
+              <p className="mt-5 text-white/80 leading-relaxed">
+                {content.hero.description} {content.infoBox?.text ?? "Each page is crafted for intent, speed, and measurable lead behavior so your site works as a sales engine."}
+              </p>
+            </div>
+            <div className="lg:col-span-4 space-y-3">
+              {content.includes.items.map((item, idx) => (
+                <div key={item} className="border border-white/10 bg-[#092f4d]/45 p-4">
+                  <p className="text-[#ff6f73] text-xs">0{idx + 1}</p>
+                  <p className="mt-1 text-sm font-semibold">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <section className="py-20 bg-[#031827]">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-12 gap-5">
           <div className="lg:col-span-8 relative min-h-[380px] border border-white/10">
-            <Image src="/portfolio/1GfEFSzGyfuOnG0k7B3zfNiyQ9ocKGgtm.jpg" alt="Website project preview" fill className="object-cover" />
+            <Image src="/services/web/detail.jpg" alt="Website project preview" fill className="object-cover" />
           </div>
           <div className="lg:col-span-4 grid gap-5">
             <div className="relative min-h-[180px] border border-white/10">
