@@ -15,14 +15,16 @@ import {
   SplitCollage,
 } from "@/components/services/ServiceDesignPrimitives";
 
-const PROMO_IMAGES = [
-  { src: "/services/promo/hero.jpg", alt: "Promotional product hero" },
-  { src: "/services/promo/detail.jpg", alt: "Merchandise detail" },
-  { src: "/services/promo/scene-1.jpg", alt: "Product mockup scene" },
-  { src: "/services/promo/scene-2.jpg", alt: "Apparel branding scene" },
-];
-
 export default function PromotionalProductsLanding({ content }: { content: PageContent }) {
+  const scene1 = content.gallery?.scene1 ?? "/services/promo/scene-1.jpg";
+  const scene2 = content.gallery?.scene2 ?? "/services/promo/scene-2.jpg";
+  const feature = content.featuredImage ?? "/services/promo/detail.jpg";
+  const promoImages = [
+    { src: content.hero.image, alt: "Promotional product hero" },
+    { src: feature, alt: "Merchandise detail" },
+    { src: scene1, alt: "Product mockup scene" },
+    { src: scene2, alt: "Apparel branding scene" },
+  ];
   return (
     <div className="min-h-screen bg-[#061521] text-white overflow-x-hidden">
       <Navbar />
@@ -51,19 +53,19 @@ export default function PromotionalProductsLanding({ content }: { content: PageC
 
           <div className="lg:col-span-6 relative min-h-[500px]">
             <div className="absolute left-[6%] top-0 w-[68%] h-[58%] overflow-hidden border border-white/12 [clip-path:polygon(0_0,100%_0,88%_100%,0_100%)] shadow-2xl shadow-black/30">
-              <Image src="/services/promo/hero.jpg" alt="Promo product hero" fill className="object-cover" priority />
+              <Image src={content.hero.image} alt="Promo product hero" fill className="object-cover" priority />
             </div>
             <div className="absolute right-0 top-[14%] w-[42%] h-[32%] overflow-hidden border border-white/12 rotate-[6deg] [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]">
-              <Image src="/services/promo/scene-1.jpg" alt="Mockup scene" fill className="object-cover" />
+              <Image src={scene1} alt="Mockup scene" fill className="object-cover" />
             </div>
             <div className="absolute left-[18%] bottom-0 w-[70%] h-[36%] overflow-hidden border border-white/12 rotate-[-5deg] [clip-path:polygon(0_0,100%_0,92%_100%,6%_100%)]">
-              <Image src="/services/promo/scene-2.jpg" alt="Apparel brand scene" fill className="object-cover" />
+              <Image src={scene2} alt="Apparel brand scene" fill className="object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      <MarqueeGallery images={PROMO_IMAGES} />
+      <MarqueeGallery images={promoImages} />
 
       <section className="relative py-20 bg-[#061e31] overflow-hidden">
         <div className="absolute inset-y-0 left-0 w-[30%] bg-[#092f4d] [clip-path:polygon(0_0,100%_0,84%_100%,0_100%)]" />
@@ -85,9 +87,9 @@ export default function PromotionalProductsLanding({ content }: { content: PageC
       <section className="py-20 bg-[#061521]">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <SplitCollage
-            large="/services/promo/detail.jpg"
-            top="/services/promo/scene-1.jpg"
-            bottom="/services/promo/scene-2.jpg"
+            large={feature}
+            top={scene1}
+            bottom={scene2}
             largeAlt="Branded products showcase"
             topAlt="Promo mockup"
             bottomAlt="Apparel branding"

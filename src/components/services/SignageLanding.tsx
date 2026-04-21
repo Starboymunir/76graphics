@@ -15,14 +15,16 @@ import {
   SplitCollage,
 } from "@/components/services/ServiceDesignPrimitives";
 
-const SIGNAGE_IMAGES = [
-  { src: "/services/signage/hero.jpg", alt: "Signage hero" },
-  { src: "/services/signage/detail.jpg", alt: "Storefront signage detail" },
-  { src: "/services/signage/scene-1.jpg", alt: "Illuminated sign scene" },
-  { src: "/services/signage/scene-2.jpg", alt: "Urban signage scene" },
-];
-
 export default function SignageLanding({ content }: { content: PageContent }) {
+  const scene1 = content.gallery?.scene1 ?? "/services/signage/scene-1.jpg";
+  const scene2 = content.gallery?.scene2 ?? "/services/signage/scene-2.jpg";
+  const feature = content.featuredImage ?? "/services/signage/detail.jpg";
+  const signageImages = [
+    { src: content.hero.image, alt: "Signage hero" },
+    { src: feature, alt: "Storefront signage detail" },
+    { src: scene1, alt: "Illuminated sign scene" },
+    { src: scene2, alt: "Urban signage scene" },
+  ];
   return (
     <div className="min-h-screen bg-[#071b2a] text-white overflow-x-hidden">
       <Navbar />
@@ -51,19 +53,19 @@ export default function SignageLanding({ content }: { content: PageContent }) {
 
           <div className="lg:col-span-6 relative min-h-[500px]">
             <div className="absolute left-[4%] top-0 w-[64%] h-[58%] overflow-hidden border border-white/12 [clip-path:polygon(0_0,100%_0,90%_100%,0_100%)] shadow-2xl shadow-black/30">
-              <Image src="/services/signage/hero.jpg" alt="Signage hero" fill className="object-cover" priority />
+              <Image src={content.hero.image} alt="Signage hero" fill className="object-cover" priority />
             </div>
             <div className="absolute right-0 top-[12%] w-[40%] h-[30%] overflow-hidden border border-white/12 rotate-[7deg] [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]">
-              <Image src="/services/signage/scene-1.jpg" alt="Neon sign" fill className="object-cover" />
+              <Image src={scene1} alt="Neon sign" fill className="object-cover" />
             </div>
             <div className="absolute left-[14%] bottom-0 w-[74%] h-[36%] overflow-hidden border border-white/12 rotate-[-5deg] [clip-path:polygon(0_0,100%_0,92%_100%,4%_100%)]">
-              <Image src="/services/signage/scene-2.jpg" alt="Street signage" fill className="object-cover" />
+              <Image src={scene2} alt="Street signage" fill className="object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      <MarqueeGallery images={SIGNAGE_IMAGES} />
+      <MarqueeGallery images={signageImages} />
 
       <section className="relative py-20 bg-[#061e31] overflow-hidden">
         <div className="absolute inset-y-0 right-0 w-[28%] bg-[#092f4d] [clip-path:polygon(22%_0,100%_0,100%_100%,0_100%)]" />
@@ -85,9 +87,9 @@ export default function SignageLanding({ content }: { content: PageContent }) {
       <section className="py-20 bg-[#071b2a]">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <SplitCollage
-            large="/services/signage/detail.jpg"
-            top="/services/signage/scene-1.jpg"
-            bottom="/services/signage/scene-2.jpg"
+            large={feature}
+            top={scene1}
+            bottom={scene2}
             largeAlt="Storefront sign"
             topAlt="Illuminated sign"
             bottomAlt="Street sign perspective"

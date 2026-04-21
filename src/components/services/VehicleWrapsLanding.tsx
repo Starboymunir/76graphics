@@ -15,14 +15,16 @@ import {
   SplitCollage,
 } from "@/components/services/ServiceDesignPrimitives";
 
-const WRAP_IMAGES = [
-  { src: "/services/wraps/hero.jpg", alt: "Wrapped vehicle hero" },
-  { src: "/services/wraps/detail.jpg", alt: "Fleet wrap detail" },
-  { src: "/services/wraps/scene-1.jpg", alt: "Performance car wrap" },
-  { src: "/services/wraps/scene-2.jpg", alt: "Commercial vehicle on road" },
-];
-
 export default function VehicleWrapsLanding({ content }: { content: PageContent }) {
+  const scene1 = content.gallery?.scene1 ?? "/services/wraps/scene-1.jpg";
+  const scene2 = content.gallery?.scene2 ?? "/services/wraps/scene-2.jpg";
+  const feature = content.featuredImage ?? "/services/wraps/detail.jpg";
+  const wrapImages = [
+    { src: content.hero.image, alt: "Wrapped vehicle hero" },
+    { src: feature, alt: "Fleet wrap detail" },
+    { src: scene1, alt: "Performance car wrap" },
+    { src: scene2, alt: "Commercial vehicle on road" },
+  ];
   return (
     <div className="min-h-screen bg-[#041a2b] text-white overflow-x-hidden">
       <Navbar />
@@ -51,13 +53,13 @@ export default function VehicleWrapsLanding({ content }: { content: PageContent 
 
           <div className="lg:col-span-6 relative min-h-[500px]">
             <div className="absolute left-0 top-8 w-[72%] h-[56%] overflow-hidden border border-white/12 [clip-path:polygon(0_0,100%_0,86%_100%,0_100%)] shadow-2xl shadow-black/30">
-              <Image src="/services/wraps/hero.jpg" alt="Vehicle wrap hero" fill className="object-cover" priority />
+              <Image src={content.hero.image} alt="Vehicle wrap hero" fill className="object-cover" priority />
             </div>
             <div className="absolute right-0 top-0 w-[42%] h-[34%] overflow-hidden border border-white/12 rotate-[6deg] [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]">
-              <Image src="/services/wraps/scene-1.jpg" alt="Wrap detail scene" fill className="object-cover" />
+              <Image src={scene1} alt="Wrap detail scene" fill className="object-cover" />
             </div>
             <div className="absolute right-[6%] bottom-0 w-[70%] h-[38%] overflow-hidden border border-white/12 rotate-[-4deg] [clip-path:polygon(0_0,100%_0,92%_100%,8%_100%)]">
-              <Image src="/services/wraps/scene-2.jpg" alt="Commercial fleet scene" fill className="object-cover" />
+              <Image src={scene2} alt="Commercial fleet scene" fill className="object-cover" />
             </div>
             <div className="absolute left-[8%] bottom-[12%] border border-[#ff6f73]/30 bg-[#061e31]/92 px-5 py-4 max-w-[220px] backdrop-blur-sm">
               <p className="text-[#ff6f73] text-xs uppercase tracking-[0.22em] font-bold">Road-Level Readability</p>
@@ -67,7 +69,7 @@ export default function VehicleWrapsLanding({ content }: { content: PageContent 
         </div>
       </section>
 
-      <MarqueeGallery images={WRAP_IMAGES} />
+      <MarqueeGallery images={wrapImages} />
 
       <section className="relative py-20 bg-[#061e31] overflow-hidden">
         <div className="absolute inset-y-0 left-0 w-[34%] bg-[#092f4d] [clip-path:polygon(0_0,100%_0,82%_100%,0_100%)]" />
@@ -90,9 +92,9 @@ export default function VehicleWrapsLanding({ content }: { content: PageContent 
       <section className="py-20 bg-[#041a2b]">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <SplitCollage
-            large="/services/wraps/detail.jpg"
-            top="/services/wraps/scene-1.jpg"
-            bottom="/services/wraps/scene-2.jpg"
+            large={feature}
+            top={scene1}
+            bottom={scene2}
             largeAlt="Fleet wrap project"
             topAlt="Sport wrap angle"
             bottomAlt="Commercial wrap in motion"

@@ -15,14 +15,16 @@ import {
   SplitCollage,
 } from "@/components/services/ServiceDesignPrimitives";
 
-const ENV_IMAGES = [
-  { src: "/services/environmental/hero.jpg", alt: "Branded interior hero" },
-  { src: "/services/environmental/detail.jpg", alt: "Environmental detail" },
-  { src: "/services/environmental/scene-1.jpg", alt: "Interior branding concept" },
-  { src: "/services/environmental/scene-2.jpg", alt: "Modern workspace scene" },
-];
-
 export default function EnvironmentalGraphicsLanding({ content }: { content: PageContent }) {
+  const scene1 = content.gallery?.scene1 ?? "/services/environmental/scene-1.jpg";
+  const scene2 = content.gallery?.scene2 ?? "/services/environmental/scene-2.jpg";
+  const feature = content.featuredImage ?? "/services/environmental/detail.jpg";
+  const envImages = [
+    { src: content.hero.image, alt: "Branded interior hero" },
+    { src: feature, alt: "Environmental detail" },
+    { src: scene1, alt: "Interior branding concept" },
+    { src: scene2, alt: "Modern workspace scene" },
+  ];
   return (
     <div className="min-h-screen bg-[#041724] text-white overflow-x-hidden">
       <Navbar />
@@ -51,19 +53,19 @@ export default function EnvironmentalGraphicsLanding({ content }: { content: Pag
 
           <div className="lg:col-span-6 relative min-h-[500px]">
             <div className="absolute left-[6%] top-0 w-[66%] h-[60%] overflow-hidden border border-white/12 [clip-path:polygon(0_0,100%_0,88%_100%,0_100%)] shadow-2xl shadow-black/30">
-              <Image src="/services/environmental/hero.jpg" alt="Interior branding hero" fill className="object-cover" priority />
+              <Image src={content.hero.image} alt="Interior branding hero" fill className="object-cover" priority />
             </div>
             <div className="absolute right-0 top-[18%] w-[42%] h-[30%] overflow-hidden border border-white/12 rotate-[6deg] [clip-path:polygon(10%_0,100%_0,100%_100%,0_100%)]">
-              <Image src="/services/environmental/scene-1.jpg" alt="Interior scene" fill className="object-cover" />
+              <Image src={scene1} alt="Interior scene" fill className="object-cover" />
             </div>
             <div className="absolute left-[18%] bottom-0 w-[68%] h-[34%] overflow-hidden border border-white/12 rotate-[-4deg] [clip-path:polygon(0_0,100%_0,92%_100%,6%_100%)]">
-              <Image src="/services/environmental/scene-2.jpg" alt="Workspace experience" fill className="object-cover" />
+              <Image src={scene2} alt="Workspace experience" fill className="object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      <MarqueeGallery images={ENV_IMAGES} />
+      <MarqueeGallery images={envImages} />
 
       <section className="relative py-20 bg-[#061e31] overflow-hidden">
         <div className="absolute inset-x-0 top-0 h-24 bg-[#092f4d] [clip-path:polygon(0_0,100%_0,92%_100%,0_78%)]" />
@@ -85,9 +87,9 @@ export default function EnvironmentalGraphicsLanding({ content }: { content: Pag
       <section className="py-20 bg-[#041724]">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <SplitCollage
-            large="/services/environmental/detail.jpg"
-            top="/services/environmental/scene-1.jpg"
-            bottom="/services/environmental/scene-2.jpg"
+            large={feature}
+            top={scene1}
+            bottom={scene2}
             largeAlt="Branded interior wall"
             topAlt="Space concept"
             bottomAlt="Workspace atmosphere"

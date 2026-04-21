@@ -85,7 +85,7 @@
   },
   "branding-services": {
     "hero": {
-      "image": "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
+      "image": "/services/branding/hero.jpg",
       "tag": "Branding Services",
       "headline1": "Professional Branding for",
       "headline2": "Businesses That Want to Stand Out",
@@ -112,7 +112,11 @@
       "text": "We don't just design logos — we build the complete visual identity system that runs across every touchpoint of your business.",
       "author": "76 Graphics"
     },
-    "featuredImage": "/portfolio/1Lo0BNjDkVwoIUCzp4_t_wkJh6-aa2HLp.jpg",
+    "gallery": {
+      "scene1": "/services/branding/scene-1.jpg",
+      "scene2": "/services/branding/scene-2.jpg"
+    },
+    "featuredImage": "/services/branding/detail.jpg",
     "cta": {
       "headline": "Ready to Build Your Brand?",
       "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
@@ -125,7 +129,7 @@
   },
   "website-design": {
     "hero": {
-      "image": "/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg",
+      "image": "/services/web/hero.jpg",
       "tag": "Website Design",
       "headline1": "Custom Website Design That",
       "headline2": "Converts Visitors Into Customers",
@@ -152,7 +156,11 @@
       "text": "A professional website is your 24/7 salesperson. We make sure it actually converts, not just looks good.",
       "author": "76 Graphics"
     },
-    "featuredImage": "/portfolio/1GfEFSzGyfuOnG0k7B3zfNiyQ9ocKGgtm.jpg",
+    "gallery": {
+      "scene1": "/services/web/scene-1.jpg",
+      "scene2": "/services/web/scene-2.jpg"
+    },
+    "featuredImage": "/services/web/detail.jpg",
     "cta": {
       "headline": "Ready to Build Your Website?",
       "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
@@ -165,7 +173,7 @@
   },
   "vehicle-wraps": {
     "hero": {
-      "image": "/portfolio/1jKD6IVrv5vvQY4U0yCy_CmbJCL9URqT4.jpg",
+      "image": "/services/wraps/hero.jpg",
       "tag": "Vehicle Wraps",
       "headline1": "Custom Vehicle Wraps That Turn",
       "headline2": "Your Car Into a Moving Billboard",
@@ -192,7 +200,11 @@
       "title": "3M-Certified Installation",
       "text": "Our certified installers use premium 3M vinyl to ensure a perfect finish that lasts years without peeling, fading, or bubbling. We stand behind every installation we do."
     },
-    "featuredImage": "/portfolio/1rm3tXwgq4UXDLR8T-d_iCF64Z42UjyfL.jpg",
+    "gallery": {
+      "scene1": "/services/wraps/scene-1.jpg",
+      "scene2": "/services/wraps/scene-2.jpg"
+    },
+    "featuredImage": "/services/wraps/detail.jpg",
     "cta": {
       "headline": "Ready to Wrap Your Vehicle?",
       "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
@@ -205,7 +217,7 @@
   },
   "signage": {
     "hero": {
-      "image": "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
+      "image": "/services/signage/hero.jpg",
       "tag": "Signage & Graphics",
       "headline1": "Custom Business Signage That",
       "headline2": "Gets You Noticed",
@@ -232,7 +244,11 @@
       "text": "Great signage doesn't just identify your location — it sells your brand before a customer ever walks in.",
       "author": "76 Graphics"
     },
-    "featuredImage": "/portfolio/1nus0QfhQQWxSsZukZDFM80Beyy8rM_J7.jpg",
+    "gallery": {
+      "scene1": "/services/signage/scene-1.jpg",
+      "scene2": "/services/signage/scene-2.jpg"
+    },
+    "featuredImage": "/services/signage/detail.jpg",
     "cta": {
       "headline": "Need Signage for Your Business?",
       "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
@@ -245,7 +261,7 @@
   },
   "environmental-graphics": {
     "hero": {
-      "image": "/portfolio/1iOPICYZ38nQcQXetyU8VMYWCt-o-niBK.jpg",
+      "image": "/services/environmental/hero.jpg",
       "tag": "Environmental Graphics",
       "headline1": "Wall Wraps & Graphics That",
       "headline2": "Transform Your Space",
@@ -278,7 +294,11 @@
       "Gyms & Studios",
       "Restaurants & Cafés"
     ],
-    "featuredImage": "/portfolio/1cgRLqh19GkO98P8It8aKdFYde_S5XPY9.jpg",
+    "gallery": {
+      "scene1": "/services/environmental/scene-1.jpg",
+      "scene2": "/services/environmental/scene-2.jpg"
+    },
+    "featuredImage": "/services/environmental/detail.jpg",
     "cta": {
       "headline": "Ready to Transform Your Space?",
       "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",
@@ -291,7 +311,7 @@
   },
   "promotional-products": {
     "hero": {
-      "image": "/portfolio/1YCPEuFx9FFkt3HnM_vkZMTT19VhMXldz.jpg",
+      "image": "/services/promo/hero.jpg",
       "tag": "Promotional Products",
       "headline1": "Custom Products That Keep",
       "headline2": "Your Brand in People's Hands",
@@ -318,7 +338,11 @@
       "text": "Promotional products are the only advertising medium that makes the recipient say 'thank you.'",
       "author": "76 Graphics"
     },
-    "featuredImage": "/portfolio/1mYmAQKoUtRrqqHxilOnmLZv4ivEaFXD0.jpg",
+    "gallery": {
+      "scene1": "/services/promo/scene-1.jpg",
+      "scene2": "/services/promo/scene-2.jpg"
+    },
+    "featuredImage": "/services/promo/detail.jpg",
     "cta": {
       "headline": "Ready to Create Your Merch?",
       "description": "Most quotes are delivered within 24 hours. No obligation. No pressure.",

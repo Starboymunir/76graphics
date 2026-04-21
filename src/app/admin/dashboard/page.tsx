@@ -625,6 +625,27 @@ export default function AdminDashboard() {
                         />
                       )}
                     </div>
+                    {activePage !== "homepage" && (
+                      <>
+                        <p className="text-white/40 text-xs uppercase tracking-wider mt-4 mb-2">
+                          Service Gallery Images
+                        </p>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <ImageSlot
+                            label="Gallery Scene 1"
+                            src={content.gallery?.scene1}
+                            onUpload={(f) => handleSlotUpload("gallery.scene1", f)}
+                            uploading={uploadingSlot === "gallery.scene1"}
+                          />
+                          <ImageSlot
+                            label="Gallery Scene 2"
+                            src={content.gallery?.scene2}
+                            onUpload={(f) => handleSlotUpload("gallery.scene2", f)}
+                            uploading={uploadingSlot === "gallery.scene2"}
+                          />
+                        </div>
+                      </>
+                    )}
                     {activePage === "homepage" && content.services && (
                       <>
                         <p className="text-white/40 text-xs uppercase tracking-wider mt-4 mb-2">

@@ -16,14 +16,16 @@ import {
   SplitCollage,
 } from "@/components/services/ServiceDesignPrimitives";
 
-const BRAND_IMAGES = [
-  { src: "/services/branding/hero.jpg", alt: "Brand identity workshop" },
-  { src: "/services/branding/detail.jpg", alt: "Logo concept detail" },
-  { src: "/services/branding/scene-1.jpg", alt: "Creative direction moodboard" },
-  { src: "/services/branding/scene-2.jpg", alt: "Brand system presentation" },
-];
-
 export default function BrandingLanding({ content }: { content: PageContent }) {
+  const scene1 = content.gallery?.scene1 ?? "/services/branding/scene-1.jpg";
+  const scene2 = content.gallery?.scene2 ?? "/services/branding/scene-2.jpg";
+  const feature = content.featuredImage ?? "/services/branding/detail.jpg";
+  const brandImages = [
+    { src: content.hero.image, alt: "Brand identity workshop" },
+    { src: feature, alt: "Logo concept detail" },
+    { src: scene1, alt: "Creative direction moodboard" },
+    { src: scene2, alt: "Brand system presentation" },
+  ];
   return (
     <div className="min-h-screen bg-[#051522] text-white overflow-x-hidden">
       <Navbar />
@@ -58,13 +60,13 @@ export default function BrandingLanding({ content }: { content: PageContent }) {
 
           <div className="lg:col-span-5 relative min-h-[460px]">
             <div className="absolute left-0 top-0 w-[72%] h-[58%] [clip-path:polygon(0_0,100%_0,85%_100%,0_100%)] overflow-hidden border border-white/12 shadow-2xl shadow-black/30">
-              <Image src="/services/branding/hero.jpg" alt="Brand strategy scene" fill className="object-cover" priority />
+              <Image src={content.hero.image} alt="Brand strategy scene" fill className="object-cover" priority />
             </div>
             <div className="absolute right-0 top-[18%] w-[52%] h-[34%] [clip-path:polygon(12%_0,100%_0,100%_100%,0_100%)] overflow-hidden border border-white/12 rotate-[-6deg]">
-              <Image src="/services/branding/scene-1.jpg" alt="Creative sketching" fill className="object-cover" />
+              <Image src={scene1} alt="Creative sketching" fill className="object-cover" />
             </div>
             <div className="absolute left-[12%] bottom-0 w-[76%] h-[38%] [clip-path:polygon(0_0,100%_0,92%_100%,8%_100%)] overflow-hidden border border-white/12 rotate-[4deg]">
-              <Image src="/services/branding/scene-2.jpg" alt="Identity presentation" fill className="object-cover" />
+              <Image src={scene2} alt="Identity presentation" fill className="object-cover" />
             </div>
             <div className="absolute right-[8%] bottom-[14%] bg-[#061e31]/90 border border-[#ff6f73]/30 px-5 py-4 max-w-[220px] backdrop-blur-sm">
               <p className="text-[#ff6f73] text-xs uppercase tracking-[0.24em] font-bold">System Thinking</p>
@@ -94,9 +96,9 @@ export default function BrandingLanding({ content }: { content: PageContent }) {
       <section className="py-20 bg-[#051522]">
         <div className="mx-auto max-w-7xl px-6 lg:px-12">
           <SplitCollage
-            large="/services/branding/detail.jpg"
-            top="/services/branding/scene-1.jpg"
-            bottom="/services/branding/scene-2.jpg"
+            large={feature}
+            top={scene1}
+            bottom={scene2}
             largeAlt="Brand identity deck"
             topAlt="Logo concept fragments"
             bottomAlt="Brand system review"
@@ -118,7 +120,7 @@ export default function BrandingLanding({ content }: { content: PageContent }) {
         </div>
       </section>
 
-      <MarqueeGallery images={BRAND_IMAGES} />
+      <MarqueeGallery images={brandImages} />
 
       <section className="py-20 bg-[#092f4d]">
         <div className="mx-auto max-w-6xl px-6 lg:px-12">

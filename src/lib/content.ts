@@ -18,6 +18,10 @@ export interface HeroContent {
 
 export interface PageContent {
   hero: HeroContent;
+  gallery?: {
+    scene1?: string;
+    scene2?: string;
+  };
   includes?: {
     sectionLabel?: string;
     heading: string;
