@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description:
     "76 Graphics delivers premium large format graphics solutions — vehicle wraps, architectural graphics, brand activations, and more. Request a quote today.",
   keywords: "vehicle wraps, large format printing, architectural graphics, brand activation, 76 Graphics",
+  icons: {
+    icon: "/logos/76Graphics_BrandMark-FullColor.svg",
+    shortcut: "/logos/76Graphics_BrandMark-FullColor.svg",
+    apple: "/logos/76Graphics_BrandMark-FullColor.svg",
+  },
   openGraph: {
     title: "76 Graphics | Large Format Graphics Solutions",
     description: "Premium large format graphics for vehicles, buildings, events, and brands.",
