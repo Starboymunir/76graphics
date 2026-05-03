@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -25,7 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full scroll-smooth">
-      <body className="min-h-full flex flex-col antialiased">{children}</body>
+      <body className="min-h-full flex flex-col antialiased">
+        {children}
+        {/* HubSpot tracking — drops the hutk cookie so form submissions pass spam filtering */}
+        <Script
+          id="hs-script-loader"
+          src="//js-na2.hs-scripts.com/242669442.js"
+          strategy="afterInteractive"
+        />
+      </body>
     </html>
   );
 }
