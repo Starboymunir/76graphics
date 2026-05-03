@@ -4,7 +4,7 @@ import TrustStrip from "@/components/TrustStrip";
 import Services from "@/components/Services";
 import Process from "@/components/Process";
 import Portfolio from "@/components/Portfolio";
-import Packages from "@/components/Packages";
+// import Packages from "@/components/Packages"; // Hidden until client finalizes pricing
 import WhyUs from "@/components/WhyUs";
 import Testimonials from "@/components/Testimonials";
 import CaseStudies from "@/components/CaseStudies";
@@ -22,7 +22,7 @@ export default function Home() {
         <Services />
         <Process />
         <Portfolio />
-        <Packages />
+        {/* <Packages /> — Hidden until client finalizes pricing */}
         <WhyUs />
         <Testimonials />
         <CaseStudies />
