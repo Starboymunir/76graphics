@@ -147,7 +147,10 @@ export default function QuoteForm() {
   }
 
   const totalSteps = 6;
-  const showSkipDetails = step === 3 && form.services.length === 0;
+  const showSkipDetails =
+    step === 3 &&
+    !form.services.includes("Vehicle Wrap") &&
+    !form.services.includes("Website");
 
   return (
     <section id="contact" className="pt-0 pb-28 bg-[#092f4d] relative overflow-hidden brand-stars-bg">
@@ -372,9 +375,29 @@ export default function QuoteForm() {
                     </h3>
 
                     {showSkipDetails && (
-                      <p className="text-white/50 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
-                        No specific details needed — we&apos;ll discuss everything on our call.
-                      </p>
+                      <div className="rounded border border-white/10 bg-white/5 p-6 space-y-3">
+                        <p
+                          className="text-[#b32025] text-xs font-bold tracking-[0.25em] uppercase"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {form.services.length === 0
+                            ? "No services selected"
+                            : "Nothing extra needed for these services"}
+                        </p>
+                        <p
+                          className="text-white/60 text-sm leading-relaxed"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          We&apos;ll cover everything we need on our call. You can tell us
+                          more about your project on the last step.
+                        </p>
+                        <p
+                          className="text-white/40 text-xs"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          Click <span className="text-white">Next</span> to continue.
+                        </p>
+                      </div>
                     )}
 
                     {form.services.includes("Vehicle Wrap") && (
