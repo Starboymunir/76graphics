@@ -5,6 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, CheckCircle2, Phone, Mail, MapPin } from "lucide-react";
 import BrandSwoosh from "@/components/BrandSwoosh";
 import { useRouter } from "next/navigation";
+import {
+  HUBSPOT_QUOTE_FORM_ID,
+  splitName,
+  submitToHubSpot,
+} from "@/lib/hubspot";
 
 type Service = "Branding" | "Website" | "Vehicle Wrap" | "Signage" | "Promotional Products";
 
@@ -112,10 +117,33 @@ export default function QuoteForm() {
   async function submit() {
     if (!validate()) return;
     setSubmitting(true);
-    // Simulate submission — replace with real API call
-    await new Promise((r) => setTimeout(r, 1000));
-    console.log("Quote form submitted:", form);
-    router.push("/thank-you");
+    try {
+      const { firstname, lastname } = splitName(form.name);
+      // HubSpot multi-checkbox properties expect a semicolon-delimited string.
+      const servicesValue = form.services.join(";");
+      await submitToHubSpot(HUBSPOT_QUOTE_FORM_ID, {
+        firstname,
+        lastname,
+        email: form.email,
+        phone: form.phone,
+        services_needed: servicesValue,
+        vehicle_type: form.vehicleType,
+        wrap_type: form.wrapType,
+        website_pages: form.websitePages,
+        has_existing_branding: form.hasExistingBranding,
+        budget_range: form.budget,
+        project_timeline: form.timeline,
+        project_goals: form.goals,
+      });
+      router.push("/thank-you");
+    } catch (err) {
+      console.error("Quote form submission failed:", err);
+      setErrors({
+        submit:
+          "Sorry, we couldn't send your request. Please try again or email hello@76graphics.com directly.",
+      });
+      setSubmitting(false);
+    }
   }
 
   const totalSteps = 6;
@@ -567,6 +595,15 @@ export default function QuoteForm() {
                 </button>
               )}
             </div>
+
+            {errors.submit && (
+              <p
+                className="text-[#ff6b6b] text-xs mt-3 text-center"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                {errors.submit}
+              </p>
+            )}
 
             <p
               className="text-white/20 text-xs mt-4 text-center"

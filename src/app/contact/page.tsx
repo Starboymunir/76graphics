@@ -10,6 +10,11 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import {
+  HUBSPOT_CONTACT_FORM_ID,
+  splitName,
+  submitToHubSpot,
+} from "@/lib/hubspot";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -69,6 +74,7 @@ const CONTACT_INFO = [
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -78,10 +84,26 @@ export default function ContactPage() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
-    await new Promise((r) => setTimeout(r, 1200));
-    console.log("Quote request:", data);
-    setSubmitted(true);
-    reset();
+    setSubmitError(null);
+    try {
+      const { firstname, lastname } = splitName(data.name);
+      await submitToHubSpot(HUBSPOT_CONTACT_FORM_ID, {
+        firstname,
+        lastname,
+        company: data.company ?? "",
+        email: data.email,
+        phone: data.phone,
+        service_interested_in: data.service,
+        message: data.message,
+      });
+      setSubmitted(true);
+      reset();
+    } catch (err) {
+      console.error("Contact form submission failed:", err);
+      setSubmitError(
+        "Sorry, we couldn't send your message. Please try again or email hello@76graphics.com directly."
+      );
+    }
   };
 
   return (
@@ -328,6 +350,14 @@ export default function ContactPage() {
                           </>
                         )}
                       </button>
+                      {submitError && (
+                        <p
+                          className="text-red-400 text-xs text-center"
+                          style={{ fontFamily: "'Inter', sans-serif" }}
+                        >
+                          {submitError}
+                        </p>
+                      )}
                     </form>
                   </>
                 )}
