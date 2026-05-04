@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import Link from "next/link";
 
 export default function FinalCTA() {
@@ -48,20 +48,21 @@ export default function FinalCTA() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Link
-            href="#contact"
+            href="/contact"
             className="group inline-flex items-center gap-3 bg-[#b32025] text-white px-10 py-4 text-sm font-bold tracking-[0.15em] uppercase hover:bg-[#8f1a1e] transition-colors"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             Start Your Project
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
-          <Link
-            href="/contact"
-            className="group inline-flex items-center gap-3 border border-white/20 text-white/60 hover:text-white hover:border-white/50 px-10 py-4 text-sm font-bold tracking-[0.15em] uppercase transition-all"
+          <a
+            href="tel:+18006636007"
+            className="group inline-flex items-center gap-3 border border-white/20 text-white hover:bg-white/5 hover:border-white/50 px-10 py-4 text-sm font-bold tracking-[0.15em] uppercase transition-all"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            Get a Quote
-          </Link>
+            <Phone size={16} className="text-[#b32025]" />
+            Call (800) 663-6007
+          </a>
         </motion.div>
       </div>
     </section>

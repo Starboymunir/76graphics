@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Globe, Camera, Briefcase } from "lucide-react";
+import { Globe, Camera, Briefcase, Phone, Mail, MapPin } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
@@ -37,7 +37,7 @@ export default function Footer() {
 
       {/* Top row */}
       <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-20 pb-14">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Image
@@ -119,6 +119,44 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4
+              className="text-white/40 text-xs font-semibold tracking-[0.25em] uppercase mb-6"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              Contact
+            </h4>
+            <ul className="space-y-4" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <li>
+                <a
+                  href="tel:+18006636007"
+                  className="flex items-start gap-3 text-white/60 hover:text-white text-sm transition-colors duration-200 group"
+                >
+                  <Phone size={14} className="mt-0.5 text-[#b32025] shrink-0" />
+                  <span>(800) 663-6007</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:info@76graphics.com"
+                  className="flex items-start gap-3 text-white/60 hover:text-white text-sm transition-colors duration-200 break-all"
+                >
+                  <Mail size={14} className="mt-0.5 text-[#b32025] shrink-0" />
+                  <span>info@76graphics.com</span>
+                </a>
+              </li>
+              <li className="flex items-start gap-3 text-white/60 text-sm leading-relaxed">
+                <MapPin size={14} className="mt-0.5 text-[#b32025] shrink-0" />
+                <span>
+                  20220 Hempstead Rd Ste 33
+                  <br />
+                  Houston, TX 77065
+                </span>
+              </li>
             </ul>
           </div>
         </div>

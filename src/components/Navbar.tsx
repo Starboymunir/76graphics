@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronRight, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_LINKS = [
@@ -75,6 +75,14 @@ export default function Navbar() {
 
           {/* CTA + Mobile toggle */}
           <div className="flex items-center gap-4">
+            <a
+              href="tel:+18006636007"
+              className="hidden md:inline-flex items-center gap-2 text-white/80 hover:text-white text-xs font-semibold tracking-[0.15em] uppercase transition-colors duration-200"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              <Phone size={14} className="text-[#b32025]" />
+              (800) 663-6007
+            </a>
             <Link
               href="/contact"
               className="hidden sm:inline-flex items-center gap-2 bg-[#b32025] hover:bg-[#8f181c] text-white text-xs font-bold tracking-[0.2em] uppercase px-6 py-3.5 transition-colors duration-200"
@@ -124,6 +132,15 @@ export default function Navbar() {
               >
                 Request a Quote
               </Link>
+              <a
+                href="tel:+18006636007"
+                onClick={() => setMobileOpen(false)}
+                className="mt-2 inline-flex items-center justify-center gap-2 border border-white/20 hover:border-white text-white text-xs font-semibold tracking-[0.2em] uppercase px-6 py-4 transition-colors duration-200 text-center"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                <Phone size={14} className="text-[#b32025]" />
+                (800) 663-6007
+              </a>
             </nav>
           </motion.div>
         )}
