@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ExternalLink, X, ZoomIn } from "lucide-react";
+import { ArrowRight, X, ZoomIn } from "lucide-react";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 type Category = "All" | "Vehicle Wraps" | "Brand Activation" | "Branding" | "Website Design" | "Signage" | "Promotional Products";
@@ -24,15 +24,13 @@ interface DisplayProject {
   category: string;
   tags: string;
   photo: string;
-  summary?: string;
-  url?: string;
   span: string;
 }
 
 // ── Layout spans ──────────────────────────────────────────────────────────
 const SPANS = ["col-span-2 row-span-2", "", "", "col-span-2", "", "", "", "col-span-2", ""];
 
-function toDisplay(item: { id: string; title: string; category: string; tags: string; photo: string; summary?: string; url?: string }, index: number): DisplayProject {
+function toDisplay(item: { id: string; title: string; category: string; tags: string; photo: string }, index: number): DisplayProject {
   return {
     ...item,
     span: SPANS[index % SPANS.length] ?? "",
@@ -47,7 +45,7 @@ export default function Portfolio() {
   useEffect(() => {
     fetch("/api/portfolio")
       .then((r) => (r.ok ? r.json() : []))
-      .then((data: { id: string; title: string; category: string; tags: string; photo: string; summary?: string; url?: string }[]) => {
+      .then((data: { id: string; title: string; category: string; tags: string; photo: string }[]) => {
         if (Array.isArray(data) && data.length > 0) {
           setProjects(data.slice(0, 9).map(toDisplay));
         }
@@ -138,9 +136,19 @@ export default function Portfolio() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[260px]"
         >
           <AnimatePresence>
-            {filtered.map((project) => {
-              const cardInner = (
-                <>
+            {filtered.map((project) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.35 }}
+                className={`group relative overflow-hidden cursor-pointer ${
+                  filtered.length > 4 ? project.span : ""
+                }`}
+                onClick={() => setLightbox(project)}
+              >
                 <Image
                   src={project.photo}
                   alt={project.title}
@@ -162,11 +170,7 @@ export default function Portfolio() {
 
                 <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-8 h-8 bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                    {project.url ? (
-                      <ExternalLink size={14} className="text-white" />
-                    ) : (
-                      <ZoomIn size={14} className="text-white" />
-                    )}
+                    <ZoomIn size={14} className="text-white" />
                   </div>
                 </div>
 
@@ -186,39 +190,8 @@ export default function Portfolio() {
                 </div>
 
                 <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#b32025] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-400 origin-left" />
-                </>
-              );
-              const sharedClass = `group relative overflow-hidden cursor-pointer block ${filtered.length > 4 ? project.span : ""}`;
-              return project.url ? (
-                <motion.a
-                  key={project.id}
-                  href={project.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35 }}
-                  className={sharedClass}
-                >
-                  {cardInner}
-                </motion.a>
-              ) : (
-                <motion.div
-                  key={project.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35 }}
-                  className={sharedClass}
-                  onClick={() => setLightbox(project)}
-                >
-                  {cardInner}
-                </motion.div>
-              );
-            })}
+              </motion.div>
+            ))}
           </AnimatePresence>
         </motion.div>
       </div>
@@ -248,7 +221,7 @@ export default function Portfolio() {
                 sizes="(max-width: 1024px) 100vw, 80vw"
                 unoptimized={lightbox.photo.startsWith("http")}
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-6">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <span
                   className="text-[#b32025] text-xs font-semibold tracking-[0.2em] uppercase block mb-1"
                   style={{ fontFamily: "'Inter', sans-serif" }}
@@ -261,26 +234,6 @@ export default function Portfolio() {
                 >
                   {lightbox.title}
                 </h3>
-                {lightbox.summary && (
-                  <p
-                    className="text-white/75 text-sm mt-3 leading-relaxed max-w-3xl"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {lightbox.summary}
-                  </p>
-                )}
-                {lightbox.url && (
-                  <a
-                    href={lightbox.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 mt-4 bg-[#b32025] hover:bg-[#8f181c] text-white px-5 py-2.5 text-xs font-bold tracking-[0.18em] uppercase transition-colors"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    Visit Live Site
-                    <ExternalLink size={13} />
-                  </a>
-                )}
               </div>
               <button
                 onClick={() => setLightbox(null)}

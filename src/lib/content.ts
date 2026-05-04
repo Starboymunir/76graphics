@@ -46,8 +46,21 @@ export interface PortfolioItem {
   category: string;
   tags: string;
   photo: string;
-  summary?: string;
-  url?: string;
+}
+
+export interface WebsiteProject {
+  id: string;
+  title: string;
+  subtitle: string;
+  url: string;
+  domain: string;
+  stack: string[];
+  services: string[];
+  year: string;
+  photo: string;
+  accent: string;
+  summary: string;
+  highlights: string[];
 }
 
 /* ── Reads ── */
@@ -65,6 +78,11 @@ export function getPageContent(page: string): PageContent | null {
 export function getPortfolio(): PortfolioItem[] {
   const all = getAllContent();
   return (all.portfolio as PortfolioItem[]) ?? [];
+}
+
+export function getWebsitePortfolio(): WebsiteProject[] {
+  const all = getAllContent();
+  return (all.websitePortfolio as WebsiteProject[]) ?? [];
 }
 
 /* ── Writes ── */

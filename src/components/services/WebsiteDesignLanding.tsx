@@ -48,6 +48,13 @@ export default function WebsiteDesignLanding({ content }: { content: PageContent
               {content.cta?.ctaText ?? content.hero.ctaText}
               <ArrowRight size={16} />
             </Link>
+            <Link
+              href="/website-design/portfolio"
+              className="mt-4 ml-0 sm:ml-3 inline-flex items-center gap-3 border border-white/25 hover:border-white text-white px-8 py-4 text-sm font-bold uppercase tracking-[0.14em] transition-colors"
+            >
+              View Live Sites
+              <ArrowRight size={16} />
+            </Link>
           </div>
 
           <div className="lg:col-span-6 relative min-h-[520px]">

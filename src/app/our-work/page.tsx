@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ZoomIn, ExternalLink, X, ArrowRight } from "lucide-react";
+import { ZoomIn, X, ArrowRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -14,8 +14,6 @@ interface Project {
   category: string;
   tags: string;
   photo: string;
-  summary?: string;
-  url?: string;
 }
 
 export default function OurWorkPage() {
@@ -121,9 +119,18 @@ export default function OurWorkPage() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
             >
               <AnimatePresence>
-                {filtered.map((project, index) => {
-                  const cardInner = (
-                    <>
+                {filtered.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4 }}
+                    className={`group relative overflow-hidden cursor-pointer ${isTall(index) ? "row-span-2" : ""}`}
+                    style={{ height: isTall(index) ? "600px" : "300px" }}
+                    onClick={() => setLightbox(project)}
+                  >
                     <Image
                       src={project.photo}
                       alt={project.title}
@@ -133,13 +140,9 @@ export default function OurWorkPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#061e31]/90 via-[#061e31]/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-400" />
 
-                    {/* Zoom / external icon */}
+                    {/* Zoom icon */}
                     <div className="absolute top-4 right-4 w-10 h-10 bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {project.url ? (
-                        <ExternalLink size={16} className="text-white" />
-                      ) : (
-                        <ZoomIn size={16} className="text-white" />
-                      )}
+                      <ZoomIn size={16} className="text-white" />
                     </div>
 
                     {/* Info */}
@@ -160,42 +163,8 @@ export default function OurWorkPage() {
 
                     {/* Red left accent on hover */}
                     <div className="absolute top-0 left-0 w-1 h-full bg-[#b32025] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </>
-                  );
-                  const sharedClass = `group relative overflow-hidden cursor-pointer block ${isTall(index) ? "row-span-2" : ""}`;
-                  const sharedStyle = { height: isTall(index) ? "600px" : "300px" };
-                  return project.url ? (
-                    <motion.a
-                      key={project.id}
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      layout
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.4 }}
-                      className={sharedClass}
-                      style={sharedStyle}
-                    >
-                      {cardInner}
-                    </motion.a>
-                  ) : (
-                    <motion.div
-                      key={project.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      transition={{ duration: 0.4 }}
-                      className={sharedClass}
-                      style={sharedStyle}
-                      onClick={() => setLightbox(project)}
-                    >
-                      {cardInner}
-                    </motion.div>
-                  );
-                })}
+                  </motion.div>
+                ))}
               </AnimatePresence>
             </motion.div>
           </div>
@@ -274,8 +243,8 @@ export default function OurWorkPage() {
                 height={800}
                 className="w-full h-auto max-h-[80vh] object-contain"
               />
-              <div className="mt-4 flex items-start justify-between gap-6">
-                <div className="flex-1">
+              <div className="mt-4 flex items-start justify-between">
+                <div>
                   <h3
                     className="text-white text-xl uppercase"
                     style={{ fontFamily: "'Apotek Extended', sans-serif", fontWeight: 700 }}
@@ -288,29 +257,9 @@ export default function OurWorkPage() {
                   >
                     {lightbox.tags}
                   </p>
-                  {lightbox.summary && (
-                    <p
-                      className="text-white/70 text-sm mt-3 leading-relaxed max-w-3xl"
-                      style={{ fontFamily: "'Inter', sans-serif" }}
-                    >
-                      {lightbox.summary}
-                    </p>
-                  )}
-                  {lightbox.url && (
-                    <a
-                      href={lightbox.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 mt-4 bg-[#b32025] hover:bg-[#8f181c] text-white px-5 py-2.5 text-xs font-bold tracking-[0.18em] uppercase transition-colors"
-                      style={{ fontFamily: "'Inter', sans-serif" }}
-                    >
-                      Visit Live Site
-                      <ExternalLink size={13} />
-                    </a>
-                  )}
                 </div>
                 <span
-                  className="text-[#b32025] text-xs font-semibold tracking-widest uppercase border border-[#b32025]/30 px-3 py-1.5 shrink-0"
+                  className="text-[#b32025] text-xs font-semibold tracking-widest uppercase border border-[#b32025]/30 px-3 py-1.5"
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   {lightbox.category}
