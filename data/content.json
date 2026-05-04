@@ -355,6 +355,34 @@
   },
   "portfolio": [
     {
+      "id": "site-oshiworks",
+      "title": "OshiWorks — VTuber Merch Store",
+      "category": "Website Design",
+      "tags": "oshiworks.com · Next.js · Shopify · custom storefront",
+      "photo": "/portfolio/sites/oshiworks.jpg"
+    },
+    {
+      "id": "site-roofplanet",
+      "title": "The Roof Planet",
+      "category": "Website Design",
+      "tags": "theroofplanet.com · roofing · lead-gen · brand site",
+      "photo": "/portfolio/sites/theroofplanet.jpg"
+    },
+    {
+      "id": "site-xpressskins",
+      "title": "Xpress Skins — Wraps & Signs",
+      "category": "Website Design",
+      "tags": "xpressskins.com · Shopify · vehicle wraps & signage",
+      "photo": "/portfolio/sites/xpressskins.jpg"
+    },
+    {
+      "id": "site-67stickers",
+      "title": "67 Stickers — Custom Print Marketplace",
+      "category": "Website Design",
+      "tags": "67stickers.com · Shopify · marketplace · branding",
+      "photo": "/portfolio/sites/stickers67.jpg"
+    },
+    {
       "id": "1",
       "title": "Commercial Fleet Wrap",
       "category": "Vehicle Wraps",
