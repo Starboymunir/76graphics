@@ -7,8 +7,10 @@ fs.mkdirSync(outDir, { recursive: true });
 
 const sites = [
   { url: "https://oshiworks.com", file: "oshiworks.jpg" },
-  { url: "https://www.theroofplanet.com", file: "theroofplanet.jpg" },
-  { url: "https://www.xpressskins.com", file: "xpressskins.jpg" },
+  // The Roof Planet hero is an auto-rotating slider — capture slide 1 fast.
+  { url: "https://www.theroofplanet.com", file: "theroofplanet.jpg", extraSettle: 1500 },
+  // Vercel preview can fire a client-side redirect; allow more lenient navigation.
+  { url: "https://xpressskins.vercel.app/", file: "xpressskins.jpg", lenient: true },
   { url: "https://www.67stickers.com", file: "stickers67.jpg" },
 ];
 
@@ -33,12 +35,39 @@ for (const s of sites) {
   }
   // Wait for network idle (lazy images / hero videos)
   try {
-    await page.waitForNetworkIdle({ idleTime: 1500, timeout: 30000 });
+    await page.waitForNetworkIdle({ idleTime: s.lenient ? 2500 : 1500, timeout: 45000 });
   } catch {
     /* keep going */
   }
+  // For sites with lazy-loaded hero backgrounds, nudge scroll to trigger them
+  if (s.scrollNudge) {
+    try {
+      await page.evaluate(() => window.scrollTo({ top: 400, behavior: "instant" }));
+      await new Promise((r) => setTimeout(r, 1500));
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+      await new Promise((r) => setTimeout(r, 1500));
+      // Force-load any <img loading="lazy"> still pending
+      await page.evaluate(async () => {
+        const imgs = Array.from(document.images);
+        await Promise.all(
+          imgs.map((img) => {
+            if (img.complete && img.naturalWidth > 0) return null;
+            return new Promise((resolve) => {
+              img.loading = "eager";
+              img.addEventListener("load", resolve, { once: true });
+              img.addEventListener("error", resolve, { once: true });
+              setTimeout(resolve, 4000);
+            });
+          })
+        );
+      });
+    } catch {
+      /* keep going */
+    }
+  }
   // Settle animations / lazy content
-  await new Promise((r) => setTimeout(r, 6000));
+  const settle = s.extraSettle ?? 6000;
+  await new Promise((r) => setTimeout(r, settle));
   const out = path.join(outDir, s.file);
   try {
     await page.screenshot({ path: out, type: "jpeg", quality: 88, fullPage: false });

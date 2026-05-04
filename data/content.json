@@ -479,19 +479,19 @@
     {
       "id": "site-xpressskins",
       "title": "Xpress Skins",
-      "subtitle": "Vehicle Wraps & Signage Shop",
-      "url": "https://www.xpressskins.com",
-      "domain": "xpressskins.com",
-      "stack": ["Shopify", "Liquid", "Custom Theme"],
-      "services": ["Storefront", "Service Catalog", "Quote Pages"],
-      "year": "2023",
+      "subtitle": "Vehicle Wraps & Itasha Specialists",
+      "url": "https://xpressskins.vercel.app/",
+      "domain": "xpressskins.vercel.app",
+      "stack": ["Next.js", "Tailwind CSS", "Framer Motion"],
+      "services": ["Brand Site", "Portfolio System", "Quote Flow"],
+      "year": "2025",
       "photo": "/portfolio/sites/xpressskins.jpg",
       "accent": "#b32025",
-      "summary": "A Shopify storefront for a wraps and signage shop selling both physical materials and installation services. We architected a hybrid product / service catalog, built custom service-quote pages, and tuned the checkout flow to handle mixed shipping and in-shop fulfillment cleanly.",
+      "summary": "A bold, immersive brand site for a Houston-based vehicle wrap and itasha specialist. We built a custom Next.js experience with an animated hero, a portfolio system that showcases past wraps, an active-projects feed, and a guided quote flow that turns enthusiast traffic directly into bookings.",
       "highlights": [
-        "Hybrid product + service catalog on Shopify",
-        "Custom-quote pages for install services",
-        "Portfolio gallery integrated into product navigation"
+        "Custom animated hero with kinetic brand reveal",
+        "Portfolio + active-projects sections to showcase real work",
+        "Guided quote flow tuned for car-enthusiast inquiries"
       ]
     },
     {
