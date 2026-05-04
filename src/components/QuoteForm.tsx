@@ -140,7 +140,7 @@ export default function QuoteForm() {
       console.error("Quote form submission failed:", err);
       setErrors({
         submit:
-          "Sorry, we couldn't send your request. Please try again or email hello@76graphics.com directly.",
+          "Sorry, we couldn't send your request. Please try again or email info@76graphics.com directly.",
       });
       setSubmitting(false);
     }
@@ -648,7 +648,7 @@ export default function QuoteForm() {
 
               <div className="space-y-6">
                 {[
-                  { Icon: Phone, label: "Phone", value: "(832) 876-3150" },
+                  { Icon: Phone, label: "Phone", value: "(800) 663-6007" },
                   { Icon: Mail, label: "Email", value: "info@76graphics.com" },
                   { Icon: MapPin, label: "Location", value: "Houston, TX" },
                 ].map(({ Icon, label, value }) => (

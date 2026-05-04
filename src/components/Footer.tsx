@@ -144,15 +144,20 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} 76 Graphics. All rights reserved.
         </p>
         <div className="flex items-center gap-6">
-          {["Privacy Policy", "Terms of Service"].map((item) => (
-            <button
-              key={item}
-              className="text-white/30 hover:text-white/60 text-xs transition-colors duration-200 cursor-pointer"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              {item}
-            </button>
-          ))}
+          <Link
+            href="/privacy"
+            className="text-white/30 hover:text-white/60 text-xs transition-colors duration-200"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/terms"
+            className="text-white/30 hover:text-white/60 text-xs transition-colors duration-200"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Terms &amp; Conditions
+          </Link>
         </div>
       </div>
       {/* SEO footer text */}

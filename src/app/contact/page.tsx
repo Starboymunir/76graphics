@@ -49,14 +49,14 @@ const CONTACT_INFO = [
   {
     icon: Phone,
     label: "Phone",
-    value: "(555) 076-7600",
-    href: "tel:+15550767600",
+    value: "(800) 663-6007",
+    href: "tel:+18006636007",
   },
   {
     icon: Mail,
     label: "Email",
-    value: "hello@76graphics.com",
-    href: "mailto:hello@76graphics.com",
+    value: "info@76graphics.com",
+    href: "mailto:info@76graphics.com",
   },
   {
     icon: MapPin,
@@ -101,7 +101,7 @@ export default function ContactPage() {
     } catch (err) {
       console.error("Contact form submission failed:", err);
       setSubmitError(
-        "Sorry, we couldn't send your message. Please try again or email hello@76graphics.com directly."
+        "Sorry, we couldn't send your message. Please try again or email info@76graphics.com directly."
       );
     }
   };
