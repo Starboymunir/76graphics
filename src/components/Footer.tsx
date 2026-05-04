@@ -89,6 +89,24 @@ export default function Footer() {
                   </button>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-white/60 hover:text-white text-sm transition-colors duration-200"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-white/60 hover:text-white text-sm transition-colors duration-200"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  Terms &amp; Conditions
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -184,14 +202,15 @@ export default function Footer() {
         <div className="flex items-center gap-6">
           <Link
             href="/privacy"
-            className="text-white/30 hover:text-white/60 text-xs transition-colors duration-200"
+            className="text-white/60 hover:text-white text-xs font-medium transition-colors duration-200"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             Privacy Policy
           </Link>
+          <span className="text-white/20" aria-hidden="true">|</span>
           <Link
             href="/terms"
-            className="text-white/30 hover:text-white/60 text-xs transition-colors duration-200"
+            className="text-white/60 hover:text-white text-xs font-medium transition-colors duration-200"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             Terms &amp; Conditions
