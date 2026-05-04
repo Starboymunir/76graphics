@@ -46,6 +46,8 @@ export interface PortfolioItem {
   category: string;
   tags: string;
   photo: string;
+  summary?: string;
+  url?: string;
 }
 
 /* ── Reads ── */

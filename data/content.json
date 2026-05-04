@@ -359,28 +359,36 @@
       "title": "OshiWorks — VTuber Merch Store",
       "category": "Website Design",
       "tags": "oshiworks.com · Next.js · Shopify · custom storefront",
-      "photo": "/portfolio/sites/oshiworks.jpg"
+      "photo": "/portfolio/sites/oshiworks.jpg",
+      "url": "https://oshiworks.com",
+      "summary": "Full custom storefront for an indie VTuber merch label. We designed a bold, fan-first homepage, integrated a headless Shopify catalog with collection-based navigation, and built a product page system that handles drops, variants, and limited runs. The result is a fast, mobile-first shopping experience that matches the brand's energetic streaming aesthetic."
     },
     {
       "id": "site-roofplanet",
       "title": "The Roof Planet",
       "category": "Website Design",
       "tags": "theroofplanet.com · roofing · lead-gen · brand site",
-      "photo": "/portfolio/sites/theroofplanet.jpg"
+      "photo": "/portfolio/sites/theroofplanet.jpg",
+      "url": "https://www.theroofplanet.com",
+      "summary": "Conversion-focused brand site for a residential and commercial roofing contractor. We rebuilt the visual identity online — clean hero, service cards, project gallery, and trust-signal sections — paired with a streamlined quote-request flow that funnels visitors directly into the sales pipeline."
     },
     {
       "id": "site-xpressskins",
       "title": "Xpress Skins — Wraps & Signs",
       "category": "Website Design",
       "tags": "xpressskins.com · Shopify · vehicle wraps & signage",
-      "photo": "/portfolio/sites/xpressskins.jpg"
+      "photo": "/portfolio/sites/xpressskins.jpg",
+      "url": "https://www.xpressskins.com",
+      "summary": "Shopify storefront for a wraps and signage shop selling both physical materials and installation services. We architected a hybrid product/service catalog, custom service-quote pages, a portfolio of past installs, and a checkout flow optimized for mixed shipping and in-shop fulfillment."
     },
     {
       "id": "site-67stickers",
       "title": "67 Stickers — Custom Print Marketplace",
       "category": "Website Design",
       "tags": "67stickers.com · Shopify · marketplace · branding",
-      "photo": "/portfolio/sites/stickers67.jpg"
+      "photo": "/portfolio/sites/stickers67.jpg",
+      "url": "https://www.67stickers.com",
+      "summary": "Full brand identity and Shopify storefront for a custom sticker print shop. We delivered the logo, color system, and typography, then built the storefront around bulk-pricing tiers, custom-upload product flows, and a lookbook-style gallery — turning a print service into a recognizable consumer brand."
     },
     {
       "id": "1",
