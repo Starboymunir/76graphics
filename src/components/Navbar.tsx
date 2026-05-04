@@ -45,12 +45,12 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
             <Image
-              src="/logos/76Graphics_Primary-White.svg"
+              src="/logos/76Graphics_Secondary-White.svg"
               alt="76 Graphics"
-              width={160}
+              width={260}
               height={48}
               priority
-              className="h-10 w-auto"
+              className="h-8 sm:h-9 w-auto"
             />
           </Link>
 

@@ -650,7 +650,11 @@ export default function QuoteForm() {
                 {[
                   { Icon: Phone, label: "Phone", value: "(800) 663-6007" },
                   { Icon: Mail, label: "Email", value: "info@76graphics.com" },
-                  { Icon: MapPin, label: "Location", value: "Houston, TX" },
+                  {
+                    Icon: MapPin,
+                    label: "Address",
+                    value: "20220 Hempstead Rd Ste 33, Houston, TX 77065",
+                  },
                 ].map(({ Icon, label, value }) => (
                   <div key={label} className="flex items-start gap-4">
                     <div className="w-9 h-9 bg-[#b32025]/10 border border-[#b32025]/25 flex items-center justify-center shrink-0 mt-0.5">
