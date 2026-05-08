@@ -259,11 +259,20 @@ function ProjectPanel({
   // Each panel is "active" between (i)/(total-1) and (i+1)/(total-1)
   const start = index / (total - 1);
   const end = (index + 1) / (total - 1);
+  // Keep all useTransform input keys strictly inside [0,1] AND monotonically
+  // increasing — WAAPI rejects offsets outside [0,1] or non-decreasing
+  // duplicates when fed through framer's accelerator.
+  const span = end - start;
+  const ease = span * 0.3;
+  const inA = start;
+  const inB = start + ease;
+  const outA = end - ease;
+  const outB = end;
 
-  const imageScale = useTransform(progress, [start - 0.1, start, end], [1.15, 1, 1.05]);
-  const imageX = useTransform(progress, [start - 0.1, end + 0.1], [40, -40]);
-  const titleY = useTransform(progress, [start - 0.05, start, end - 0.05, end], [60, 0, 0, -40]);
-  const titleOpacity = useTransform(progress, [start - 0.05, start, end - 0.05, end], [0, 1, 1, 0]);
+  const imageScale = useTransform(progress, [inA, inB, outB], [1.15, 1, 1.05]);
+  const imageX = useTransform(progress, [inA, outB], [40, -40]);
+  const titleY = useTransform(progress, [inA, inB, outA, outB], [60, 0, 0, -40]);
+  const titleOpacity = useTransform(progress, [inA, inB, outA, outB], [0, 1, 1, 0]);
 
   const number = String(index + 2).padStart(2, "0"); // intro is 01, projects start at 02
 
