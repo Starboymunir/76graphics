@@ -54,13 +54,15 @@ export default function PageTransition({ children }: { children: React.ReactNode
             animate={{ y: "101%" }}
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
           />
-          <motion.div
-            className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] origin-center"
-            style={{ background: "linear-gradient(90deg,#b32025,#ffffff,#285493)" }}
-            initial={initial.current ? { scaleX: 0 } : { scaleX: 1 }}
-            animate={{ scaleX: 0 }}
-            transition={{ duration: 0.5 }}
-          />
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px]">
+            <motion.div
+              className="absolute inset-0 origin-center"
+              style={{ background: "linear-gradient(90deg,#b32025,#ffffff,#285493)" }}
+              initial={initial.current ? { scaleX: 0 } : { scaleX: 1 }}
+              animate={{ scaleX: 0 }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
         </motion.div>
       </AnimatePresence>
     </>

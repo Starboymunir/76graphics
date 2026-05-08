@@ -60,17 +60,21 @@ export default function BrandIntro() {
           />
 
           {/* Patriotic stripe — drawn while curtains are closed */}
-          <motion.div
+          <div
             aria-hidden
-            className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[3px] origin-left"
-            style={{
-              background: "linear-gradient(90deg,#b32025 0%,#ffffff 50%,#285493 100%)",
-            }}
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: [0, 1, 1, 0] }}
-            exit={{ scaleX: 0 }}
-            transition={{ duration: 2.8, times: [0, 0.35, 0.85, 1], delay: 0.7 }}
-          />
+            className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[3px]"
+          >
+            <motion.div
+              className="absolute inset-0 origin-left"
+              style={{
+                background: "linear-gradient(90deg,#b32025 0%,#ffffff 50%,#285493 100%)",
+              }}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: [0, 1, 1, 0] }}
+              exit={{ scaleX: 0 }}
+              transition={{ duration: 2.8, times: [0, 0.35, 0.85, 1], delay: 0.7 }}
+            />
+          </div>
 
           {/* CENTER STAGE */}
           <motion.div
