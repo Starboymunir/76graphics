@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate, MotionValue } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 
 interface Project {
   id: string;
@@ -15,15 +15,15 @@ interface Project {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SHOWCASE RAIL — sticky horizontal scroll showcase
-// Replaces the generic bento Featured Work block on the homepage.
-// Big numerals, smash-in titles, drifting bg headline, parallax cards.
+// SHOWCASE — "Index + Spotlight"
+// Magazine-style work index. Every project visible at once on the left, big
+// spotlight image on the right swaps on hover/focus. Reads as a portfolio,
+// shows the count immediately, easy non-linear navigation.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default function ShowcaseRail() {
   const [projects, setProjects] = useState<Project[]>([]);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [active, setActive] = useState(0);
 
   useEffect(() => {
     fetch("/api/portfolio")
@@ -36,162 +36,82 @@ export default function ShowcaseRail() {
       .catch(() => {});
   }, []);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const handler = () => setIsDesktop(mq.matches);
-    handler();
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  // Horizontal track translate. We have N panels + intro panel.
-  // Total panels = projects.length + 1 (intro). On scroll progress 0→1 we move
-  // from 0 to -((panels - 1) * 100vw) — but in % that's -((panels-1)*100)%.
-  const totalPanels = projects.length + 1;
-  const trackEnd = -((totalPanels - 1) * 100);
-  const xPct = useTransform(scrollYProgress, [0, 1], [0, trackEnd]);
-  const x = useSpring(xPct, { stiffness: 90, damping: 24, mass: 0.6 });
-  const trackTransform = useMotionTemplate`translate3d(${x}vw, 0, 0)`;
-
-  // Counter-drifting background headline
-  const bgX = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const bgTransform = useMotionTemplate`translate3d(${bgX}%, -50%, 0)`;
-
-  // Active index (for the (01) — (06) counter)
-  const [activeIdx, setActiveIdx] = useState(0);
-  useEffect(() => {
-    const unsub = scrollYProgress.on("change", (v) => {
-      const idx = Math.min(
-        totalPanels - 1,
-        Math.max(0, Math.round(v * (totalPanels - 1)))
-      );
-      setActiveIdx(idx);
-    });
-    return () => unsub();
-  }, [scrollYProgress, totalPanels]);
-
-  // ── Mobile fallback: simple vertical scroll ──
-  if (!isDesktop || projects.length === 0) {
-    return <MobileFallback projects={projects} />;
+  if (projects.length === 0) {
+    return (
+      <section id="our-work" className="bg-[#061e31] min-h-[60vh]" aria-hidden />
+    );
   }
+
+  const total = projects.length;
+  const current = projects[active] ?? projects[0];
 
   return (
     <section
-      ref={sectionRef}
       id="our-work"
-      className="relative bg-[#061e31]"
-      style={{ height: `${totalPanels * 100}vh` }}
+      className="relative bg-[#061e31] overflow-hidden py-20 lg:py-28"
       aria-label="Featured work"
     >
-      {/* Sticky stage */}
-      <div className="sticky top-0 h-screen w-screen overflow-hidden">
-        {/* Star field tone */}
-        <div className="absolute inset-0 brand-stars-bg opacity-15 pointer-events-none" />
+      {/* Star field tone */}
+      <div className="absolute inset-0 brand-stars-bg opacity-15 pointer-events-none" />
 
-        {/* Drifting background headline */}
-        <motion.div
-          aria-hidden
-          style={{ transform: bgTransform }}
-          className="absolute top-1/2 left-0 whitespace-nowrap select-none pointer-events-none z-0"
+      {/* Drifting background headline */}
+      <div
+        aria-hidden
+        className="absolute top-1/2 left-0 -translate-y-1/2 whitespace-nowrap select-none pointer-events-none z-0"
+      >
+        <span
+          className="uppercase opacity-[0.04] text-white block"
+          style={{
+            fontFamily: "'Apotek Extended', sans-serif",
+            fontWeight: 900,
+            fontSize: "clamp(10rem, 22vw, 22rem)",
+            lineHeight: 0.82,
+            letterSpacing: "-0.02em",
+          }}
         >
-          <span
-            className="uppercase opacity-[0.05] text-white"
-            style={{
-              fontFamily: "'Apotek Extended', sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(14rem, 28vw, 26rem)",
-              lineHeight: 0.82,
-              letterSpacing: "-0.02em",
-            }}
-          >
-            FEATURED · FEATURED · FEATURED · FEATURED
-          </span>
-        </motion.div>
+          PORTFOLIO · PORTFOLIO
+        </span>
+      </div>
 
-        {/* Top bar — section eyebrow + counter */}
-        <div className="absolute top-0 left-0 right-0 z-30 px-8 lg:px-14 pt-8 flex items-end justify-between pointer-events-none">
-          <div className="flex items-center gap-4">
-            <div className="h-px w-10 bg-[#b32025]" />
-            <span
-              className="text-[#b32025] text-[10px] font-bold tracking-[0.4em] uppercase"
+      <div className="relative z-10 max-w-[1500px] mx-auto px-6 lg:px-12">
+        <Header total={total} />
+
+        <div className="mt-12 lg:mt-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Index list */}
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <ul className="border-t border-white/10">
+              {projects.map((p, i) => (
+                <IndexRow
+                  key={p.id}
+                  project={p}
+                  index={i}
+                  total={total}
+                  active={active === i}
+                  onActivate={() => setActive(i)}
+                />
+              ))}
+            </ul>
+
+            <Link
+              href="/our-work"
+              className="group mt-10 inline-flex items-center gap-3 border-2 border-white/80 hover:bg-[#b32025] hover:border-[#b32025] hover:text-white text-white px-7 py-4 text-xs font-bold tracking-[0.25em] uppercase transition-colors"
               style={{ fontFamily: "'Inter', sans-serif" }}
+              data-magnetic
+              data-magnetic-strength="0.3"
+              data-cursor-label="Full Portfolio"
             >
-              Featured Work — Scroll
-            </span>
+              See All Work
+              <ArrowUpRight
+                size={16}
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Link>
           </div>
-          <div className="flex items-baseline gap-3">
-            <motion.span
-              key={activeIdx}
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="text-white tabular-nums"
-              style={{
-                fontFamily: "'Apotek Extended', sans-serif",
-                fontWeight: 900,
-                fontSize: "clamp(2.5rem, 4vw, 4rem)",
-                lineHeight: 1,
-              }}
-            >
-              {String(activeIdx + 1).padStart(2, "0")}
-            </motion.span>
-            <span
-              className="text-white/30 text-sm tracking-[0.2em] uppercase"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              / {String(totalPanels).padStart(2, "0")}
-            </span>
-          </div>
-        </div>
 
-        {/* Horizontal track */}
-        <motion.div
-          style={{ transform: trackTransform }}
-          className="absolute top-0 left-0 h-full flex"
-        >
-          {/* Intro panel */}
-          <IntroPanel />
-          {projects.map((p, i) => (
-            <ProjectPanel
-              key={p.id}
-              project={p}
-              index={i}
-              progress={scrollYProgress}
-              total={totalPanels}
-            />
-          ))}
-        </motion.div>
-
-        {/* Progress bar */}
-        <div className="absolute bottom-0 left-0 right-0 z-30 px-8 lg:px-14 pb-6 flex items-center gap-4 pointer-events-none">
-          <span
-            className="text-white/40 text-[10px] tracking-[0.3em] uppercase"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            Drag · Scroll · Explore
-          </span>
-          <div className="flex-1 h-px bg-white/10 relative overflow-hidden">
-            <motion.div
-              style={{ scaleX: scrollYProgress, transformOrigin: "left" }}
-              className="absolute inset-0 bg-[#b32025]"
-            />
+          {/* Spotlight */}
+          <div className="lg:col-span-6 order-1 lg:order-2 lg:sticky lg:top-28">
+            <Spotlight project={current} index={active} total={total} />
           </div>
-          <Link
-            href="/our-work"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white text-[11px] font-bold tracking-[0.2em] uppercase pointer-events-auto"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-            data-magnetic
-            data-magnetic-strength="0.3"
-            data-cursor-label="Full Portfolio"
-          >
-            All Work
-            <ArrowUpRight size={14} />
-          </Link>
         </div>
       </div>
     </section>
@@ -199,257 +119,245 @@ export default function ShowcaseRail() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// INTRO PANEL
+// HEADER
 // ─────────────────────────────────────────────────────────────────────────────
-function IntroPanel() {
+function Header({ total }: { total: number }) {
   return (
-    <div className="relative w-screen h-screen flex-shrink-0 flex items-center px-8 lg:px-14">
-      <div className="max-w-3xl relative z-10">
-        <motion.h2
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+    <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+      <div>
+        <div className="flex items-center gap-4 mb-5">
+          <div className="h-px w-10 bg-[#b32025]" />
+          <span
+            className="text-[#b32025] text-[10px] font-bold tracking-[0.4em] uppercase"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            Selected Work — {String(total).padStart(2, "0")} Projects
+          </span>
+        </div>
+        <h2
           className="text-white uppercase leading-[0.85]"
           style={{
             fontFamily: "'Apotek Extended', sans-serif",
             fontWeight: 900,
-            fontSize: "clamp(3rem, 8vw, 8rem)",
+            fontSize: "clamp(2.75rem, 7vw, 6.5rem)",
             letterSpacing: "-0.015em",
           }}
         >
-          Real
+          The
           <br />
-          Brands.
-          <br />
-          <span style={{ color: "transparent", WebkitTextStroke: "2px #b32025" }}>
-            Real Loud.
-          </span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-white/55 text-base lg:text-lg mt-8 max-w-md leading-relaxed"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
-          Scroll. We&apos;re showing off — every panel is a real client we shipped
-          for. Wraps, wayfinding, web, the full stack of stand-out.
-        </motion.p>
+          Portfolio.
+        </h2>
       </div>
+      <p
+        className="text-white/55 text-base lg:text-lg max-w-md leading-relaxed"
+        style={{ fontFamily: "'Inter', sans-serif" }}
+      >
+        Real clients we shipped for. Hover any line to preview — click through
+        for the full case study.
+      </p>
     </div>
   );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// PROJECT PANEL
+// INDEX ROW
 // ─────────────────────────────────────────────────────────────────────────────
-function ProjectPanel({
+function IndexRow({
   project,
   index,
-  progress,
+  total,
+  active,
+  onActivate,
+}: {
+  project: Project;
+  index: number;
+  total: number;
+  active: boolean;
+  onActivate: () => void;
+}) {
+  const number = String(index + 1).padStart(2, "0");
+  const totalStr = String(total).padStart(2, "0");
+
+  return (
+    <li className="border-b border-white/10">
+      <Link
+        href="/our-work"
+        onMouseEnter={onActivate}
+        onFocus={onActivate}
+        className="group relative block py-6 lg:py-7"
+        data-cursor="view"
+        data-cursor-label="Open"
+        aria-label={`View ${project.title} case study`}
+      >
+        {/* Red wash on active */}
+        <motion.div
+          aria-hidden
+          className="absolute inset-0 bg-[#b32025] origin-left"
+          initial={false}
+          animate={{ scaleX: active ? 1 : 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        />
+
+        <div className="relative flex items-center gap-5 lg:gap-8 px-3 lg:px-4">
+          {/* Number */}
+          <span
+            className={`tabular-nums tracking-tight transition-colors duration-300 ${
+              active ? "text-white" : "text-white/30"
+            }`}
+            style={{
+              fontFamily: "'Apotek Extended', sans-serif",
+              fontWeight: 900,
+              fontSize: "clamp(1rem, 1.2vw, 1.25rem)",
+            }}
+          >
+            {number}
+            <span className="text-white/20 text-[10px] ml-1">/{totalStr}</span>
+          </span>
+
+          {/* Title */}
+          <div className="flex-1 min-w-0">
+            <h3
+              className={`uppercase leading-[0.95] truncate transition-colors duration-300 ${
+                active ? "text-white" : "text-white/85 group-hover:text-white"
+              }`}
+              style={{
+                fontFamily: "'Apotek Extended', sans-serif",
+                fontWeight: 900,
+                fontSize: "clamp(1.6rem, 3.2vw, 3rem)",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {project.title}
+            </h3>
+            <p
+              className={`text-[11px] mt-2 tracking-[0.25em] uppercase truncate transition-colors duration-300 ${
+                active ? "text-white/80" : "text-white/40"
+              }`}
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              {project.category}
+              <span className="mx-2 opacity-50">·</span>
+              {project.tags}
+            </p>
+          </div>
+
+          {/* Arrow */}
+          <span
+            className={`shrink-0 transition-all duration-300 text-white ${
+              active
+                ? "translate-x-0 opacity-100"
+                : "-translate-x-2 opacity-0"
+            }`}
+            aria-hidden
+          >
+            <ArrowRight size={28} strokeWidth={2.5} />
+          </span>
+        </div>
+      </Link>
+    </li>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SPOTLIGHT
+// ─────────────────────────────────────────────────────────────────────────────
+function Spotlight({
+  project,
+  index,
   total,
 }: {
   project: Project;
   index: number;
-  progress: MotionValue<number>;
   total: number;
 }) {
-  // Each panel is "active" between (i)/(total-1) and (i+1)/(total-1)
-  const start = index / (total - 1);
-  const end = (index + 1) / (total - 1);
-  // Keep all useTransform input keys strictly inside [0,1] AND monotonically
-  // increasing — WAAPI rejects offsets outside [0,1] or non-decreasing
-  // duplicates when fed through framer's accelerator.
-  const span = end - start;
-  const ease = span * 0.3;
-  const inA = start;
-  const inB = start + ease;
-  const outA = end - ease;
-  const outB = end;
-
-  const imageScale = useTransform(progress, [inA, inB, outB], [1.15, 1, 1.05]);
-  const imageX = useTransform(progress, [inA, outB], [40, -40]);
-  const titleY = useTransform(progress, [inA, inB, outA, outB], [60, 0, 0, -40]);
-  const titleOpacity = useTransform(progress, [inA, inB, outA, outB], [0, 1, 1, 0]);
-
-  const number = String(index + 2).padStart(2, "0"); // intro is 01, projects start at 02
+  const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="relative w-screen h-screen flex-shrink-0 flex items-center justify-center px-8 lg:px-14">
-      {/* Layout: massive numeral (left), image card (right) */}
-      <div className="relative w-full h-full flex items-center">
-        {/* Massive numeral backdrop */}
-        <div
-          aria-hidden
-          className="absolute left-0 top-1/2 -translate-y-1/2 select-none pointer-events-none z-0"
+    <div
+      ref={ref}
+      className="relative aspect-[4/5] lg:aspect-[5/6] w-full overflow-hidden"
+    >
+      {/* Image stack with crossfade */}
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={project.id}
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 1.04 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-0"
         >
-          <motion.div style={{ y: titleY }}>
-            <span
-              className="uppercase block leading-none"
+          <Image
+            src={project.photo}
+            alt={project.title}
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            unoptimized={project.photo.startsWith("http")}
+            priority={index === 0}
+          />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Tone gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#061e31] via-[#061e31]/10 to-transparent pointer-events-none" />
+
+      {/* Red corner accents */}
+      <div className="absolute top-0 left-0 w-1 h-20 bg-[#b32025]" />
+      <div className="absolute top-0 left-0 w-20 h-1 bg-[#b32025]" />
+      <div className="absolute bottom-0 right-0 w-1 h-20 bg-[#b32025]" />
+      <div className="absolute bottom-0 right-0 w-20 h-1 bg-[#b32025]" />
+
+      {/* Category pill */}
+      <div className="absolute top-5 left-5 flex items-center gap-3 pointer-events-none">
+        <div className="bg-[#b32025] px-3 py-1.5">
+          <span
+            className="text-white text-[10px] font-bold tracking-[0.3em] uppercase"
+            style={{ fontFamily: "'Inter', sans-serif" }}
+          >
+            {project.category}
+          </span>
+        </div>
+      </div>
+
+      {/* Bottom counter + CTA */}
+      <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4">
+        <div className="overflow-hidden pointer-events-none">
+          <AnimatePresence mode="popLayout">
+            <motion.span
+              key={project.id}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-100%" }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              className="block text-white tabular-nums"
               style={{
                 fontFamily: "'Apotek Extended', sans-serif",
                 fontWeight: 900,
-                fontSize: "clamp(20rem, 38vw, 40rem)",
-                color: "transparent",
-                WebkitTextStroke: "1.5px rgba(179,32,37,0.35)",
-                letterSpacing: "-0.03em",
+                fontSize: "clamp(2rem, 3.5vw, 3.5rem)",
+                lineHeight: 1,
+                letterSpacing: "-0.02em",
               }}
             >
-              {number}
-            </span>
-          </motion.div>
-        </div>
-
-        {/* Image card */}
-        <motion.div
-          style={{ x: imageX }}
-          className="relative ml-auto w-[58%] h-[68vh] z-10"
-          data-cursor="view"
-          data-cursor-label="View"
-        >
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div style={{ scale: imageScale }} className="absolute inset-0">
-              <Image
-                src={project.photo}
-                alt={project.title}
-                fill
-                className="object-cover"
-                sizes="60vw"
-                unoptimized={project.photo.startsWith("http")}
-              />
-            </motion.div>
-            {/* Gradient corner */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#061e31]/70 via-transparent to-transparent" />
-            {/* Red corner accent */}
-            <div className="absolute top-0 left-0 w-1 h-24 bg-[#b32025]" />
-            <div className="absolute top-0 left-0 w-24 h-1 bg-[#b32025]" />
-          </div>
-
-          {/* Bottom info bar */}
-          <motion.div
-            style={{ opacity: titleOpacity }}
-            className="absolute -bottom-px left-0 right-0 bg-[#061e31] border-t border-[#b32025] px-6 py-5 flex items-end justify-between"
-          >
-            <div>
-              <span
-                className="text-[#b32025] text-[10px] font-bold tracking-[0.3em] uppercase block mb-2"
-                style={{ fontFamily: "'Inter', sans-serif" }}
-              >
-                {project.category}
+              {String(index + 1).padStart(2, "0")}
+              <span className="text-white/40 text-base ml-2 align-baseline">
+                / {String(total).padStart(2, "0")}
               </span>
-              <h3
-                className="text-white uppercase leading-none"
-                style={{
-                  fontFamily: "'Apotek Extended', sans-serif",
-                  fontWeight: 900,
-                  fontSize: "clamp(1.5rem, 2.4vw, 2.4rem)",
-                  letterSpacing: "-0.01em",
-                }}
-              >
-                {project.title}
-              </h3>
-              <p
-                className="text-white/40 text-xs mt-2 tracking-wide"
-                style={{ fontFamily: "'Inter', sans-serif" }}
-              >
-                {project.tags}
-              </p>
-            </div>
-            <Link
-              href="/our-work"
-              className="hidden lg:inline-flex items-center gap-2 border border-white/30 hover:border-[#b32025] hover:text-[#b32025] text-white text-[10px] font-bold tracking-[0.2em] uppercase px-4 py-2 transition-colors"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-              data-magnetic
-              data-magnetic-strength="0.25"
-            >
-              Case Study
-              <ArrowRight size={12} />
-            </Link>
-          </motion.div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// MOBILE FALLBACK
-// ─────────────────────────────────────────────────────────────────────────────
-function MobileFallback({ projects }: { projects: Project[] }) {
-  return (
-    <section id="our-work" className="bg-[#061e31] py-20 px-6 relative overflow-hidden">
-      <div className="brand-stars-bg absolute inset-0 opacity-15 pointer-events-none" />
-      <div className="relative z-10 max-w-xl mx-auto">
-        <span
-          className="text-[#b32025] text-[10px] font-bold tracking-[0.35em] uppercase"
-          style={{ fontFamily: "'Inter', sans-serif" }}
-        >
-          Featured Work
-        </span>
-        <h2
-          className="text-white uppercase leading-[0.9] mt-4 mb-10"
-          style={{
-            fontFamily: "'Apotek Extended', sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(2.5rem, 12vw, 4rem)",
-          }}
-        >
-          Real Brands.
-          <br />
-          <span style={{ color: "transparent", WebkitTextStroke: "1.5px #b32025" }}>
-            Real Loud.
-          </span>
-        </h2>
-        <div className="space-y-6">
-          {projects.slice(0, 4).map((p, i) => (
-            <motion.div
-              key={p.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.5, delay: i * 0.05 }}
-              className="relative aspect-[4/5] overflow-hidden"
-            >
-              <Image
-                src={p.photo}
-                alt={p.title}
-                fill
-                className="object-cover"
-                sizes="100vw"
-                unoptimized={p.photo.startsWith("http")}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#061e31] via-[#061e31]/30 to-transparent" />
-              <div className="absolute top-3 left-3 bg-[#b32025] text-white text-[9px] font-bold tracking-[0.2em] uppercase px-2 py-1">
-                {p.category}
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 p-5">
-                <span
-                  className="text-white/50 text-[10px] tracking-[0.3em] uppercase block mb-1"
-                  style={{ fontFamily: "'Inter', sans-serif" }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3
-                  className="text-white uppercase leading-none"
-                  style={{ fontFamily: "'Apotek Extended', sans-serif", fontWeight: 900, fontSize: "1.6rem" }}
-                >
-                  {p.title}
-                </h3>
-              </div>
-            </motion.div>
-          ))}
+            </motion.span>
+          </AnimatePresence>
         </div>
         <Link
           href="/our-work"
-          className="mt-10 inline-flex items-center gap-2 border-2 border-white text-white px-8 py-4 text-xs font-bold tracking-[0.2em] uppercase"
+          className="inline-flex items-center gap-2 bg-white text-[#061e31] hover:bg-[#b32025] hover:text-white px-5 py-3 text-[10px] font-bold tracking-[0.25em] uppercase transition-colors"
           style={{ fontFamily: "'Inter', sans-serif" }}
+          data-magnetic
+          data-magnetic-strength="0.25"
+          data-cursor-label="Case Study"
         >
-          View Full Portfolio
-          <ArrowRight size={14} />
+          Case Study
+          <ArrowRight size={12} />
         </Link>
       </div>
-    </section>
+    </div>
   );
 }
