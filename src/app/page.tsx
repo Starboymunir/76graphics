@@ -11,6 +11,7 @@ import CaseStudies from "@/components/CaseStudies";
 import FinalCTA from "@/components/FinalCTA";
 import QuoteForm from "@/components/QuoteForm";
 import Footer from "@/components/Footer";
+import KineticMarquee from "@/components/KineticMarquee";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <Hero />
         <TrustStrip />
         <Services />
+        <KineticMarquee />
         <Process />
         <Portfolio />
         {/* <Packages /> — Hidden until client finalizes pricing */}

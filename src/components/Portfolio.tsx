@@ -147,6 +147,8 @@ export default function Portfolio() {
                 className={`group relative overflow-hidden cursor-pointer ${
                   filtered.length > 4 ? project.span : ""
                 }`}
+                data-cursor="view"
+                data-cursor-label="View"
                 onClick={() => setLightbox(project)}
               >
                 <Image

@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const NAV_LINKS = [
   { label: "Services", href: "/services" },
   { label: "Our Work", href: "/our-work" },
+  { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about" },
   { label: "Calculator", href: "/#calculator" },
   { label: "Contact", href: "/contact" },
@@ -85,6 +86,11 @@ export default function Navbar() {
             </a>
             <Link
               href="/contact"
+              data-magnetic
+              data-magnetic-strength="0.3"
+              data-magnetic-radius="100"
+              data-cursor="view"
+              data-cursor-label="Quote"
               className="hidden sm:inline-flex items-center gap-2 bg-[#b32025] hover:bg-[#8f181c] text-white text-xs font-bold tracking-[0.2em] uppercase px-6 py-3.5 transition-colors duration-200"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >

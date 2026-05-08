@@ -479,6 +479,12 @@ export default function AdminDashboard() {
         </div>
         <div className="flex items-center gap-4">
           <a
+            href="/admin/blog"
+            className="text-white/70 hover:text-white text-xs uppercase tracking-wider transition-colors font-bold border border-white/20 hover:border-white px-3 py-1.5"
+          >
+            Blog Posts
+          </a>
+          <a
             href="/"
             target="_blank"
             rel="noopener noreferrer"

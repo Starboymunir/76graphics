@@ -7,6 +7,7 @@ import { Globe, Camera, Briefcase, Phone, Mail, MapPin } from "lucide-react";
 const NAV_LINKS = [
   { label: "Services", href: "#services" },
   { label: "Our Work", href: "#our-work" },
+  { label: "Blog", href: "/blog" },
   { label: "About Us", href: "#about" },
   { label: "Calculator", href: "#calculator" },
   { label: "Contact", href: "#contact" },

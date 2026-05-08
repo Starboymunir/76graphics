@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import BrandIntro from "@/components/BrandIntro";
+import PageTransition from "@/components/PageTransition";
+import Cursor from "@/components/Cursor";
 
 export const metadata: Metadata = {
   title: "76 Graphics | Large Format Graphics Solutions",
@@ -27,7 +30,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full scroll-smooth">
       <body className="min-h-full flex flex-col antialiased">
-        {children}
+        <Cursor />
+        <BrandIntro />
+        <PageTransition>{children}</PageTransition>
         {/* HubSpot tracking — drops the hutk cookie so form submissions pass spam filtering */}
         <Script
           id="hs-script-loader"

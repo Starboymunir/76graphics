@@ -213,6 +213,11 @@ export default function Hero() {
         >
           <Link
             href="/contact"
+            data-magnetic
+            data-magnetic-strength="0.35"
+            data-magnetic-radius="140"
+            data-cursor="view"
+            data-cursor-label="Quote"
             className="group relative inline-flex items-center gap-3 bg-[#b32025] text-white px-10 py-4 text-sm font-bold tracking-[0.15em] uppercase overflow-hidden transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(179,32,37,0.5)]"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
@@ -223,6 +228,10 @@ export default function Hero() {
           </Link>
           <Link
             href="/our-work"
+            data-magnetic
+            data-magnetic-strength="0.3"
+            data-magnetic-radius="120"
+            data-cursor-label="Explore"
             className="inline-flex items-center gap-3 border border-white/25 hover:border-white text-white/80 hover:text-white px-10 py-4 text-sm font-bold tracking-[0.15em] uppercase transition-all duration-300 hover:bg-white/8 hover:-translate-y-0.5"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >

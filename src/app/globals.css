@@ -449,3 +449,129 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* =====================
+   CUSTOM CURSOR (desktop only — gated by .cursor-active on <html>)
+   ===================== */
+.cursor-active,
+.cursor-active body {
+  cursor: none;
+}
+.cursor-active a,
+.cursor-active button,
+.cursor-active [role="button"],
+.cursor-active input,
+.cursor-active textarea,
+.cursor-active select,
+.cursor-active label,
+.cursor-active [data-cursor],
+.cursor-active [data-magnetic] {
+  cursor: none;
+}
+
+.cursor-ring,
+.cursor-dot,
+.cursor-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform, opacity;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  mix-blend-mode: difference;
+  transition:
+    width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    opacity 0.2s ease,
+    border-radius 0.25s ease;
+}
+
+.cursor-ring.is-hover {
+  width: 64px;
+  height: 64px;
+  border-color: #ff6f73;
+  background: rgba(179, 32, 37, 0.18);
+}
+
+.cursor-ring.is-down {
+  --cursor-scale: 0.85;
+  background: rgba(255, 111, 115, 0.35);
+}
+
+.cursor-ring[data-variant="view"] {
+  width: 86px;
+  height: 86px;
+  border-color: transparent;
+  background: #b32025;
+  mix-blend-mode: normal;
+}
+
+.cursor-ring[data-variant="drag"] {
+  border-radius: 6px;
+  width: 70px;
+  height: 70px;
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.cursor-ring.is-hidden,
+.cursor-dot.is-hidden {
+  opacity: 0;
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: #ffffff;
+  border-radius: 999px;
+  mix-blend-mode: difference;
+  transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+}
+
+.cursor-dot.is-hover {
+  width: 0;
+  height: 0;
+}
+
+.cursor-dot.is-down {
+  width: 8px;
+  height: 8px;
+  background: #ff6f73;
+}
+
+.cursor-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: #b32025;
+  padding: 4px 8px;
+  border-radius: 2px;
+  opacity: 0;
+  transform-origin: top left;
+  transition: opacity 0.18s ease;
+  white-space: nowrap;
+}
+
+.cursor-label.is-visible {
+  opacity: 1;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce), (max-width: 1023px) {
+  .cursor-ring,
+  .cursor-dot,
+  .cursor-label {
+    display: none !important;
+  }
+}
