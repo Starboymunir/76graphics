@@ -98,11 +98,23 @@ The client asked for "the most complex animations ever done with CSS." That's a 
 - Wired up: Navbar Quote CTA, Hero CTAs, Portfolio thumbnails
 - Files: [`src/components/Cursor.tsx`](../src/components/Cursor.tsx), CSS in [`src/app/globals.css`](../src/app/globals.css), mounted in [`src/app/layout.tsx`](../src/app/layout.tsx)
 
-### Day 3 — **Scroll-driven hero parallax + sticky pinning**
+### Day 3 — **Scroll-driven hero parallax + sticky horizontal showcase** ✅ shipped (May 8 2026)
 
-- Hero text moves slower than the image (depth)
-- The first scroll _pins_ the hero for ~70vh while a horizontal track of "what we do" tiles slides through
-- Use `framer-motion`'s `useScroll` + `useTransform` only — no GSAP dependency yet
+- **Hero parallax** ([`src/components/Hero.tsx`](../src/components/Hero.tsx)):
+  - `useScroll({ target, offset: ["start start", "end start"] })`
+  - Background image: `y 0→30%`, `scale 1→1.1` (slowest, deepest layer)
+  - "76" stars-and-stripes watermark: `y 0→-25%`, `scale 1→1.18`
+  - Inner content: `y 0→-15%`, `opacity 1→0` (fades out as you scroll past)
+- **ShowcaseRail** — replaces the generic bento Featured Work block on the homepage:
+  - File: [`src/components/ShowcaseRail.tsx`](../src/components/ShowcaseRail.tsx)
+  - Section is `(panels) * 100vh` tall, inner stage is `sticky top-0 h-screen` → vertical scroll converts to horizontal track translation via `useSpring(useTransform(scrollYProgress))`
+  - 1 intro panel ("Real Brands. Real Loud.") + 6 project panels
+  - Per-panel choreography: massive numeral (`38vw` outline only) drifts vertically, image card slides horizontally with parallax `imageX`, scales up as it enters, info bar fades with `titleOpacity` mapped to that panel's progress window
+  - Counter-drifting `FEATURED · FEATURED · FEATURED` background headline
+  - Active counter (`(03) / (07)`) animates on index change
+  - Bottom progress bar tracks `scrollYProgress`
+  - Mobile fallback: vertical card stack with numbered overlays (no sticky pinning under 1024px)
+- Magnetic + cursor labels wired throughout (project cards = `view`, "All Work" link = "Full Portfolio")
 
 ### Day 4 — **Gallery hover-distortion / image trail**
 

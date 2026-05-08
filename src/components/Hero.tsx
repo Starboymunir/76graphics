@@ -1,6 +1,7 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,17 +24,35 @@ const staggerItem = {
 };
 
 export default function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  // Parallax: background slowest, watermark medium, content fades fastest
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const markY = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
+  const markScale = useTransform(scrollYProgress, [0, 1], [1, 1.18]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
+    <section ref={ref} className="relative min-h-screen flex flex-col overflow-hidden">
 
       {/* ── Background photo ── */}
-      <Image
-        src="/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg"
-        alt="76 Graphics professional installation facility"
-        fill
-        className="object-cover object-center"
-        priority
-      />
+      <motion.div
+        style={{ y: bgY, scale: bgScale }}
+        className="absolute inset-0 will-change-transform"
+      >
+        <Image
+          src="/portfolio/1Iuks3iUQRBzhIQWclmDb1aT5VGzw4Veg.jpg"
+          alt="76 Graphics professional installation facility"
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      </motion.div>
 
       {/* ── Multi-layer overlay ── */}
       {/* Deep navy gradient from left */}
@@ -57,9 +76,10 @@ export default function Hero() {
 
 
       {/* ── Massive "76" watermark — stars & stripes fill ── */}
-      <div
+      <motion.div
         aria-hidden="true"
-        className="absolute right-[-2%] top-1/2 -translate-y-1/2 select-none pointer-events-none z-0"
+        style={{ y: markY, scale: markScale }}
+        className="absolute right-[-2%] top-1/2 -translate-y-1/2 select-none pointer-events-none z-0 will-change-transform"
       >
         <svg
           viewBox="0 0 600 300"
@@ -106,10 +126,13 @@ export default function Hero() {
             76
           </text>
         </svg>
-      </div>
+      </motion.div>
 
       {/* ── Main content ── */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-6xl mx-auto px-8 lg:px-14 pt-32 pb-16">
+      <motion.div
+        style={{ y: contentY, opacity: contentOpacity }}
+        className="relative z-10 flex-1 flex flex-col justify-center w-full max-w-6xl mx-auto px-8 lg:px-14 pt-32 pb-16 will-change-transform"
+      >
 
         {/* Eyebrow label */}
         <motion.div
@@ -267,7 +290,7 @@ export default function Hero() {
             </div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* ── Scroll indicator ── */}
       <motion.div

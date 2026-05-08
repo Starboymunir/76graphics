@@ -3,8 +3,7 @@ import Hero from "@/components/Hero";
 import TrustStrip from "@/components/TrustStrip";
 import Services from "@/components/Services";
 import Process from "@/components/Process";
-import Portfolio from "@/components/Portfolio";
-// import Packages from "@/components/Packages"; // Hidden until client finalizes pricing
+import ShowcaseRail from "@/components/ShowcaseRail";
 import WhyUs from "@/components/WhyUs";
 import Testimonials from "@/components/Testimonials";
 import CaseStudies from "@/components/CaseStudies";
@@ -23,8 +22,8 @@ export default function Home() {
         <Services />
         <KineticMarquee />
         <Process />
-        <Portfolio />
-        {/* <Packages /> — Hidden until client finalizes pricing */}
+        <ShowcaseRail />
+        {/* <Portfolio /> — replaced with ShowcaseRail (sticky horizontal scroll showcase) */}
         <WhyUs />
         <Testimonials />
         <CaseStudies />
