@@ -272,25 +272,26 @@ function ProjectPanel({
       {/* Layout: massive numeral (left), image card (right) */}
       <div className="relative w-full h-full flex items-center">
         {/* Massive numeral backdrop */}
-        <motion.div
+        <div
           aria-hidden
-          style={{ y: titleY }}
           className="absolute left-0 top-1/2 -translate-y-1/2 select-none pointer-events-none z-0"
         >
-          <span
-            className="uppercase block leading-none"
-            style={{
-              fontFamily: "'Apotek Extended', sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(20rem, 38vw, 40rem)",
-              color: "transparent",
-              WebkitTextStroke: "1.5px rgba(179,32,37,0.35)",
-              letterSpacing: "-0.03em",
-            }}
-          >
-            {number}
-          </span>
-        </motion.div>
+          <motion.div style={{ y: titleY }}>
+            <span
+              className="uppercase block leading-none"
+              style={{
+                fontFamily: "'Apotek Extended', sans-serif",
+                fontWeight: 900,
+                fontSize: "clamp(20rem, 38vw, 40rem)",
+                color: "transparent",
+                WebkitTextStroke: "1.5px rgba(179,32,37,0.35)",
+                letterSpacing: "-0.03em",
+              }}
+            >
+              {number}
+            </span>
+          </motion.div>
+        </div>
 
         {/* Image card */}
         <motion.div

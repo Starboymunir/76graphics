@@ -76,11 +76,11 @@ export default function Hero() {
 
 
       {/* ── Massive "76" watermark — stars & stripes fill ── */}
-      <motion.div
+      <div
         aria-hidden="true"
-        style={{ y: markY, scale: markScale }}
-        className="absolute right-[-2%] top-1/2 -translate-y-1/2 select-none pointer-events-none z-0 will-change-transform"
+        className="absolute right-[-2%] top-1/2 -translate-y-1/2 select-none pointer-events-none z-0"
       >
+        <motion.div style={{ y: markY, scale: markScale }} className="will-change-transform">
         <svg
           viewBox="0 0 600 300"
           style={{ width: "clamp(18rem, 36vw, 52rem)", height: "auto" }}
@@ -126,7 +126,8 @@ export default function Hero() {
             76
           </text>
         </svg>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* ── Main content ── */}
       <motion.div
