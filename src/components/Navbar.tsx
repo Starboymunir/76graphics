@@ -42,9 +42,9 @@ export default function Navbar() {
             <rect x="0" y="2" width="1440" height="1" fill="#285493" />
           </svg>
         </div>
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-20">
+        <div className="max-w-[1500px] mx-auto px-6 lg:px-12 flex items-center justify-between h-20 gap-10">
           {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
+          <Link href="/" className="flex items-center shrink-0 mr-4">
             <Image
               src="/logos/76Graphics_Secondary-White.svg"
               alt="76 Graphics"
@@ -56,7 +56,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-9 xl:gap-11 flex-1 justify-center">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href.replace("#", "")));
               return (
@@ -75,7 +75,7 @@ export default function Navbar() {
           </nav>
 
           {/* CTA + Mobile toggle */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5 shrink-0">
             <a
               href="tel:+18006636007"
               className="hidden md:inline-flex items-center gap-2 text-white/80 hover:text-white text-xs font-semibold tracking-[0.15em] uppercase transition-colors duration-200"

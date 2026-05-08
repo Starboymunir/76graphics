@@ -6,7 +6,7 @@ import Process from "@/components/Process";
 import ShowcaseRail from "@/components/ShowcaseRail";
 import WhyUs from "@/components/WhyUs";
 import Testimonials from "@/components/Testimonials";
-import CaseStudies from "@/components/CaseStudies";
+import ByTheNumbers from "@/components/ByTheNumbers";
 import FinalCTA from "@/components/FinalCTA";
 import QuoteForm from "@/components/QuoteForm";
 import Footer from "@/components/Footer";
@@ -23,10 +23,9 @@ export default function Home() {
         <KineticMarquee />
         <Process />
         <ShowcaseRail />
-        {/* <Portfolio /> — replaced with ShowcaseRail (sticky horizontal scroll showcase) */}
         <WhyUs />
+        <ByTheNumbers />
         <Testimonials />
-        <CaseStudies />
         <FinalCTA />
         <QuoteForm />
       </main>

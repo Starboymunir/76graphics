@@ -116,10 +116,16 @@ The client asked for "the most complex animations ever done with CSS." That's a 
   - Mobile fallback: vertical card stack with numbered overlays (no sticky pinning under 1024px)
 - Magnetic + cursor labels wired throughout (project cards = `view`, "All Work" link = "Full Portfolio")
 
-### Day 4 — **Gallery hover-distortion / image trail**
+### Day 4 — **Cursor image trail + "By The Numbers" reel** ✅ shipped (May 8 2026)
 
-- On desktop, a portfolio thumbnail under the cursor warps with a CSS `clip-path` mask + `filter: blur` cross-fade
-- Mobile: snap-scroll horizontal gallery with a scroll progress dial
+- **Replaced** the redundant homepage `CaseStudies` block (it was a second weaker portfolio bento on top of `ShowcaseRail`) with a brand-new dark-canvas section: [`src/components/ByTheNumbers.tsx`](../src/components/ByTheNumbers.tsx).
+- **Animated counters**: `useMotionValue` + `animate()` count up from 0 when the section enters the viewport (`useInView({ once: true, margin: "-15%" })`). Four KPIs: 500+ wraps, 12yr on the road, 24hr turnaround, 4M sq ft of vinyl.
+- **Cursor image trail (the Day 4 flex piece)**: an `ImageTrail` overlay scoped to the section's bounding rect listens to `mousemove`, distance-throttles at ~110px, and pushes a `framer-motion` thumbnail with a randomised tilt at the cursor location. The list is capped at 8 active items and each one auto-removes after 1.2s. Disabled on `pointer: coarse` and `prefers-reduced-motion`.
+- **Live status ticker**: framer-motion infinite linear translate. Doubled-array trick avoids snap. Pulsing red "LIVE" dot pinned to the left edge.
+- **Films we trust** strip — 3M / Avery Dennison / Inozetek / Hexis / Oracal — addresses the inozetek.com "trust badges" steal from §2.4.
+- Black bg `#0a0a0a` with red ambient radial glow + grain texture — visually distinct from every other section on the page.
+
+**Also fixed** ([`src/components/Navbar.tsx`](../src/components/Navbar.tsx)): widened nav container from `max-w-7xl` to `max-w-[1500px]`, added a top-level `gap-10`, bumped nav-link gaps to `gap-9 xl:gap-11`, and gave the right-side CTA cluster `gap-5` so the logo / nav / phone / Quote button no longer crowd each other.
 
 ### Day 5 — **Real WebGL hero (the big one)**
 
