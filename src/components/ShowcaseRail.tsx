@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, MotionValue } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionTemplate, MotionValue } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
@@ -56,10 +56,11 @@ export default function ShowcaseRail() {
   const trackEnd = -((totalPanels - 1) * 100);
   const xPct = useTransform(scrollYProgress, [0, 1], [0, trackEnd]);
   const x = useSpring(xPct, { stiffness: 90, damping: 24, mass: 0.6 });
-  const xVw = useTransform(x, (v) => `${v}vw`);
+  const trackTransform = useMotionTemplate`translate3d(${x}vw, 0, 0)`;
 
   // Counter-drifting background headline
-  const bgX = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
+  const bgX = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const bgTransform = useMotionTemplate`translate3d(${bgX}%, -50%, 0)`;
 
   // Active index (for the (01) — (06) counter)
   const [activeIdx, setActiveIdx] = useState(0);
@@ -95,8 +96,8 @@ export default function ShowcaseRail() {
         {/* Drifting background headline */}
         <motion.div
           aria-hidden
-          style={{ x: bgX }}
-          className="absolute top-1/2 -translate-y-1/2 left-0 whitespace-nowrap select-none pointer-events-none z-0"
+          style={{ transform: bgTransform }}
+          className="absolute top-1/2 left-0 whitespace-nowrap select-none pointer-events-none z-0"
         >
           <span
             className="uppercase opacity-[0.05] text-white"
@@ -150,7 +151,7 @@ export default function ShowcaseRail() {
 
         {/* Horizontal track */}
         <motion.div
-          style={{ x: xVw }}
+          style={{ transform: trackTransform }}
           className="absolute top-0 left-0 h-full flex"
         >
           {/* Intro panel */}
