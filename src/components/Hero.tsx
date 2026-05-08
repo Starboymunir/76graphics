@@ -1,11 +1,15 @@
 ﻿"use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import BrandSwoosh from "@/components/BrandSwoosh";
+
+// Lazy WebGL shader plane — desktop only, motion-allowed only
+const HeroCanvas = dynamic(() => import("@/components/HeroCanvas"), { ssr: false });
 
 const STATS = [
   { num: "500+", label: "Projects Delivered" },
@@ -25,6 +29,15 @@ const staggerItem = {
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const [enableCanvas, setEnableCanvas] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const wide = window.matchMedia("(min-width: 768px)").matches;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setEnableCanvas(wide && !reduced);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -53,6 +66,13 @@ export default function Hero() {
           priority
         />
       </motion.div>
+
+      {/* ── WebGL shader plane (Day 5) ── */}
+      {enableCanvas && (
+        <div className="absolute inset-0 mix-blend-screen opacity-60 pointer-events-none">
+          <HeroCanvas />
+        </div>
+      )}
 
       {/* ── Multi-layer overlay ── */}
       {/* Deep navy gradient from left */}

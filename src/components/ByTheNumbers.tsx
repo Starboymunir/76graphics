@@ -1,14 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useMotionValue, animate, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useTransform,
+  useScroll,
+  animate,
+  AnimatePresence,
+} from "framer-motion";
 import Image from "next/image";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// BY THE NUMBERS — black-canvas stat reel with cursor image trail
-// • Big animated counters that count up when in view
-// • Cursor leaves a trail of behind-the-scenes thumbnails (Day 4 image trail)
-// • Bottom status ticker — "currently wrapping…" credibility loop
+// BY THE NUMBERS — brand navy-deep canvas with cinematic life
+// • Animated count-up KPIs
+// • Drifting background image collage with parallax
+// • Floating particles + scrolling grid lines
+// • Cursor image trail (Day 4)
+// • Live status ticker
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface Stat {
@@ -17,13 +27,38 @@ interface Stat {
   prefix?: string;
   label: string;
   sub: string;
+  bgPhoto: string;
 }
 
 const STATS: Stat[] = [
-  { value: 500, suffix: "+", label: "Vehicles Wrapped", sub: "Sedans · Trucks · Fleets · Exotics" },
-  { value: 12, suffix: " yr", label: "On The Road", sub: "Since 2014, Florida-based" },
-  { value: 24, suffix: " hr", label: "Typical Turnaround", sub: "Single-vehicle wraps" },
-  { value: 4,  suffix: "M sq ft", label: "Vinyl Laid", sub: "And counting, every week" },
+  {
+    value: 500,
+    suffix: "+",
+    label: "Vehicles Wrapped",
+    sub: "Sedans · Trucks · Fleets · Exotics",
+    bgPhoto: "/portfolio/1VU5_JpxoQr6GquBehlidPMtnedQ8TyqY.jpg",
+  },
+  {
+    value: 12,
+    suffix: " yr",
+    label: "On The Road",
+    sub: "Since 2014, Florida-based",
+    bgPhoto: "/portfolio/1nus0QfhQQWxSsZukZDFM80Beyy8rM_J7.jpg",
+  },
+  {
+    value: 24,
+    suffix: " hr",
+    label: "Typical Turnaround",
+    sub: "Single-vehicle wraps",
+    bgPhoto: "/portfolio/1kf79pi__xLmSnRamX4cLtJY_RVzgQx_I.jpg",
+  },
+  {
+    value: 4,
+    suffix: "M sq ft",
+    label: "Vinyl Laid",
+    sub: "And counting, every week",
+    bgPhoto: "/portfolio/1Eoz9vDo_DVOIJNZ-pIfGGE1g32SDXVeA.jpg",
+  },
 ];
 
 const TRAIL_IMAGES = [
@@ -52,29 +87,69 @@ export default function ByTheNumbers() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-15%" });
 
+  // Section parallax for background collage
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const collageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const collageScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15]);
+
   return (
     <section
       ref={sectionRef}
-      className="relative bg-[#0a0a0a] overflow-hidden py-24 lg:py-32"
+      className="relative bg-[#031827] overflow-hidden py-24 lg:py-32 isolate"
       aria-label="By the numbers"
     >
-      {/* Subtle grain */}
+      {/* Drifting background photo collage */}
+      <motion.div
+        aria-hidden
+        style={{ y: collageY, scale: collageScale }}
+        className="absolute inset-0 opacity-[0.18] pointer-events-none mix-blend-luminosity"
+      >
+        <div className="grid grid-cols-3 grid-rows-2 gap-4 h-full p-4">
+          {STATS.map((s, i) => (
+            <div key={i} className="relative overflow-hidden">
+              <Image src={s.bgPhoto} alt="" fill className="object-cover" sizes="33vw" aria-hidden />
+            </div>
+          ))}
+          <div className="relative overflow-hidden col-span-2">
+            <Image src={TRAIL_IMAGES[5]} alt="" fill className="object-cover" sizes="66vw" aria-hidden />
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Navy gradient overlay so text is legible */}
       <div
         aria-hidden
-        className="absolute inset-0 opacity-[0.04] pointer-events-none mix-blend-screen"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage:
-            "radial-gradient(circle at 25% 30%, #ffffff 0%, transparent 0.5px), radial-gradient(circle at 75% 70%, #ffffff 0%, transparent 0.5px)",
-          backgroundSize: "3px 3px, 5px 5px",
+          background:
+            "linear-gradient(180deg, rgba(3,24,39,0.85) 0%, rgba(3,24,39,0.92) 50%, rgba(3,24,39,0.97) 100%)",
         }}
       />
+
+      {/* Animated grid lines */}
+      <GridLines />
+
+      {/* Floating particles */}
+      <Particles />
+
       {/* Red ambient glow */}
       <div
         aria-hidden
         className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(179,32,37,0.18) 0%, transparent 60%)",
+            "radial-gradient(circle, rgba(179,32,37,0.22) 0%, transparent 60%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(40,84,147,0.22) 0%, transparent 60%)",
         }}
       />
 
@@ -111,7 +186,7 @@ export default function ByTheNumbers() {
             </h2>
           </div>
           <p
-            className="text-white/55 text-base lg:text-lg max-w-md leading-relaxed"
+            className="text-white/70 text-base lg:text-lg max-w-md leading-relaxed"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             Twelve years. Four million square feet of vinyl. One shop in Florida that
@@ -127,8 +202,8 @@ export default function ByTheNumbers() {
         </div>
 
         {/* Status ticker */}
-        <div className="mt-14 border-t border-b border-white/10 py-5 overflow-hidden relative">
-          <div className="flex items-center gap-3 absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-[#0a0a0a] pr-4">
+        <div className="mt-14 border-t border-b border-white/15 py-5 overflow-hidden relative bg-[#031827]/60 backdrop-blur-sm">
+          <div className="flex items-center gap-3 absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-[#031827] pr-4 pl-2">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#b32025] opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#b32025]" />
@@ -152,11 +227,16 @@ export default function ByTheNumbers() {
           >
             Films We Trust —
           </span>
-          <div className="flex flex-wrap items-center gap-6 lg:gap-10">
-            {["3M", "Avery Dennison", "Inozetek", "Hexis", "Oracal"].map((brand) => (
-              <span
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 lg:gap-x-12">
+            {["3M", "Avery Dennison", "Inozetek", "Hexis", "Oracal"].map((brand, i) => (
+              <motion.span
                 key={brand}
-                className="text-white/65 hover:text-white transition-colors text-base lg:text-lg uppercase tracking-tight"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.05 * i }}
+                whileHover={{ y: -3, color: "#b32025" }}
+                className="text-white/65 transition-colors text-base lg:text-lg uppercase tracking-tight cursor-default"
                 style={{
                   fontFamily: "'Apotek Extended', sans-serif",
                   fontWeight: 900,
@@ -164,7 +244,7 @@ export default function ByTheNumbers() {
                 }}
               >
                 {brand}
-              </span>
+              </motion.span>
             ))}
           </div>
         </div>
@@ -174,11 +254,12 @@ export default function ByTheNumbers() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// STAT BLOCK — animated counter
+// STAT BLOCK — animated counter with hover-reveal background image
 // ─────────────────────────────────────────────────────────────────────────────
 function StatBlock({ stat, active, delay }: { stat: Stat; active: boolean; delay: number }) {
   const [display, setDisplay] = useState(0);
   const motionValue = useMotionValue(0);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     if (!active) return;
@@ -191,18 +272,37 @@ function StatBlock({ stat, active, delay }: { stat: Stat; active: boolean; delay
     return controls.stop;
   }, [active, motionValue, stat.value, delay]);
 
-  // Format: keep value as integer for whole-number stats, or 1 decimal for "4M" → 4
-  const formatted = stat.value < 10 ? display.toFixed(1).replace(/\.0$/, "") : Math.round(display).toString();
+  const formatted =
+    stat.value < 10
+      ? display.toFixed(1).replace(/\.0$/, "")
+      : Math.round(display).toString();
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={active ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="relative bg-[#0a0a0a] p-6 lg:p-9 group"
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      className="relative bg-[#031827] p-6 lg:p-9 group cursor-default overflow-hidden"
     >
+      {/* Hover photo bg */}
+      <motion.div
+        aria-hidden
+        initial={{ opacity: 0, scale: 1.15 }}
+        animate={{ opacity: hovered ? 0.22 : 0, scale: hovered ? 1 : 1.15 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-0 pointer-events-none"
+      >
+        <Image src={stat.bgPhoto} alt="" fill className="object-cover" sizes="25vw" aria-hidden />
+      </motion.div>
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-br from-[#031827] via-[#031827]/85 to-transparent pointer-events-none"
+      />
+
       {/* Number */}
-      <div className="flex items-baseline">
+      <div className="relative flex items-baseline">
         <span
           className="text-white tabular-nums"
           style={{
@@ -230,7 +330,7 @@ function StatBlock({ stat, active, delay }: { stat: Stat; active: boolean; delay
       </div>
 
       {/* Label */}
-      <div className="mt-4 lg:mt-6">
+      <div className="relative mt-4 lg:mt-6">
         <h3
           className="text-white uppercase leading-tight"
           style={{
@@ -243,7 +343,7 @@ function StatBlock({ stat, active, delay }: { stat: Stat; active: boolean; delay
           {stat.label}
         </h3>
         <p
-          className="text-white/40 text-xs mt-1.5"
+          className="text-white/50 text-xs mt-1.5"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           {stat.sub}
@@ -252,6 +352,11 @@ function StatBlock({ stat, active, delay }: { stat: Stat; active: boolean; delay
 
       {/* Hover red bar */}
       <div className="absolute bottom-0 left-0 h-0.5 bg-[#b32025] w-0 group-hover:w-full transition-all duration-500" />
+      {/* Corner crosshair */}
+      <div className="absolute top-3 right-3 flex flex-col items-end gap-0.5 opacity-30 group-hover:opacity-100 transition-opacity">
+        <div className="w-3 h-px bg-[#b32025]" />
+        <div className="w-px h-3 bg-[#b32025]" />
+      </div>
     </motion.div>
   );
 }
@@ -269,7 +374,7 @@ function Ticker() {
       {[...TICKER, ...TICKER].map((line, i) => (
         <span
           key={i}
-          className="text-white/70 text-sm tracking-wide inline-flex items-center gap-12"
+          className="text-white/75 text-sm tracking-wide inline-flex items-center gap-12"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
           {line}
@@ -281,10 +386,76 @@ function Ticker() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// IMAGE TRAIL — cursor-following thumbnails (Day 4)
-// Tracks recent mouse positions inside the section, drops a stack of small
-// portfolio thumbnails that fade out and scale down. Pure DOM, throttled by
-// distance threshold + rAF.
+// GRID LINES — slow drifting verticals
+// ─────────────────────────────────────────────────────────────────────────────
+function GridLines() {
+  return (
+    <div aria-hidden className="absolute inset-0 pointer-events-none opacity-[0.07]">
+      {[...Array(8)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute top-0 bottom-0 w-px bg-white"
+          style={{ left: `${(i + 1) * 11}%` }}
+          animate={{ opacity: [0.3, 0.8, 0.3] }}
+          transition={{
+            duration: 4 + (i % 3),
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.3,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// PARTICLES — slow floating dots
+// ─────────────────────────────────────────────────────────────────────────────
+function Particles() {
+  const particles = useRef(
+    [...Array(18)].map(() => ({
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      size: 1 + Math.random() * 2.5,
+      duration: 8 + Math.random() * 12,
+      delay: Math.random() * 5,
+      red: Math.random() > 0.7,
+    }))
+  );
+
+  return (
+    <div aria-hidden className="absolute inset-0 pointer-events-none">
+      {particles.current.map((p, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            width: p.size,
+            height: p.size,
+            backgroundColor: p.red ? "#b32025" : "#ffffff",
+            boxShadow: p.red ? "0 0 6px rgba(179,32,37,0.6)" : "0 0 4px rgba(255,255,255,0.4)",
+          }}
+          animate={{
+            y: [-20, 20, -20],
+            opacity: [0.2, 0.8, 0.2],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: p.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// IMAGE TRAIL — cursor-following thumbnails
 // ─────────────────────────────────────────────────────────────────────────────
 type TrailItem = { id: number; x: number; y: number; src: string };
 
@@ -297,7 +468,6 @@ function ImageTrail({ boundaryRef }: { boundaryRef: React.RefObject<HTMLDivEleme
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // Disable on touch devices and reduced motion
     const coarse = window.matchMedia("(pointer: coarse)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     enabledRef.current = !coarse && !reduced;
@@ -312,12 +482,12 @@ function ImageTrail({ boundaryRef }: { boundaryRef: React.RefObject<HTMLDivEleme
       const y = e.clientY - rect.top;
       const last = lastRef.current;
       const dist = last ? Math.hypot(x - last.x, y - last.y) : Infinity;
-      if (dist < 110) return; // distance throttle — only drop every ~110px
+      if (dist < 110) return;
       lastRef.current = { x, y };
       const src = TRAIL_IMAGES[imgIdxRef.current % TRAIL_IMAGES.length];
       imgIdxRef.current += 1;
       const id = idRef.current++;
-      setTrail((prev) => [...prev.slice(-7), { id, x, y, src }]); // cap at 8
+      setTrail((prev) => [...prev.slice(-7), { id, x, y, src }]);
       window.setTimeout(() => {
         setTrail((prev) => prev.filter((t) => t.id !== id));
       }, 1200);
@@ -347,14 +517,7 @@ function ImageTrail({ boundaryRef }: { boundaryRef: React.RefObject<HTMLDivEleme
             }}
           >
             <div className="relative w-full h-full overflow-hidden shadow-2xl shadow-black/60">
-              <Image
-                src={t.src}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="240px"
-                aria-hidden
-              />
+              <Image src={t.src} alt="" fill className="object-cover" sizes="240px" aria-hidden />
               <div className="absolute inset-0 ring-1 ring-inset ring-white/10" />
             </div>
           </motion.div>

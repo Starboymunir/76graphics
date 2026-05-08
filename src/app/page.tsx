@@ -11,6 +11,8 @@ import FinalCTA from "@/components/FinalCTA";
 import QuoteForm from "@/components/QuoteForm";
 import Footer from "@/components/Footer";
 import KineticMarquee from "@/components/KineticMarquee";
+import WrapApplyDemo from "@/components/WrapApplyDemo";
+import WrapConfigurator from "@/components/WrapConfigurator";
 
 export default function Home() {
   return (
@@ -23,6 +25,8 @@ export default function Home() {
         <KineticMarquee />
         <Process />
         <ShowcaseRail />
+        <WrapConfigurator />
+        <WrapApplyDemo />
         <WhyUs />
         <ByTheNumbers />
         <Testimonials />

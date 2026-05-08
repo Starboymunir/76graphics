@@ -575,3 +575,24 @@ body {
     display: none !important;
   }
 }
+
+/* ──────────────────────────────────────────────────────────────────────
+   Day 10 — prefers-reduced-motion safety net
+   Disable heavy decorative loops (marquees, sweeps, twinkles) for users
+   that ask the OS to reduce motion. Functional transitions stay on.
+   ────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .flag-sweep,
+  .brand-stars-bg::before,
+  .brand-stars-bg::after,
+  [class*="marquee"],
+  [class*="ticker"] {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

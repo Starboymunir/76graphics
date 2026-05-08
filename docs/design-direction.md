@@ -127,38 +127,38 @@ The client asked for "the most complex animations ever done with CSS." That's a 
 
 **Also fixed** ([`src/components/Navbar.tsx`](../src/components/Navbar.tsx)): widened nav container from `max-w-7xl` to `max-w-[1500px]`, added a top-level `gap-10`, bumped nav-link gaps to `gap-9 xl:gap-11`, and gave the right-side CTA cluster `gap-5` so the logo / nav / phone / Quote button no longer crowd each other.
 
-### Day 5 — **Real WebGL hero (the big one)**
+### Day 5 — **Real WebGL hero (the big one)** ✅ shipped
 
-- Add `three.js` + `@react-three/fiber`
-- Hero gets a shader-driven canvas: noise-displaced wrap film floating, with mouse parallax
-- Fallback to current static hero when WebGL unsupported / `prefers-reduced-motion`
+- Added `three.js` + `@react-three/fiber` + `@react-three/drei`.
+- Hero now mounts a [`HeroCanvas`](../src/components/HeroCanvas.tsx): an orthographic full-bleed plane with a custom GLSL fragment shader running 3-octave Ashima simplex curl-flow noise, sin-band "vinyl" striations, mouse-tracked radial glow, and a brand-palette mix (navy → blue-band → red). Layered over the existing hero photo at `mix-blend-screen`/`opacity-60`.
+- Lazy-loaded via `next/dynamic` with `ssr:false`, gated on `min-width: 768px` and **off** when `prefers-reduced-motion: reduce`. Static photo stays as the fallback.
 
-### Day 6 — **Three.js interactive 3D car**
+### Day 6 — **Three.js interactive 3D car** ✅ shipped
 
-- A simple low-poly car (rotatable, drag to spin) on the Vehicle Wraps service page
-- User picks a wrap pattern from our `Patterns/` library and it lives-applies to the car material
-- This is the trophy feature — sales tool + flex piece
+- Built [`WrapConfigurator`](../src/components/WrapConfigurator.tsx): a real-time 3D vehicle preview mounted on the homepage between `ShowcaseRail` and `WrapApplyDemo`. Stylised low-poly car assembled from primitives (no external models, ships zero-asset).
+- 6 wrap presets (Gloss Black, Color-Shift Chrome with `iridescence: 1.0`, Matte Stealth, 76 Red, Patriot Satin, Neon Accent with red emissive). Picking a swatch lerps the body's `meshPhysicalMaterial` color/metalness/roughness frame-by-frame.
+- Drei `Environment preset="city"` for HDRI reflections, `ContactShadows` under the car, three coloured directional lights (warm/red/blue) for showroom mood.
+- `OrbitControls` with `autoRotate`, polar limits, no panning. Outline-stroke "Pick A Finish. Spin It." headline, "Now Showing" label crossfades on swap, active swatch gets red corner brackets.
+- Desktop-only (`min-width: 1024px`); mobile + reduced-motion get a copy-only fallback section. **Trophy feature shipped.**
 
-### Day 7 — **Ambient sound + audio-reactive visual**
+### Day 7 — **Ambient sound + audio-reactive visual** ⏸ deferred
 
-- Optional, mute by default
-- Subtle hum + click on transition — like a film projector
-- Toggle in nav
+- Skipped this round. Ambient audio without an explicit user toggle hurts UX/SEO and tends to get blocked by browsers anyway. Will revisit only if the client specifically requests it.
 
-### Day 8 — **CSS-only complex flex piece** (no JS allowed)
+### Day 8 — **CSS-only complex flex piece** (no JS allowed) ✅ shipped
 
-- Pure CSS demo of e.g. a wrap being applied to a car (using `mask-image` + `@keyframes` + `clip-path`). Add as a section on the homepage to prove the craft. This is the "most complex CSS" badge.
+- Built [`WrapApplyDemo`](../src/components/WrapApplyDemo.tsx): a homepage section that loops a vinyl wrap "applying itself" over a vehicle photo using **only CSS keyframes** — no JS animation. Stack of two `<Image>`s (before/after) with the after layer driven by `clip-path: inset(...)` on a 6.5s `wrap-sweep` keyframe, an animated `.squeegee` bar (red gradient + box-shadow + `skewX`) sweeping in sync, and a `.vinyl-shine` overlay drifting via `background-position` with `mix-blend-mode: overlay`. Loops both directions (apply → peel → reapply).
+- Reduced-motion media query disables the keyframes and pins the wrapped state visible.
 
-### Day 9 — **Live shop status + order tracker**
+### Day 9 — **Live shop status + order tracker** ✅ partial
 
-- Stretch: small dashboard widget showing "currently wrapping: 3 vehicles", live count, "open today till 6pm"
-- Powers the "real shop with real work" credibility
+- Satisfied for now by the Live ticker inside [`ByTheNumbers`](../src/components/ByTheNumbers.tsx) — animated "Live · NOW WRAPPING / Studio open till 6PM" status block plus a 3-line news ticker. Full dashboard widget remains a stretch item.
 
-### Day 10 — **Performance + accessibility polish**
+### Day 10 — **Performance + accessibility polish** ✅ shipped
 
-- Lighthouse pass: hit ≥90 on every page despite all the motion
-- `prefers-reduced-motion` honoured on every animation
-- Keyboard skip-intro for `BrandIntro`
+- Global `prefers-reduced-motion: reduce` guard added to [`globals.css`](../src/app/globals.css): forces `animation-iteration-count: 1`, collapses transition durations to `0.01ms`, and explicitly stops marquees, tickers, the flag sweep, and the brand-stars BG pseudo-elements.
+- Per-component reduced-motion gates already in place on `HeroCanvas`, `WrapConfigurator`, `WrapApplyDemo`, the cursor system, and `ByTheNumbers` cursor trail.
+- Lighthouse / keyboard skip-intro pass remain open; treat as polish backlog.
 
 ---
 
