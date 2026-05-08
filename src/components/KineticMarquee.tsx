@@ -83,9 +83,8 @@ export default function KineticMarquee() {
             letterSpacing: "-0.015em",
             color: "#ff6f73",
             clipPath: "inset(0 var(--clip,100%) 0 0)",
-            // @ts-expect-error - css variable
             ["--clip" as string]: useTransform(scrollYProgress, [0, 1], ["100%", "0%"]),
-          }}
+          } as React.CSSProperties}
         >
           Leave Ordinary Behind
         </motion.h2>
