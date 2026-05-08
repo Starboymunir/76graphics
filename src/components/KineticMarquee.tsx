@@ -36,6 +36,12 @@ export default function KineticMarquee() {
   const headlineX = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
   const headlineSkew = useTransform(scrollYProgress, [0, 1], [-3, 3]);
   const stripeWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  // Clip the filled headline overlay from right→left as you scroll
+  const headlineClip = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["inset(0 100% 0 0)", "inset(0 0% 0 0)"],
+  );
 
   return (
     <section
@@ -82,9 +88,8 @@ export default function KineticMarquee() {
             lineHeight: 0.82,
             letterSpacing: "-0.015em",
             color: "#ff6f73",
-            clipPath: "inset(0 var(--clip,100%) 0 0)",
-            ["--clip" as string]: useTransform(scrollYProgress, [0, 1], ["100%", "0%"]),
-          } as React.CSSProperties}
+            clipPath: headlineClip,
+          }}
         >
           Leave Ordinary Behind
         </motion.h2>
