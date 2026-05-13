@@ -13,6 +13,7 @@ import Footer from "@/components/Footer";
 import KineticMarquee from "@/components/KineticMarquee";
 import WrapApplyDemo from "@/components/WrapApplyDemo";
 import WrapConfigurator from "@/components/WrapConfigurator";
+import BeforeAfter from "@/components/BeforeAfter";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
         <Process />
         <ShowcaseRail />
         <WrapConfigurator />
+        <BeforeAfter />
         <WrapApplyDemo />
         <WhyUs />
         <ByTheNumbers />
